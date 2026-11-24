@@ -1,4 +1,4 @@
-# JOSDANY92 · Ultimate Control Center v2.1
+# JOSDANY92 · Ultimate Control Center v2.4
 
 Centro de control local para PS4 y Android, con interfaz neón, navegación mediante mando/teclado y organización de archivos publicados por SimpleHttpServer.
 
@@ -32,3 +32,11 @@ El host lee la versión `PlayStation 4 x.xx` de `navigator.userAgent`, si el nav
 - No se habilita una carga por coincidencia de nombre. La compatibilidad exige comprobar firmware, exploit, versión de GoldHEN y archivo exacto.
 - El modelo PS4/PS4 Pro no se infiere del User-Agent; requiere confirmación manual.
 - Kernel panic y pantallas negras no pueden eliminarse por completo desde una página web. La sección incluye precauciones y criterios de parada.
+
+
+## v2.4 — verificación local SHA-256
+- Se añadió una sección para seleccionar un archivo `.BIN` local y calcular su huella SHA-256 cuando Web Crypto esté disponible.
+- La huella calculada no demuestra procedencia, integridad frente a una fuente confiable ni compatibilidad.
+- No existe aún un manifiesto de hashes oficiales validado; por ello todos los archivos permanecen como NO VERIFICADOS.
+- Si el navegador o el contexto HTTP no permite `crypto.subtle`, la comprobación se declara no disponible y no se simula un resultado.
+- La función no transmite, carga ni ejecuta el archivo.
