@@ -1,4 +1,4 @@
-# JOSDANY92 · Ultimate Control Center v2.4
+# JOSDANY92 · Ultimate Control Center v2.5
 
 Centro de control local para PS4 y Android, con interfaz neón, navegación mediante mando/teclado y organización de archivos publicados por SimpleHttpServer.
 
@@ -40,3 +40,13 @@ El host lee la versión `PlayStation 4 x.xx` de `navigator.userAgent`, si el nav
 - No existe aún un manifiesto de hashes oficiales validado; por ello todos los archivos permanecen como NO VERIFICADOS.
 - Si el navegador o el contexto HTTP no permite `crypto.subtle`, la comprobación se declara no disponible y no se simula un resultado.
 - La función no transmite, carga ni ejecuta el archivo.
+
+
+## v2.5 — matriz documental de compatibilidad
+
+### Fuentes y límites
+- El repositorio oficial GoldHEN/henloader_lp describe Lapse 9.00–12.02 y Poops 9.00–13.00; su README se declara WIP.
+- La release HenLoader LP 1.0 especifica Lapse 9.00–12.02 + Poops 9.00–12.52 e incluye GoldHEN v2.4b18.7.
+- El lanzamiento base GoldHEN v2.4b18 enumera 5.05, 6.71/6.72, 9.00, 9.60, 10.00/10.01, 10.50, 10.70/10.71 y 11.00. No se usa esa lista para certificar builds posteriores.
+- Perfil del usuario: PS4 Pro, firmware 12.00, GoldHEN 2.4b18.14. El exploit HenLoader LP 1.0 declara un rango que incluye 12.00, pero no se ha probado en su consola. El binario exacto 2.4b18.14, su procedencia y su hash siguen pendientes.
+- La combinación firmware + exploit + payload no está certificada. No se habilita carga ni ejecución desde el host.
