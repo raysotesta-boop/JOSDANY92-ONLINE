@@ -296,7 +296,7 @@ const panel=document.getElementById('actionPanel'),panelTitle=document.getElemen
 const pkgPicker=document.getElementById('pkgPicker'),appPicker=document.getElementById('appPicker');
 function detectPS4Firmware(){
  const ua=String(navigator.userAgent||'');
- const match=ua.match(/PlayStation\\s*4(?:\\s*[/ ]\\s*|\\s*\\(\\s*)(\\d{1,2}\\.\\d{1,2})/i);
+ const match=ua.match(/PlayStation\s*4(?:\s*[/ ]\s*|\s*\(\s*)(\d{1,2}\.\d{1,2})/i);
  if(!match)return {version:null,userAgent:ua,source:'No disponible'};
  const value=Number(match[1]);
  if(!Number.isFinite(value)||value<1||value>99)return {version:null,userAgent:ua,source:'No disponible'};
