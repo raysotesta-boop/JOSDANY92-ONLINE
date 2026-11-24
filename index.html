@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="dark"><title>JOSDANY92 · Ultimate Control Center v2.8</title>
+<meta name="color-scheme" content="dark"><title>JOSDANY92 · Ultimate Control Center v2.9</title>
 <style>
 :root{--pink:#ed36ff;--violet:#9d36ff;--blue:#278bff;--cyan:#55dcff;--gold:#ffcb42;--ink:#090515;--panel:rgba(12,8,31,.91);--line:#a83dff}
 *{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:#090515;color:#fff;font-family:Arial,Helvetica,sans-serif}
@@ -244,7 +244,7 @@ footer{display:flex;justify-content:space-between;align-items:center;gap:12px;fl
 .launch-warning{margin-top:12px;padding:11px;border:1px solid #a87537;border-radius:12px;background:#21170b;color:#ffe3ae;font-size:14px;line-height:1.4}
 @media(max-width:850px){.launch-flow{grid-template-columns:1fr}.launch-log{min-height:150px}}
 
-/* v2.8 — tipografía grande para lectura en TV/PS4 */
+/* v2.9 — tipografía grande para lectura en TV/PS4 */
 @media (min-width:1000px) and (orientation:landscape){
  nav button{font-size:clamp(24px,1.9vw,29px);padding:8px 8px;line-height:1.18}
  .hero h1{font-size:clamp(30px,2.8vw,40px)}
@@ -276,19 +276,36 @@ footer{display:flex;justify-content:space-between;align-items:center;gap:12px;fl
 .quick-result{font-size:19px}
 .panel-muted{font-size:16px}
 
-/* v2.8 — cuadro de firmware +20% */
+/* v2.9 — cuadro de firmware +20% */
 .hero>.spec{
  transform:scale(1.2);
  transform-origin:right center;
  margin-left:10px;
  flex-shrink:0;
 }
+
+/* v2.9 — ajuste de encaje en televisor PS4 */
+@media (min-width:1000px) and (orientation:landscape){
+ nav button{font-size:clamp(18px,1.45vw,21px);white-space:nowrap;letter-spacing:-.02em}
+ .hero .spec{transform:scale(1.2);transform-origin:right center;margin-left:10px;flex-shrink:0}
+ .cards{gap:9px}
+ .card{padding:8px 10px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+ .card .ico{display:none}
+ .card b{font-size:clamp(18px,1.45vw,21px);line-height:1.12;margin:3px 0 6px;overflow-wrap:anywhere}
+ .card p{font-size:clamp(15px,1.15vw,17px);line-height:1.2;overflow-wrap:anywhere}
+ .quick-card b{font-size:clamp(15px,1.15vw,18px);line-height:1.12}
+ .quick-card small{font-size:clamp(12px,.95vw,14px);line-height:1.15}
+}
+@media (min-width:1000px) and (max-height:650px) and (orientation:landscape){
+ nav button{font-size:17px;padding:3px 5px}
+ .card b{font-size:17px}.card p{font-size:14px}
+}
 </style></head>
 <body><div class="shell">
 <header>
  <div class="monogram">J92</div>
  <div class="brand"><img class="brand-logo" src="josdany92-header.png" alt="JOSDANY92 Ultimate Control Center"></div>
- <div class="spec"><b>EDICIÓN ESPECIAL · V2.8</b><b>J92</b><span>ESTILO · POTENCIA · CONTROL</span></div>
+ <div class="spec"><b>EDICIÓN ESPECIAL · V2.9</b><b>J92</b><span>ESTILO · POTENCIA · CONTROL</span></div>
 </header>
 <main>
 <nav aria-label="Menú principal">
@@ -414,7 +431,7 @@ case 'estabilidad':{
 case 'goldhen':{
 panelTitle.textContent='JOSDANY92 · Activación WebKit';
 const detected=detectPS4Firmware();
-html=`<div class="launch-flow"><section class="launch-card"><div class="launch-kicker">PASO 01 · PREPARACIÓN</div><div class="launch-title">ELIGE TU HEN</div><p class="launch-sub">Flujo de activación manual inspirado en la pantalla de tu host actual.</p><div class="launch-status"><span class="launch-dot"></span><span>Firmware: ${detected.version?'PS4 '+esc(detected.version):'No detectado · perfil manual pendiente'}</span></div><div class="launch-choice"><button type="button" id="chooseGold" aria-pressed="true">★ GoldHEN</button><button type="button" id="choosePs4" aria-pressed="false">PS4HEN</button></div><button type="button" class="launch-next" id="launchContinue">↓ CONTINUAR</button><div class="launch-warning">Vista WebKit v2.6: el diseño y la navegación están listos, pero el motor de exploit del host de referencia todavía no está integrado. Este botón no ejecuta ni simula un jailbreak.</div></section><section class="launch-card"><div class="launch-kicker">ESTADO DEL PROCESO</div><div class="launch-log" id="launchLog">JOSDANY92 WEBKIT v2.8
+html=`<div class="launch-flow"><section class="launch-card"><div class="launch-kicker">PASO 01 · PREPARACIÓN</div><div class="launch-title">ELIGE TU HEN</div><p class="launch-sub">Flujo de activación manual inspirado en la pantalla de tu host actual.</p><div class="launch-status"><span class="launch-dot"></span><span>Firmware: ${detected.version?'PS4 '+esc(detected.version):'No detectado · perfil manual pendiente'}</span></div><div class="launch-choice"><button type="button" id="chooseGold" aria-pressed="true">★ GoldHEN</button><button type="button" id="choosePs4" aria-pressed="false">PS4HEN</button></div><button type="button" class="launch-next" id="launchContinue">↓ CONTINUAR</button><div class="launch-warning">Vista WebKit v2.6: el diseño y la navegación están listos, pero el motor de exploit del host de referencia todavía no está integrado. Este botón no ejecuta ni simula un jailbreak.</div></section><section class="launch-card"><div class="launch-kicker">ESTADO DEL PROCESO</div><div class="launch-log" id="launchLog">JOSDANY92 WEBKIT v2.9
 [OK] Interfaz cargada
 [OK] Navegación manual disponible
 [INFO] Esperando selección
@@ -433,7 +450,7 @@ const fwRefresh=document.getElementById('refreshFirmware');if(fwRefresh)fwRefres
 const chooseGold=document.getElementById('chooseGold'),choosePs4=document.getElementById('choosePs4'),launchContinue=document.getElementById('launchContinue');
 let selectedHen='GoldHEN';
 if(chooseGold&&choosePs4){chooseGold.onclick=()=>{selectedHen='GoldHEN';chooseGold.setAttribute('aria-pressed','true');choosePs4.setAttribute('aria-pressed','false')};choosePs4.onclick=()=>{selectedHen='PS4HEN';chooseGold.setAttribute('aria-pressed','false');choosePs4.setAttribute('aria-pressed','true')};}
-if(launchContinue)launchContinue.onclick=()=>{const log=document.getElementById('launchLog');if(log)log.textContent='JOSDANY92 WEBKIT v2.8\\n[OK] Selección manual: '+selectedHen+'\\n[OK] Firmware mostrado: '+(detectPS4Firmware().version||'no detectado')+'\\n[LOCK] Activación detenida: motor de exploit no integrado\\n[LOCK] No se ha ejecutado ningún exploit ni payload\\n[INFO] Conserva tu host funcional actual.';};
+if(launchContinue)launchContinue.onclick=()=>{const log=document.getElementById('launchLog');if(log)log.textContent='JOSDANY92 WEBKIT v2.9\\n[OK] Selección manual: '+selectedHen+'\\n[OK] Firmware mostrado: '+(detectPS4Firmware().version||'no detectado')+'\\n[LOCK] Activación detenida: motor de exploit no integrado\\n[LOCK] No se ha ejecutado ningún exploit ni payload\\n[INFO] Conserva tu host funcional actual.';};
 const verifyInput=document.getElementById('verifyBin');if(verifyInput)verifyInput.onchange=async()=>{const file=verifyInput.files&&verifyInput.files[0],status=document.getElementById('verifyStatus'),hashNode=document.getElementById('verifyHash');if(!file)return;status.textContent='Archivo: '+file.name+' · '+file.size+' bytes. Sin envío ni ejecución.';hashNode.textContent='SHA-256: calculando…';if(!file.name.toLowerCase().endsWith('.bin')){hashNode.textContent='SHA-256: bloqueado · selecciona un archivo .BIN';return;}if(!globalThis.crypto||!crypto.subtle||typeof file.arrayBuffer!=='function'){hashNode.textContent='SHA-256: no disponible en este navegador/contexto HTTP. No se considera verificado.';return;}try{const digest=await crypto.subtle.digest('SHA-256',await file.arrayBuffer());const hex=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('');hashNode.textContent='SHA-256: '+hex;status.textContent='Huella calculada. Origen y compatibilidad siguen SIN VERIFICAR.';}catch(err){hashNode.textContent='SHA-256: error de lectura. Archivo no verificado.';}};
 // v2.1: el escaneo se inicia solo al pulsar el botón Buscar archivos locales.
 const cp=document.getElementById('choosePkg');if(cp)cp.onclick=()=>pkgPicker.click();const ca=document.getElementById('chooseApps');if(ca)ca.onclick=()=>appPicker.click();
