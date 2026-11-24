@@ -23,7 +23,7 @@ El navegador WebKit no puede enumerar carpetas privadas de Android: solo puede l
 
 
 PERFILES MULTIFIRMWARE (REFERENCIA)
-- Lapse: documentado por GoldHEN/henloader_lp para 9.00–12.02.
-- Poops: documentado por GoldHEN/henloader_lp para 9.00–13.00.
-- GoldHEN v2.4b18 oficial lista soporte hasta 11.00. Para versiones posteriores, verifica una build específica y sus instrucciones.
-- El selector de firmware es manual e informativo. No activa exploits ni carga payloads.
+- GoldHEN/henloader_lp describe Lapse para 9.00–12.02 y Poops para 9.00–13.00.
+- La release HenLoader LP 1.0 indica Poops hasta 12.52 e integra GoldHEN v2.4b18.7. Aunque el repositorio menciona Poops para 13.00, no se debe presentar como soporte empaquetado confirmado por la release 1.0.
+- La publicación base GoldHEN v2.4b18 enumera firmwares hasta 11.00; una build integrada posterior debe verificarse por separado.
+- El selector es manual e informativo. No activa exploits ni carga payloads.
