@@ -1,4 +1,4 @@
-# JOSDANY92 · Ultimate Control Center v2.5
+# JOSDANY92 · Ultimate Control Center v2.6
 
 Centro de control local para PS4 y Android, con interfaz neón, navegación mediante mando/teclado y organización de archivos publicados por SimpleHttpServer.
 
@@ -50,3 +50,9 @@ El host lee la versión `PlayStation 4 x.xx` de `navigator.userAgent`, si el nav
 - El lanzamiento base GoldHEN v2.4b18 enumera 5.05, 6.71/6.72, 9.00, 9.60, 10.00/10.01, 10.50, 10.70/10.71 y 11.00. No se usa esa lista para certificar builds posteriores.
 - Perfil del usuario: PS4 Pro, firmware 12.00, GoldHEN 2.4b18.14. El exploit HenLoader LP 1.0 declara un rango que incluye 12.00, pero no se ha probado en su consola. El binario exacto 2.4b18.14, su procedencia y su hash siguen pendientes.
 - La combinación firmware + exploit + payload no está certificada. No se habilita carga ni ejecución desde el host.
+
+
+## v2.6 — Vista WebKit de activación
+- Se incorporó un flujo visual de dos columnas inspirado en las pantallas compartidas por el usuario: selección GoldHEN/PS4HEN, firmware visible y registro de estado.
+- El botón Continuar solo muestra el estado de preparación y el bloqueo de seguridad; no ejecuta ni simula el jailbreak.
+- El motor real del exploit/loader de referencia no está integrado. Mantener el host que ya funciona como método principal hasta una integración verificada.
