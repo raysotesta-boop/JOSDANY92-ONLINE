@@ -20,3 +20,10 @@ GOLDHEN SMART LOADER
 
 LIMITACIONES IMPORTANTES
 El navegador WebKit no puede enumerar carpetas privadas de Android: solo puede leer archivos que SimpleHttpServer publique. Esta versión es un centro de control y organizador local; NO activa GoldHEN ni incorpora un exploit/loader. Para una activación real hace falta integrar y probar un método compatible con el firmware exacto y el entorno de la consola. No se debe interpretar la detección de un archivo como prueba de compatibilidad.
+
+
+PERFILES MULTIFIRMWARE (REFERENCIA)
+- Lapse: documentado por GoldHEN/henloader_lp para 9.00–12.02.
+- Poops: documentado por GoldHEN/henloader_lp para 9.00–13.00.
+- GoldHEN v2.4b18 oficial lista soporte hasta 11.00. Para versiones posteriores, verifica una build específica y sus instrucciones.
+- El selector de firmware es manual e informativo. No activa exploits ni carga payloads.
