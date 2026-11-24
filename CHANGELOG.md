@@ -28,3 +28,12 @@
 - Se documenta que el modelo PS4/PS4 Pro no puede deducirse con fiabilidad del User-Agent.
 - Se explicitan los bloqueos preventivos: no hay ejecución automática de BIN y no se afirma compatibilidad sin verificar.
 - Se añadieron criterios de parada tras pantalla negra/congelación y advertencias sobre kernel panic.
+
+
+## v2.4 — Verificación local de archivos
+- Nuevo panel Verificación en el menú principal.
+- Selección local de archivos BIN y cálculo SHA-256 mediante Web Crypto cuando está disponible.
+- Se declara explícitamente que un hash calculado no acredita origen ni compatibilidad.
+- Sin manifiesto confiable, todos los BIN permanecen NO VERIFICADOS.
+- Si Web Crypto no está disponible, el panel informa la limitación sin dar una falsa validación.
+- Sin transmisión, carga o ejecución de archivos.
