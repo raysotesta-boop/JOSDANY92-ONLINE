@@ -31,3 +31,7 @@ PERFILES MULTIFIRMWARE (REFERENCIA)
 
 DETECCIÓN AUTOMÁTICA DE FIRMWARE — V2.2
 Al abrir el host, se intenta leer la versión PS4 desde el User-Agent del navegador y se muestra en el encabezado. Si no está disponible, el panel Firmware informa que no pudo detectarla y ofrece una selección manual provisional. El User-Agent puede estar modificado y la detección no valida exploits ni payloads.
+
+
+ESCUDO DE ESTABILIDAD — V2.3
+Antes de cualquier integración real, comprobar firmware exacto, exploit, versión de GoldHEN y archivo. No mezclar offsets ni blobs de firmwares diferentes, no ejecutar loaders simultáneos y no repetir un intento que terminó en congelación o pantalla negra sin revisar primero el fallo. La identificación PS4/PS4 Pro requiere confirmación manual. El host no puede garantizar la eliminación de kernel panic.
