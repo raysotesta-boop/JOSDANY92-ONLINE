@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="dark"><title>JOSDANY92 · Ultimate Control Center v2.4</title>
+<meta name="color-scheme" content="dark"><title>JOSDANY92 · Ultimate Control Center v2.5</title>
 <style>
 :root{--pink:#ed36ff;--violet:#9d36ff;--blue:#278bff;--cyan:#55dcff;--gold:#ffcb42;--ink:#090515;--panel:rgba(12,8,31,.91);--line:#a83dff}
 *{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:#090515;color:#fff;font-family:Arial,Helvetica,sans-serif}
@@ -240,6 +240,7 @@ footer{display:flex;justify-content:space-between;align-items:center;gap:12px;fl
  <button data-target="firmware"><span class="ico">▣</span>Firmware</button>
  <button data-target="estabilidad"><span class="ico">🛡</span>Estabilidad</button>
  <button data-target="verificacion"><span class="ico">✓</span>Verificación</button>
+ <button data-target="compatibilidad"><span class="ico">▦</span>Compatibilidad</button>
  <button data-target="payloads"><span class="ico">⬡</span>Payloads</button>
  <button data-target="ftp"><span class="ico">↔</span>FTP</button>
  <button data-target="binloader"><span class="ico">◇</span>BinLoader</button>
@@ -290,7 +291,7 @@ function spatialCandidate(items,currentEl,currentLocalIndex,direction){const a=c
 function move(direction){const inSidebar=activeIndex<navCount;if(inSidebar){const current=navItems[activeIndex],local=spatialCandidate(navItems,current,activeIndex,direction);if(local>=0){setActive(local);return}if(direction==='right'){const y=center(current).y;setActive(navCount+nearestByY(mainItems,y))}return}const mainIndex=activeIndex-navCount,current=mainItems[mainIndex],local=spatialCandidate(mainItems,current,mainIndex,direction);if(local>=0){setActive(navCount+local);return}if(direction==='left'){const y=center(current).y;setActive(nearestByY(navItems,y))}}
 function nearestByY(items,y){let best=0,dist=Infinity;items.forEach((el,i)=>{const d=Math.abs(center(el).y-y);if(d<dist){dist=d;best=i}});return best}
 function activate(){const el=controls[activeIndex];if(el)el.click()}
-navItems.forEach((el,i)=>el.addEventListener('click',()=>{setActive(i);const routes=['home','goldhen','firmware','estabilidad','verificacion','payloads','ftp','binloader','tools','diagnostics','acerca'];if(routes[i]==='home'){panel.hidden=true;return}openPanel(routes[i])}));
+navItems.forEach((el,i)=>el.addEventListener('click',()=>{setActive(i);const routes=['home','goldhen','firmware','estabilidad','verificacion','compatibilidad','payloads','ftp','binloader','tools','diagnostics','acerca'];if(routes[i]==='home'){panel.hidden=true;return}openPanel(routes[i])}));
 goldItem.addEventListener('click',()=>openPanel('goldhen'));
 cardItems.forEach((el,i)=>el.addEventListener('click',()=>openPanel(['payloads','binloader','ftp','tools','diagnostics','smart'][i])));
 quickItems.forEach(el=>el.addEventListener('click',()=>openPanel(el.dataset.action)));
@@ -339,6 +340,12 @@ case 'firmware':{
 case 'verificacion':{
  panelTitle.textContent='Verificación de archivos · SHA-256';
  html=`<p class="panel-copy">Selecciona un archivo .BIN desde tu dispositivo para calcular su huella SHA-256. Esta comprobación identifica el contenido del archivo, pero no demuestra quién lo publicó ni que sea compatible con tu firmware.</p><div class="quick-result"><label for="verifyBin"><b>Archivo BIN local</b></label><input class="panel-input" id="verifyBin" type="file" accept=".bin,application/octet-stream" style="margin-top:10px"></div><div class="quick-result" id="verifyStatus">Esperando archivo. No se enviará a la PS4.</div><div class="quick-result" id="verifyHash">SHA-256: pendiente</div><p class="panel-muted">Estado de confianza: NO VERIFICADO. Todavía no existe en este proyecto un manifiesto confiable de hashes oficiales y compatibilidad por firmware. No uses el hash calculado como prueba de seguridad. Esta herramienta no carga ni ejecuta archivos.</p>`;
+ break;
+}
+case 'compatibilidad':{
+ panelTitle.textContent='Matriz de compatibilidad · referencias';
+ const fw=detectPS4Firmware();
+ html=`<p class="panel-copy">Matriz documental orientativa. Separa el rango del exploit del payload GoldHEN incluido. Una fila documentada no significa que tu consola haya sido probada ni que esta página pueda activar el exploit.</p><div class="quick-result"><b>Firmware detectado por navegador:</b> ${fw.version?'PS4 '+esc(fw.version):'No detectado'}<br><b>Tu perfil conocido:</b> PS4 Pro · firmware 12.00 (dato indicado por el usuario; confirmación en consola pendiente).</div><div class="quick-result"><b>HenLoader LP 1.0 · paquete publicado</b><br>9.00–12.02: Lapse + Poops<br>12.50–12.52: Poops<br>GoldHEN incluido: v2.4b18.7<br><b>12.00:</b> queda dentro del rango publicado para Lapse/Poops de ese paquete, pero no se ha probado en tu consola.</div><div class="quick-result"><b>Repositorio GoldHEN/henloader_lp · descripción actual</b><br>Lapse: 9.00–12.02<br>Poops: 9.00–13.00<br>Nota: el README indica que está en desarrollo; no extrapolar el rango 13.00 a la release HenLoader LP 1.0.</div><div class="quick-result"><b>GoldHEN v2.4b18 · lanzamiento base oficial</b><br>Firmware enumerados: 5.05, 6.71/6.72, 9.00, 9.60, 10.00/10.01, 10.50, 10.70/10.71 y 11.00.<br>Esta lista no certifica 12.00 ni tu archivo v2.4b18.14.</div><div class="quick-result"><b>Estado de tu combinación (PS4 Pro · 12.00 · GoldHEN 2.4b18.14)</b><br>Exploit de HenLoader LP 1.0: documentado para 12.00; prueba física pendiente.<br>GoldHEN 2.4b18.14: versión/compilación exacta y hash pendientes de verificar.<br>Compatibilidad conjunta: NO CERTIFICADA.<br>Kernel panic/pantalla negra: riesgo no descartado.</div><p class="panel-muted">Regla JOSDANY92: si el firmware, método, versión exacta o hash no coincide con una fuente verificable, mantener BLOQUEADO. No se habilita carga ni reintento automático desde esta matriz.</p><div class="panel-row"><a class="panel-link" href="https://github.com/GoldHEN/henloader_lp" target="_blank" rel="noopener">Fuente: HenLoader LP</a><a class="panel-link" href="https://github.com/GoldHEN/GoldHEN/releases" target="_blank" rel="noopener">Fuente: GoldHEN oficial</a></div>`;
  break;
 }
 case 'estabilidad':{
