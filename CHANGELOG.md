@@ -51,3 +51,9 @@
 - Nuevo panel visual WebKit con selección manual GoldHEN/PS4HEN.
 - Añadido registro de estado y botón Continuar con respuesta honesta de motor no integrado.
 - No se simula el éxito, no se ejecuta exploit y no se envían payloads.
+
+
+## v2.7 — Tipografía grande para TV
+- Aumentados los tamaños de letras en menú lateral, tarjetas principales, accesos rápidos, encabezados y paneles.
+- Mejorado el interlineado para facilitar la lectura en televisión.
+- Sin cambios en el motor de activación: continúa siendo una vista visual sin exploit integrado.
