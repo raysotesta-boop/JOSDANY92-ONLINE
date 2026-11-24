@@ -61,3 +61,9 @@
 
 ## v2.8 — Cuadro de firmware +20%
 - Ampliado un 20% el cuadro «Firmware detectado» de la pantalla principal.
+
+
+## v2.9 — Ajuste de encaje para TV
+- Conservado el cuadro de firmware al 120%.
+- Ajustada tipografía y distribución de tarjetas y navegación para reducir solapamientos y recortes.
+- Ocultados pictogramas de tarjetas que se muestran como caracteres no compatibles en WebKit PS4.
