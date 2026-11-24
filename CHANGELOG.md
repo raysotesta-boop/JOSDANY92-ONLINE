@@ -57,3 +57,7 @@
 - Aumentados los tamaños de letras en menú lateral, tarjetas principales, accesos rápidos, encabezados y paneles.
 - Mejorado el interlineado para facilitar la lectura en televisión.
 - Sin cambios en el motor de activación: continúa siendo una vista visual sin exploit integrado.
+
+
+## v2.8 — Cuadro de firmware +20%
+- Ampliado un 20% el cuadro «Firmware detectado» de la pantalla principal.
