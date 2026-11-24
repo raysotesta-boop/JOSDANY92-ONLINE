@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="dark"><title>JOSDANY92 · Ultimate Control Center v2.2</title>
+<meta name="color-scheme" content="dark"><title>JOSDANY92 · Ultimate Control Center v2.3</title>
 <style>
 :root{--pink:#ed36ff;--violet:#9d36ff;--blue:#278bff;--cyan:#55dcff;--gold:#ffcb42;--ink:#090515;--panel:rgba(12,8,31,.91);--line:#a83dff}
 *{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:#090515;color:#fff;font-family:Arial,Helvetica,sans-serif}
@@ -231,13 +231,14 @@ footer{display:flex;justify-content:space-between;align-items:center;gap:12px;fl
 <header>
  <div class="monogram">J92</div>
  <div class="brand"><img class="brand-logo" src="josdany92-header.png" alt="JOSDANY92 Ultimate Control Center"></div>
- <div class="spec"><b>EDICIÓN ESPECIAL · V2.2</b><b>J92</b><span>ESTILO · POTENCIA · CONTROL</span></div>
+ <div class="spec"><b>EDICIÓN ESPECIAL · V2.3</b><b>J92</b><span>ESTILO · POTENCIA · CONTROL</span></div>
 </header>
 <main>
 <nav aria-label="Menú principal">
  <button class="active" data-target="inicio"><span class="ico">⌂</span>Inicio</button>
  <button data-target="goldhen"><span class="ico">◉</span>GoldHEN</button>
  <button data-target="firmware"><span class="ico">▣</span>Firmware</button>
+ <button data-target="estabilidad"><span class="ico">🛡</span>Estabilidad</button>
  <button data-target="payloads"><span class="ico">⬡</span>Payloads</button>
  <button data-target="ftp"><span class="ico">↔</span>FTP</button>
  <button data-target="binloader"><span class="ico">◇</span>BinLoader</button>
@@ -288,7 +289,7 @@ function spatialCandidate(items,currentEl,currentLocalIndex,direction){const a=c
 function move(direction){const inSidebar=activeIndex<navCount;if(inSidebar){const current=navItems[activeIndex],local=spatialCandidate(navItems,current,activeIndex,direction);if(local>=0){setActive(local);return}if(direction==='right'){const y=center(current).y;setActive(navCount+nearestByY(mainItems,y))}return}const mainIndex=activeIndex-navCount,current=mainItems[mainIndex],local=spatialCandidate(mainItems,current,mainIndex,direction);if(local>=0){setActive(navCount+local);return}if(direction==='left'){const y=center(current).y;setActive(nearestByY(navItems,y))}}
 function nearestByY(items,y){let best=0,dist=Infinity;items.forEach((el,i)=>{const d=Math.abs(center(el).y-y);if(d<dist){dist=d;best=i}});return best}
 function activate(){const el=controls[activeIndex];if(el)el.click()}
-navItems.forEach((el,i)=>el.addEventListener('click',()=>{setActive(i);const routes=['home','goldhen','firmware','payloads','ftp','binloader','tools','diagnostics','acerca'];if(routes[i]==='home'){panel.hidden=true;return}openPanel(routes[i])}));
+navItems.forEach((el,i)=>el.addEventListener('click',()=>{setActive(i);const routes=['home','goldhen','firmware','estabilidad','payloads','ftp','binloader','tools','diagnostics','acerca'];if(routes[i]==='home'){panel.hidden=true;return}openPanel(routes[i])}));
 goldItem.addEventListener('click',()=>openPanel('goldhen'));
 cardItems.forEach((el,i)=>el.addEventListener('click',()=>openPanel(['payloads','binloader','ftp','tools','diagnostics','smart'][i])));
 quickItems.forEach(el=>el.addEventListener('click',()=>openPanel(el.dataset.action)));
@@ -328,10 +329,16 @@ case 'firmware':{
  panelTitle.textContent='Firmware · Detección automática';
  const info=detectPS4Firmware();
  if(info.version){
-  html=`<p class="panel-copy">Firmware detectado automáticamente desde la identificación del navegador de PS4.</p><div class="quick-result"><b>Versión detectada</b><br><span style="font-size:30px;color:#68ffb0;font-weight:900">PS4 ${esc(info.version)}</span></div><div class="quick-result"><b>Método:</b> User-Agent del navegador PS4<br><b>Estado:</b> Detección completada</div><p class="panel-muted">La versión se obtiene de la cadena que el navegador comunica a la página. Si el navegador o una capa intermedia modifica esa cadena, el dato podría no estar disponible o ser incorrecto.</p><p class="panel-muted">La detección identifica el firmware; no confirma que un exploit, kernel payload o versión de GoldHEN sea compatible. Cada componente debe validarse por separado.</p><div class="panel-row"><button class="panel-btn" id="refreshFirmware">↻ Volver a comprobar</button></div>`;
+  html=`<p class="panel-copy">Firmware detectado automáticamente desde la identificación del navegador de PS4.</p><div class="quick-result"><b>Versión detectada</b><br><span style="font-size:30px;color:#68ffb0;font-weight:900">PS4 ${esc(info.version)}</span></div><div class="quick-result"><b>Método:</b> User-Agent del navegador PS4<br><b>Estado:</b> Detección completada</div><p class="panel-muted">La versión se obtiene de la cadena que el navegador comunica a la página. Si el navegador o una capa intermedia modifica esa cadena, el dato podría no estar disponible o ser incorrecto.</p><p class="panel-muted">La detección identifica el firmware; no confirma que un exploit, kernel payload o versión de GoldHEN sea compatible. Cada componente debe validarse por separado. El modelo PS4/PS4 Pro no se deduce de forma fiable del User-Agent; debe confirmarse manualmente.</p><div class="panel-row"><button class="panel-btn" id="refreshFirmware">↻ Volver a comprobar</button></div>`;
  }else{
   html=`<p class="panel-copy">Este navegador no está exponiendo una versión PS4 reconocible en su User-Agent.</p><div class="quick-result"><b>Detección automática:</b> No disponible</div><div class="quick-result"><label for="fwFallback"><b>Versión manual provisional</b></label><select id="fwFallback" class="panel-btn" style="width:100%;margin-top:8px"><option value="">Seleccionar firmware…</option><option>9.00</option><option>9.03</option><option>9.04</option><option>9.50</option><option>9.51</option><option>9.60</option><option>10.00</option><option>10.01</option><option>10.50</option><option>10.70</option><option>10.71</option><option>11.00</option><option>11.02</option><option>11.50</option><option>11.52</option><option>12.00</option><option>12.02</option><option>12.50</option><option>12.52</option><option>13.00</option><option>13.02</option><option>13.04</option><option>13.50</option><option>13.52</option><option>14.00</option><option>14.02</option></select></div><p class="panel-muted">La selección manual es solo una referencia temporal; no se presentará como detección automática ni se habilitará una carga por ella.</p>`;
  }
+ break;
+}
+case 'estabilidad':{
+ panelTitle.textContent='Escudo de estabilidad · JOSDANY92';
+ const fw=detectPS4Firmware();
+ html=`<p class="panel-copy">Comprobaciones preventivas antes de cualquier intento. Este panel no ejecuta exploits, no carga payloads y no puede garantizar que un kernel panic sea imposible.</p><div class="quick-result"><b>Firmware del navegador:</b> ${fw.version?'PS4 '+esc(fw.version):'No detectado'}<br><b>Modelo:</b> No verificable automáticamente desde el User-Agent. Confírmalo en la etiqueta de la consola o en Ajustes.</div><div class="quick-result"><b>Bloqueo preventivo de carga</b><br>ACTIVO: esta versión del host no envía ni ejecuta BIN automáticamente.</div><ul class="panel-list"><li>No cargar un payload si no coincide exactamente con firmware y método documentados.</li><li>No reutilizar offsets o blobs de otra versión de firmware.</li><li>No ejecutar dos exploits ni dos loaders al mismo tiempo.</li><li>No repetir intentos tras congelación o pantalla negra sin revisar primero versión, archivo y registro.</li><li>Usar archivos de origen verificable y conservar una copia de los datos importantes.</li><li>Si hay kernel panic, reiniciar normalmente y revisar el fallo; no insistir con el mismo archivo a ciegas.</li></ul><div class="quick-result"><b>Estado de verificación</b><br>Exploit: pendiente de integración y prueba en hardware.<br>Payload GoldHEN: pendiente de hash y compatibilidad exacta.<br>Modelo PS4/PS4 Pro: confirmación manual pendiente.<br>Estabilidad en consola real: no probada.</div><p class="panel-muted">Una pantalla negra puede deberse a un exploit fallido, payload incompatible, timing o conflicto entre loaders. El host no puede distinguir la causa sin registros del intento. No existe una comprobación previa que elimine por completo el riesgo de kernel panic.</p>`;
  break;
 }
 case 'goldhen':panelTitle.textContent='GoldHEN · Activación';html=`<p class="panel-copy">La interfaz permite consultar el estado y organizar archivos, pero no incluye un exploit ni un payload de GoldHEN verificado. La activación es manual y permanece deshabilitada hasta integrar y verificar un método compatible.</p><div class="quick-result"><b>Estado:</b> No enlazado · no se ha ejecutado ningún payload.</div><p class="panel-muted">No se intentará cargar una versión automáticamente sin verificar firmware, exploit y archivo exactos. Esto evita presentar una activación falsa o arriesgar un bloqueo.</p>`;break;
