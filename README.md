@@ -24,3 +24,11 @@ La interfaz es una página web local. La compatibilidad de exploits, payloads y 
 
 ## Detección automática de firmware — v2.2
 El host lee la versión `PlayStation 4 x.xx` de `navigator.userAgent`, si el navegador la expone. Si no existe una coincidencia reconocible, muestra claramente que no pudo detectarla y ofrece una selección manual provisional. El valor detectado no se usa como prueba de compatibilidad de exploits ni payloads.
+
+
+## Escudo de estabilidad — v2.3
+- Añade una pantalla preventiva que muestra firmware detectado, estado de verificación y límites de la detección del modelo.
+- La versión no ejecuta ni transmite payloads automáticamente.
+- No se habilita una carga por coincidencia de nombre. La compatibilidad exige comprobar firmware, exploit, versión de GoldHEN y archivo exacto.
+- El modelo PS4/PS4 Pro no se infiere del User-Agent; requiere confirmación manual.
+- Kernel panic y pantallas negras no pueden eliminarse por completo desde una página web. La sección incluye precauciones y criterios de parada.
