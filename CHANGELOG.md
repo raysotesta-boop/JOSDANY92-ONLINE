@@ -12,3 +12,5 @@
 - Se distinguen las rutas Lapse/Poops de la compatibilidad del payload GoldHEN.
 - Se advierte que GoldHEN v2.4b18 oficial lista soporte hasta 11.00; las builds posteriores deben verificarse por separado.
 - No se añadió ejecución automática ni se declara una carga exitosa.
+
+- Aclarada la diferencia entre el rango del repositorio henloader_lp, la release LP 1.0 (Poops hasta 12.52) y la lista de firmware de GoldHEN v2.4b18 base.
