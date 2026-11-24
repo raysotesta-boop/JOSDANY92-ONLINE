@@ -67,3 +67,8 @@
 - Conservado el cuadro de firmware al 120%.
 - Ajustada tipografía y distribución de tarjetas y navegación para reducir solapamientos y recortes.
 - Ocultados pictogramas de tarjetas que se muestran como caracteres no compatibles en WebKit PS4.
+
+
+## v3.0 — Firmware y navegación
+- Ampliado otro 20% el cuadro de firmware y aumentado 20% el texto del título y del valor detectado.
+- Ajustada la etiqueta Compatibilidad para que no sobresalga ni se parta en el menú lateral.
