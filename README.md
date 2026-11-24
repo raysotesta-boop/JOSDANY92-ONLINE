@@ -1,4 +1,4 @@
-# JOSDANY92 · Ultimate Control Center v2.8
+# JOSDANY92 · Ultimate Control Center v2.9
 
 Centro de control local para PS4 y Android, con interfaz neón, navegación mediante mando/teclado y organización de archivos publicados por SimpleHttpServer.
 
@@ -65,3 +65,9 @@ El host lee la versión `PlayStation 4 x.xx` de `navigator.userAgent`, si el nav
 
 ## v2.8 — cuadro de firmware +20%
 - El cuadro «Firmware detectado» de la pantalla principal se amplió un 20% manteniendo su alineación a la derecha.
+
+
+## v2.9 — ajuste de encaje para TV
+- Se conserva el cuadro Firmware detectado al 120% de su tamaño base.
+- Se ajustan los tamaños de navegación, tarjetas y accesos rápidos para evitar texto cortado y etiquetas partidas en la pantalla de PS4.
+- Se ocultan iconos de tarjetas que el navegador PS4 representa como cuadrados, priorizando títulos legibles.
