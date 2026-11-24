@@ -14,3 +14,10 @@
 - No se añadió ejecución automática ni se declara una carga exitosa.
 
 - Aclarada la diferencia entre el rango del repositorio henloader_lp, la release LP 1.0 (Poops hasta 12.52) y la lista de firmware de GoldHEN v2.4b18 base.
+
+
+## v2.2 — detección automática de firmware
+- Se añadió lectura del patrón de versión PS4 desde navigator.userAgent.
+- El encabezado muestra la versión cuando el navegador la expone.
+- El panel Firmware presenta la detección y ofrece una comprobación manual; si no hay coincidencia, declara el dato como no disponible.
+- La detección no se usa para afirmar compatibilidad ni activar exploits/payloads.
