@@ -1,0 +1,16 @@
+JOSDANY92 · ULTIMATE CONTROL CENTER v2.0
+
+INSTALACION
+1. Detén SimpleHttpServer.
+2. Extrae este ZIP y copia TODO el contenido de esta carpeta a la carpeta compartida "Servidor PS4" en Android, sustituyendo index.html y conservando las carpetas existentes.
+3. Inicia SimpleHttpServer y recarga http://IP-DEL-ANDROID:8080/index.html en la PS4.
+
+GOLDHEN SMART LOADER
+- Coloca archivos .BIN en PAYLOADS/GOLDHEN/.
+- Abre GoldHEN Smart Loader y pulsa "Buscar archivos locales".
+- El host detecta los .BIN publicados por el servidor HTTP y permite abrir/descargar el archivo seleccionado.
+- La detección NO confirma compatibilidad, firma, integridad ni versión. No se ejecuta ni inyecta ningún payload.
+- No hay actualización automática ni carga automática.
+
+LIMITACIONES
+El navegador WebKit no puede enumerar carpetas privadas de Android: solo puede leer archivos que SimpleHttpServer publique. Para cargar GoldHEN de verdad hace falta un exploit/loader compatible y un método de envío probado para el firmware exacto. Esta versión no incorpora ni ejecuta ese exploit.
