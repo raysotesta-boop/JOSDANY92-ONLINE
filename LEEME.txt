@@ -1,9 +1,15 @@
-JOSDANY92 · ULTIMATE CONTROL CENTER v2.0
+JOSDANY92 · ULTIMATE CONTROL CENTER v2.1
 
-INSTALACION
-1. Detén SimpleHttpServer.
-2. Extrae este ZIP y copia TODO el contenido de esta carpeta a la carpeta compartida "Servidor PS4" en Android, sustituyendo index.html y conservando las carpetas existentes.
-3. Inicia SimpleHttpServer y recarga http://IP-DEL-ANDROID:8080/index.html en la PS4.
+INSTALACIÓN
+1. Detén SimpleHttpServer antes de reemplazar archivos.
+2. Descarga el contenido de esta rama y copia los archivos a la carpeta compartida "Servidor PS4", conservando fondo-josdany92.jpg y josdany92-header.png.
+3. Inicia SimpleHttpServer y abre http://IP-DEL-ANDROID:8080/index.html en el navegador de la PS4.
+
+CAMBIOS DE V2.1
+- Identificación visible de la versión 2.1.
+- GoldHEN Smart Loader: el escaneo de archivos .BIN comienza únicamente cuando pulsas "Buscar archivos locales".
+- Se conserva la navegación con mando y teclado.
+- Se mantienen las advertencias de compatibilidad y la selección manual de archivos.
 
 GOLDHEN SMART LOADER
 - Coloca archivos .BIN en PAYLOADS/GOLDHEN/.
@@ -12,5 +18,5 @@ GOLDHEN SMART LOADER
 - La detección NO confirma compatibilidad, firma, integridad ni versión. No se ejecuta ni inyecta ningún payload.
 - No hay actualización automática ni carga automática.
 
-LIMITACIONES
-El navegador WebKit no puede enumerar carpetas privadas de Android: solo puede leer archivos que SimpleHttpServer publique. Para cargar GoldHEN de verdad hace falta un exploit/loader compatible y un método de envío probado para el firmware exacto. Esta versión no incorpora ni ejecuta ese exploit.
+LIMITACIONES IMPORTANTES
+El navegador WebKit no puede enumerar carpetas privadas de Android: solo puede leer archivos que SimpleHttpServer publique. Esta versión es un centro de control y organizador local; NO activa GoldHEN ni incorpora un exploit/loader. Para una activación real hace falta integrar y probar un método compatible con el firmware exacto y el entorno de la consola. No se debe interpretar la detección de un archivo como prueba de compatibilidad.
