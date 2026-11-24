@@ -21,3 +21,10 @@
 - El encabezado muestra la versión cuando el navegador la expone.
 - El panel Firmware presenta la detección y ofrece una comprobación manual; si no hay coincidencia, declara el dato como no disponible.
 - La detección no se usa para afirmar compatibilidad ni activar exploits/payloads.
+
+
+## v2.3 — Escudo de estabilidad
+- Se añadió una sección de comprobaciones preventivas.
+- Se documenta que el modelo PS4/PS4 Pro no puede deducirse con fiabilidad del User-Agent.
+- Se explicitan los bloqueos preventivos: no hay ejecución automática de BIN y no se afirma compatibilidad sin verificar.
+- Se añadieron criterios de parada tras pantalla negra/congelación y advertencias sobre kernel panic.
