@@ -27,3 +27,7 @@ PERFILES MULTIFIRMWARE (REFERENCIA)
 - La release HenLoader LP 1.0 indica Poops hasta 12.52 e integra GoldHEN v2.4b18.7. Aunque el repositorio menciona Poops para 13.00, no se debe presentar como soporte empaquetado confirmado por la release 1.0.
 - La publicación base GoldHEN v2.4b18 enumera firmwares hasta 11.00; una build integrada posterior debe verificarse por separado.
 - El selector es manual e informativo. No activa exploits ni carga payloads.
+
+
+DETECCIÓN AUTOMÁTICA DE FIRMWARE — V2.2
+Al abrir el host, se intenta leer la versión PS4 desde el User-Agent del navegador y se muestra en el encabezado. Si no está disponible, el panel Firmware informa que no pudo detectarla y ofrece una selección manual provisional. El User-Agent puede estar modificado y la detección no valida exploits ni payloads.
