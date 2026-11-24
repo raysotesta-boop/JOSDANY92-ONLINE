@@ -16,8 +16,7 @@ La interfaz es una página web local. La compatibilidad de exploits, payloads y 
 
 
 ## Matriz de firmware (referencia)
-- Lapse: 9.00–12.02, según el proyecto GoldHEN/henloader_lp.
-- Poops: 9.00–13.00, según el mismo proyecto.
-- GoldHEN v2.4b18 oficial: su publicación lista 5.05, 6.71/6.72, 9.00, 9.60, 10.00/10.01, 10.50, 10.70/10.71 y 11.00.
-- Para firmwares posteriores a 11.00, no asumir compatibilidad con ese BIN: verificar una build posterior concreta y sus instrucciones.
+- GoldHEN/henloader_lp describe Lapse para 9.00–12.02 y Poops para 9.00–13.00 en su repositorio.
+- La release HenLoader LP 1.0 especifica Poops hasta 12.52 e incluye GoldHEN v2.4b18.7; para 13.00, el repositorio identifica Poops, pero la release 1.0 no lo lista como soporte empaquetado. Tratar 13.00 como perfil por verificar, no como compatibilidad garantizada.
+- La publicación base GoldHEN v2.4b18 enumera 5.05, 6.71/6.72, 9.00, 9.60, 10.00/10.01, 10.50, 10.70/10.71 y 11.00. No confundir esa lista con builds integradas posteriores como v2.4b18.7.
 - El selector es informativo y manual; no detecta firmware automáticamente ni ejecuta exploits/payloads.
