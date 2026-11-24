@@ -45,3 +45,9 @@
 - Se distingue el listado de firmware del lanzamiento base GoldHEN v2.4b18 del GoldHEN integrado en HenLoader LP 1.0.
 - Se documenta el perfil 12.00 del usuario sin declarar validada su build 2.4b18.14.
 - Sin activación, transmisión, ejecución ni reintentos automáticos.
+
+
+## v2.6 — Vista WebKit de activación
+- Nuevo panel visual WebKit con selección manual GoldHEN/PS4HEN.
+- Añadido registro de estado y botón Continuar con respuesta honesta de motor no integrado.
+- No se simula el éxito, no se ejecuta exploit y no se envían payloads.
