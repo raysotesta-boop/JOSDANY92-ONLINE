@@ -1,4 +1,4 @@
-# JOSDANY92 · Ultimate Control Center v2.6
+# JOSDANY92 · Ultimate Control Center v2.7
 
 Centro de control local para PS4 y Android, con interfaz neón, navegación mediante mando/teclado y organización de archivos publicados por SimpleHttpServer.
 
@@ -56,3 +56,8 @@ El host lee la versión `PlayStation 4 x.xx` de `navigator.userAgent`, si el nav
 - Se incorporó un flujo visual de dos columnas inspirado en las pantallas compartidas por el usuario: selección GoldHEN/PS4HEN, firmware visible y registro de estado.
 - El botón Continuar solo muestra el estado de preparación y el bloqueo de seguridad; no ejecuta ni simula el jailbreak.
 - El motor real del exploit/loader de referencia no está integrado. Mantener el host que ya funciona como método principal hasta una integración verificada.
+
+
+## v2.7 — tipografía grande para TV
+- Aumentados los tamaños de menú, tarjetas, accesos rápidos, botones, paneles y registros para mejorar la lectura desde el sofá en el navegador PS4.
+- Se mantienen los ajustes responsive y el flujo de activación en modo visual; no se incorpora ejecución de exploits ni payloads.
