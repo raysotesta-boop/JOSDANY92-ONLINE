@@ -37,3 +37,11 @@
 - Sin manifiesto confiable, todos los BIN permanecen NO VERIFICADOS.
 - Si Web Crypto no está disponible, el panel informa la limitación sin dar una falsa validación.
 - Sin transmisión, carga o ejecución de archivos.
+
+
+## v2.5 — Matriz documental de compatibilidad
+- Se añadió el panel Compatibilidad al menú y a la navegación por mando.
+- Se separan explícitamente los rangos descritos por el repositorio HenLoader LP y los de la release LP 1.0.
+- Se distingue el listado de firmware del lanzamiento base GoldHEN v2.4b18 del GoldHEN integrado en HenLoader LP 1.0.
+- Se documenta el perfil 12.00 del usuario sin declarar validada su build 2.4b18.14.
+- Sin activación, transmisión, ejecución ni reintentos automáticos.
