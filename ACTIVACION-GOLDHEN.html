@@ -78,14 +78,14 @@ var expected=[
 function detectFirmware(){
  var ua=String(navigator.userAgent||'');
  var version=null;
- var m=ua.match(/PlayStation 4\\/([0-9.]+)/);
+ var m=ua.match(/PlayStation 4\/([0-9.]+)/);
  if(m)version=m[1];
  else{
   var start=ua.indexOf('5.0 (')+19;
   var end=ua.indexOf(') Apple');
   if(start>18&&end>start)version=ua.substring(start,end).replace('layStation 4/','').trim();
  }
- if(version&&!/^[0-9]+\\.[0-9]+$/.test(version))version=null;
+ if(version&&!/^[0-9]+\.[0-9]+$/.test(version))version=null;
  return {isPS4:ua.indexOf('PlayStation 4')!==-1,version:version,ua:ua};
 }
 function render(results){
@@ -137,8 +137,8 @@ async function preflight(){
   try{
    var cfg=await Promise.all([fetch('./WebKitty/includes/js/HENs.js',{cache:'no-store'}),fetch('./WebKitty/includes/js/firmware.js',{cache:'no-store'})]);
    var henCode=await cfg[0].text(),fwCode=await cfg[1].text();
-   var henOk=/GOLDHEN_DEFAULT\\s*=\\s*['\"]GHv2\\.4b18\\.14/.test(henCode)&&henCode.indexOf('goldhen_v2.4b18.14.bin')!==-1;
-   var chainOk=fwCode.indexOf('WOBKOT_LAPSE')!==-1&&/max:\\s*12\\.02/.test(fwCode);
+   var henOk=/GOLDHEN_DEFAULT\s*=\s*['"]GHv2\.4b18\.14/.test(henCode)&&henCode.indexOf('goldhen_v2.4b18.14.bin')!==-1;
+   var chainOk=fwCode.indexOf('WOBKOT_LAPSE')!==-1&&/max:\s*12\.02/.test(fwCode);
    configOk=cfg[0].ok&&cfg[1].ok&&henOk&&chainOk;
   }catch(e){}
  }
