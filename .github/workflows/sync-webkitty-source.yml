@@ -26,7 +26,9 @@ jobs:
       - name: Download official WebKitty source
         run: |
           set -euo pipefail
-          git clone --depth 1 https://github.com/ArabPixel/WebKitty.git /tmp/WebKitty
+          git clone https://github.com/ArabPixel/WebKitty.git /tmp/WebKitty
+          # Pin the reviewed upstream snapshot; update this SHA only after a deliberate review.
+          git -C /tmp/WebKitty checkout --detach bb5b65b8b7935f91a61516f06dbddb9f07674cd6
           test -f /tmp/WebKitty/index.html
           test -f /tmp/WebKitty/LICENSE
           test -f /tmp/WebKitty/includes/caches/manifest/12xx.manifest
@@ -52,6 +54,17 @@ jobs:
           test -f WebKitty/index.html
           test -f WebKitty/includes/caches/manifest/12xx.manifest
           test -f WebKitty/includes/payloads/HEN/goldhen_v2.4b18.14.bin
+          # Verify critical vendored binaries and exploit assets against the pinned upstream Git blobs.
+          for path in \
+            includes/payloads/HEN/goldhen_v2.4b18.14.bin \
+            src/kpatches/1200.bin \
+            src/wobkot/main.js \
+            includes/caches/manifest/12xx.manifest \
+            LICENSE; do
+            upstream_blob="$(git -C /tmp/WebKitty rev-parse "HEAD:$path")"
+            local_blob="$(git hash-object "WebKitty/$path")"
+            test "$upstream_blob" = "$local_blob"
+          done
           git status --short
           git add WebKitty WEBKITTY-UPSTREAM-COMMIT.txt
           if git diff --cached --quiet; then
