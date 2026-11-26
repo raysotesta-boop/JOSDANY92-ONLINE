@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>JOSDANY92 · Verificador WebKitty Offline</title>
+<style>
+:root{color-scheme:dark;--cyan:#58dcff;--pink:#d94dff;--gold:#ffd45a;--bg:#08051b;--panel:#100b2b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#21104a 0,#08051b 62%);color:#fff;font:16px/1.5 Arial,sans-serif}
+main{width:min(980px,94vw);margin:24px auto;padding:22px;border:1px solid #a83dff;border-radius:22px;background:#09051beF;box-shadow:0 0 24px #9d36ff55}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;border-bottom:1px solid #7435a8;padding-bottom:14px}
+h1{font-size:clamp(25px,5vw,40px);margin:0;text-shadow:0 0 12px var(--pink)}.sub{color:#d9ccf4;margin:4px 0 0}
+.pill{border:1px solid var(--cyan);border-radius:999px;padding:6px 11px;color:var(--cyan);font-weight:bold;white-space:nowrap}
+section{margin-top:18px;padding:16px;border:1px solid #4a3477;border-radius:15px;background:linear-gradient(130deg,#130d35,#080d25)}
+h2{margin:0 0 8px;color:#e8caff;font-size:21px}.muted{color:#cfc6e8}.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:13px}
+button,a.btn{display:inline-block;border:1px solid var(--cyan);border-radius:11px;background:linear-gradient(110deg,#173b70,#35105c);color:white;padding:11px 15px;text-decoration:none;font-weight:bold;cursor:pointer}
+button.primary{border-color:var(--gold);background:linear-gradient(110deg,#60400a,#2b1740)}
+button:disabled{opacity:.55}
+#status{padding:12px;border-radius:10px;background:#050b20;border:1px solid #34517b;margin-top:12px;white-space:pre-wrap}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}td,th{padding:8px 7px;border-bottom:1px solid #352653;text-align:left;overflow-wrap:anywhere}th{color:#aeeeff}
+.ok{color:#75ff9a}.bad{color:#ff9b9b}.warn{color:#ffd77d}
+code{color:#aeeeff;overflow-wrap:anywhere}ol{padding-left:22px}.small{font-size:13px;color:#bdb2d9}
+@media(max-width:560px){main{padding:14px;margin:10px auto}header{align-items:flex-start;flex-direction:column}table{font-size:12px}}
+</style>
+</head>
+<body>
+<main>
+<header><div><h1>JOSDANY92 · OFFLINE CHECK</h1><p class="sub">Verificación de la copia local de WebKitty para PS4</p></div><span class="pill">FIRMWARE 14.02</span></header>
+<section>
+<h2>1 · Estructura esperada en Android</h2>
+<p class="muted">Dentro de la carpeta que publica tu servidor HTTP debe existir una carpeta llamada <code>WebKitty</code>. Extrae allí el ZIP oficial completo; no copies únicamente index.html.</p>
+<div class="row"><a class="btn primary" href="https://github.com/ArabPixel/WebKitty/archive/refs/heads/main.zip" target="_blank" rel="noopener">Descargar WebKitty oficial (ZIP)</a><a class="btn" href="https://github.com/ArabPixel/WebKitty" target="_blank" rel="noopener">Ver repositorio y licencia</a></div>
+</section>
+<section>
+<h2>2 · Comprobar archivos de la versión 14.02</h2>
+<p class="muted">Este test lee el manifiesto oficial 14.02 y comprueba que cada recurso requerido exista en el servidor local. No ejecuta archivos ni prueba el exploit.</p>
+<div class="row"><button class="primary" id="check">COMPROBAR COPIA LOCAL</button><a class="btn" id="openLocal" href="./WebKitty/index.html">Abrir WebKitty local</a></div>
+<div id="status" aria-live="polite">Esperando comprobación. Dirección actual: <code id="origin"></code></div>
+<div id="results"></div>
+</section>
+<section>
+<h2>3 · Preparar la caché en la PS4</h2>
+<ol class="muted">
+<li>Conecta la PS4 al hotspot del teléfono y mantén encendido el servidor HTTP.</li>
+<li>En el navegador de PS4 abre <code id="ps4url"></code>.</li>
+<li>WebKitty detecta el firmware. Si la caché está vacía y el navegador admite Application Cache, su propio código redirige a la preparación de caché.</li>
+<li>Espera a que la pantalla de WebKitty indique que la caché terminó. No cierres el navegador durante la descarga.</li>
+<li>Vuelve a abrir la misma dirección local y comprueba que la pantalla principal carga.</li>
+</ol>
+</section>
+<section>
+<h2>4 · Prueba real sin teléfono ni Internet</h2>
+<ol class="muted">
+<li>Con la caché ya preparada, cierra el navegador de PS4 normalmente.</li>
+<li>Apaga el hotspot y detén el servidor del teléfono.</li>
+<li>En el navegador de PS4 abre el historial y selecciona exactamente la misma URL local (mismo IP, puerto y ruta).</li>
+<li>Si WebKitty vuelve a cargar sin servidor, la caché offline funciona en esa consola. Si no abre, la prueba falló: vuelve a conectar el teléfono y no des por hecho que quedó cacheado.</li>
+</ol>
+<p class="small">La caché se asocia al origen exacto. Si cambia la IP o el puerto del servidor, la PS4 puede tratarlo como otro sitio y no encontrar la caché anterior. El navegador PS4 debe conservar Application Cache para que este método funcione. JOSDANY92 no puede verificar esa capacidad desde Android.</p>
+</section>
+<section>
+<h2>Qué significa el resultado</h2>
+<p class="muted"><span class="ok">ARCHIVOS COMPLETOS</span> significa que el servidor Android publica todos los recursos listados por el manifiesto 14.02. No demuestra que la PS4 haya guardado la caché ni que el exploit vaya a completarse. La prueba decisiva es abrir la misma URL desde el historial con el teléfono apagado.</p>
+</section>
+<p class="small">WebKitty es un proyecto independiente de ArabPixel, licenciado bajo AGPL-3.0-or-later. JOSDANY92 lo enlaza y verifica su copia local; no reemplaza a sus autores ni garantiza la estabilidad del exploit.</p>
+</main>
+<script>
+(function(){
+var origin=document.getElementById('origin'),ps4url=document.getElementById('ps4url'),status=document.getElementById('status'),results=document.getElementById('results'),check=document.getElementById('check'),openLocal=document.getElementById('openLocal');
+var base=new URL('./WebKitty/',location.href);
+origin.textContent=location.origin;ps4url.textContent=base.href+'index.html';openLocal.href=new URL('index.html',base).href;
+async function exists(url){
+ try{
+  var r=await fetch(url,{method:'HEAD',cache:'no-store'});
+  if(r.ok){return {ok:true,code:r.status};}
+  if(r.status!==405&&r.status!==501)return {ok:false,code:r.status};
+ }catch(e){}
+ try{
+  var r2=await fetch(url,{method:'GET',headers:{Range:'bytes=0-0'},cache:'no-store'});
+  if(r2.body&&r2.body.cancel)r2.body.cancel();
+  return {ok:r2.ok,code:r2.status};
+ }catch(e){return {ok:false,code:'red/404'};}
+}
+check.addEventListener('click',async function(){
+ check.disabled=true;results.innerHTML='';status.textContent='Leyendo manifiesto de caché 14.02…';
+ var manifest=new URL('includes/caches/manifest/140x.manifest',base);
+ try{
+  var response=await fetch(manifest.href,{cache:'no-store'});
+  if(!response.ok)throw new Error('No se encontró el manifiesto 14.02 (HTTP '+response.status+'). Revisa que el ZIP esté extraído en /WebKitty/.');
+  var body=await response.text(),lines=body.split(/\r?\n/),inCache=false,entries=[];
+  lines.forEach(function(line){var v=line.trim();if(v==='CACHE:'){inCache=true;return;}if(v==='NETWORK:'||v==='FALLBACK:'){inCache=false;return;}if(inCache&&v&&v.charAt(0)!=='#')entries.push(v);});
+  var urls=entries.map(function(path){return {path:path,url:new URL(path,manifest).href};});
+  status.textContent='Manifiesto cargado: '+urls.length+' recursos. Comprobando disponibilidad en el servidor…';
+  var rows=[],done=0,missing=[];
+  for(var i=0;i<urls.length;i+=5){
+   var batch=urls.slice(i,i+5);
+   var checks=await Promise.all(batch.map(function(item){return exists(item.url);}));
+   checks.forEach(function(result,j){var item=batch[j];done++;rows.push({path:item.path,result:result});if(!result.ok)missing.push(item.path);});
+   status.textContent='Comprobados '+done+' de '+urls.length+' recursos…';
+  }
+  rows.sort(function(a,b){return a.path.localeCompare(b.path);});
+  results.innerHTML='<table><thead><tr><th>Estado</th><th>Recurso del manifiesto</th><th>HTTP</th></tr></thead><tbody>'+rows.map(function(row){return '<tr><td class="'+(row.result.ok?'ok':'bad')+'">'+(row.result.ok?'OK':'FALTA')+'</td><td>'+row.path.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</td><td>'+row.result.code+'</td></tr>';}).join('')+'</tbody></table>';
+  if(missing.length===0){status.innerHTML='<span class="ok">COPIA LOCAL COMPLETA.</span> Los '+urls.length+' recursos del manifiesto 14.02 responden desde el servidor. Ahora falta hacer la prueba de caché en la PS4.';}
+  else{status.innerHTML='<span class="bad">COPIA INCOMPLETA:</span> faltan '+missing.length+' de '+urls.length+' recursos. Vuelve a extraer el ZIP oficial completo en la carpeta WebKitty.';}
+ }catch(e){status.innerHTML='<span class="bad">ERROR:</span> '+String(e.message||e);}
+ finally{check.disabled=false;}
+});
+})();
+</script>
+</body></html>
