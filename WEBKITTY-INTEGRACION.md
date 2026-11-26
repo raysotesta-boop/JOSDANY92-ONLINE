@@ -1,3 +1,5 @@
+> **Estado del desarrollo:** el trabajo se realiza primero dentro del repositorio. WebKitty ya está sincronizado en la carpeta `WebKitty/` de `JOSDANY92-V2.1`. La página [ACTIVACION-GOLDHEN.html](ACTIVACION-GOLDHEN.html) prepara el perfil PS4 12.00 / Wobkot-Lapse / GoldHEN 2.4b18.14 y verifica los archivos antes de iniciar. **La preparación Android queda aplazada hasta confirmar la activación real en la consola.**
+
 # JOSDANY92 + WebKitty: instalación local y prueba offline
 
 ## Resultado incorporado a JOSDANY92
