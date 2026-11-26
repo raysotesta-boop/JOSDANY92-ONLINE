@@ -50,6 +50,8 @@ jobs:
           rm -rf WebKitty
           mkdir -p WebKitty
           rsync -a --exclude='.git' --exclude='.github' /tmp/WebKitty/ WebKitty/
+          python3 patches/webkitty/apply-josdany92-patches.py
+          grep -q 'JOSDANY92: record successful GoldHEN payload completion.' WebKitty/includes/js/utilities.js
           cp /tmp/WEBKITTY-UPSTREAM-COMMIT.txt WEBKITTY-UPSTREAM-COMMIT.txt
           test -f WebKitty/index.html
           test -f WebKitty/includes/caches/manifest/12xx.manifest
