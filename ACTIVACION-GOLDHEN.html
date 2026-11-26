@@ -77,8 +77,16 @@ var expected=[
 ];
 function detectFirmware(){
  var ua=String(navigator.userAgent||'');
- var m=ua.match(/PlayStation\s*4(?:\s*\/\s*|\s+|\s*\(\s*)([0-9]+\.[0-9]+)/i);
- return {isPS4:/PlayStation\s*4/i.test(ua),version:m?m[1]:null,ua:ua};
+ var version=null;
+ var m=ua.match(/PlayStation 4\\/([0-9.]+)/);
+ if(m)version=m[1];
+ else{
+  var start=ua.indexOf('5.0 (')+19;
+  var end=ua.indexOf(') Apple');
+  if(start>18&&end>start)version=ua.substring(start,end).replace('layStation 4/','').trim();
+ }
+ if(version&&!/^[0-9]+\\.[0-9]+$/.test(version))version=null;
+ return {isPS4:ua.indexOf('PlayStation 4')!==-1,version:version,ua:ua};
 }
 function render(results){
  checks.innerHTML=results.map(function(r){
