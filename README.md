@@ -111,3 +111,11 @@ No se preparará ni se probará el paquete Android todavía. Primero debemos con
 
 - WebKitty se publica bajo AGPL-3.0-or-later. JOSDANY92 lo enlaza como proyecto externo; no incorpora ni redistribuye su código fuente en esta integración.
 - La matriz oficial de WebKitty incluye Wobkot (Slopkit) / Lapse para 9.00–12.02 y Slopkit / Lapse para 10.00–12.02. Su selector define GoldHEN v2.4b18.14 como predeterminado y el manifiesto `12xx.manifest` incluye ese payload. Esto confirma que 12.00 y tu versión de GoldHEN están contemplados por el paquete oficial, pero no certifica el éxito en esta consola ni elimina el riesgo de kernel panic o pantalla negra.
+
+
+### Revisión de seguridad de activación GoldHEN
+- El lanzamiento JOSDANY92 usa un único intento por activación; se anula el reintento automático interno de WebKitty para este flujo. Si falla, el usuario debe detenerse y reiniciar manualmente antes de valorar otro intento.
+- La sincronización de WebKitty queda fijada al commit revisado `bb5b65b8b7935f91a61516f06dbddb9f07674cd6`; cualquier actualización requiere cambiar deliberadamente el SHA tras revisión.
+- El workflow compara los Git blob SHA-1 de los archivos críticos (payload GoldHEN 2.4b18.14, parches 12.00, Wobkot, manifiesto 12.xx y licencia) con la copia upstream fijada.
+- El indicador de éxito sigue siendo una confirmación del callback de WebKitty tras el retorno del cargador del payload, no una comprobación independiente del overlay de GoldHEN.
+- La compatibilidad documental de WebKitty incluye Wobkot/Lapse hasta 12.02; la prueba física en PS4 12.00 sigue pendiente.
