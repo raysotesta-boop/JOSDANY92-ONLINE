@@ -83,3 +83,10 @@
 - Se añadió un hook local al callback oficial `jailbreakSuccess` para registrar la finalización del payload GoldHEN 2.4b18.14 y mostrar el resultado al volver a JOSDANY92.
 - Android se aplaza hasta confirmar la activación en la PS4 física.
 - No se declara activación exitosa sin comprobar GoldHEN cargado en la consola.
+
+
+## Revisión de seguridad — 25 noviembre 2026
+- Activación JOSDANY92 limitada a un único intento: se desactiva el bucle de reintentos que WebKitty habilita internamente al iniciar el jailbreak.
+- Fuente WebKitty fijada a un commit revisado y verificación de blobs críticos añadida al workflow de sincronización.
+- Sin cambios al alcance de firmware: perfil exclusivo 12.00 / Wobkot-Lapse / GoldHEN 2.4b18.14.
+- La prueba real en la consola sigue siendo requisito antes de considerar la activación validada o iniciar el empaquetado Android.
