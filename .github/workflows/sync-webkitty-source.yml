@@ -1,0 +1,66 @@
+name: Sync official WebKitty source into JOSDANY92
+
+on:
+  push:
+    branches:
+      - JOSDANY92-V2.1
+    paths:
+      - .github/workflows/sync-webkitty-source.yml
+      - ACTIVACION-GOLDHEN.html
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        description: Branch where the official WebKitty source will be synchronized
+        required: true
+        default: JOSDANY92-V2.1
+
+permissions:
+  contents: write
+
+jobs:
+  sync-webkitty:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout development branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.target_branch || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Download official WebKitty source
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/ArabPixel/WebKitty.git /tmp/WebKitty
+          test -f /tmp/WebKitty/index.html
+          test -f /tmp/WebKitty/LICENSE
+          test -f /tmp/WebKitty/includes/caches/manifest/12xx.manifest
+          test -f /tmp/WebKitty/includes/payloads/HEN/goldhen_v2.4b18.14.bin
+          test -f /tmp/WebKitty/includes/js/HENs.js
+          test -f /tmp/WebKitty/includes/js/firmware.js
+          test -f /tmp/WebKitty/src/wobkot/main.js
+          grep -q "GHv2.4b18.14" /tmp/WebKitty/includes/js/HENs.js
+          grep -q "WOBKOT_LAPSE" /tmp/WebKitty/includes/js/firmware.js
+          git -C /tmp/WebKitty rev-parse HEAD > /tmp/WEBKITTY-UPSTREAM-COMMIT.txt
+
+      - name: Vendor WebKitty into this repository
+        env:
+          TARGET_BRANCH: ${{ github.event_name == 'workflow_dispatch' && inputs.target_branch || github.ref_name }}
+        run: |
+          set -euo pipefail
+          rm -rf WebKitty
+          mkdir -p WebKitty
+          rsync -a --exclude='.git' --exclude='.github' /tmp/WebKitty/ WebKitty/
+          cp /tmp/WEBKITTY-UPSTREAM-COMMIT.txt WEBKITTY-UPSTREAM-COMMIT.txt
+          test -f WebKitty/index.html
+          test -f WebKitty/includes/caches/manifest/12xx.manifest
+          test -f WebKitty/includes/payloads/HEN/goldhen_v2.4b18.14.bin
+          git status --short
+          git add WebKitty WEBKITTY-UPSTREAM-COMMIT.txt
+          if git diff --cached --quiet; then
+            echo "Official WebKitty source is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Vendor official WebKitty source for GoldHEN activation [skip ci]"
+          git push origin "HEAD:${TARGET_BRANCH}"
