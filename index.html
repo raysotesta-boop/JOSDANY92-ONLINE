@@ -449,12 +449,15 @@ case 'estabilidad':{
 case 'goldhen':{
  panelTitle.textContent='JOSDANY92 · ACTIVACIÓN GOLDHEN';
  const detected=detectPS4Firmware();
+ let lastResult='Sin registro de finalización del payload GoldHEN.';
+ try{const saved=JSON.parse(localStorage.getItem('j92-goldhen-last-success')||'null');if(saved&&saved.version==='2.4b18.14')lastResult='WebKitty reportó finalización de GoldHEN 2.4b18.14 · '+new Date(saved.timestamp).toLocaleString();}catch(e){}
  html=`<div class="launch-flow"><section class="launch-card">
  <div class="launch-kicker">PERFIL DE ACTIVACIÓN · PS4 PRO</div>
  <div class="launch-title">GOLDHEN 2.4b18.14</div>
  <p class="launch-sub">Flujo local preparado para firmware 12.00. El motor de exploit oficial se sincroniza dentro de este repositorio.</p>
  <div class="launch-status"><span class="launch-dot"></span><span>Firmware detectado: ${detected.version?'PS4 '+esc(detected.version):'No detectado en este navegador'}</span></div>
  <div class="quick-result"><b>Cadena prevista:</b> Wobkot (Slopkit) + Lapse · firmware 12.00<br><b>HEN:</b> GoldHEN 2.4b18.14<br><b>Reintentos:</b> desactivados para evitar ciclos automáticos</div>
+ <div class="quick-result"><b>Último resultado:</b> ${esc(lastResult)}<br><small>Este registro se guarda cuando el callback de éxito de WebKitty termina la carga del payload. Comprueba también el indicador GoldHEN en la consola.</small></div>
  <a class="launch-next" href="./ACTIVACION-GOLDHEN.html">ACTIVAR GOLDHEN</a>
  <div class="launch-warning">Antes de iniciar, la página de activación comprobará que estés en el navegador PS4 con firmware 12.00 y que los archivos esenciales del motor estén presentes. Si algo no coincide, bloqueará el inicio.</div>
  </section><section class="launch-card">
