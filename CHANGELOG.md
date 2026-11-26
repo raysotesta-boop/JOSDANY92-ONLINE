@@ -72,3 +72,12 @@
 ## v3.0 — Firmware y navegación
 - Ampliado otro 20% el cuadro de firmware y aumentado 20% el texto del título y del valor detectado.
 - Ajustada la etiqueta Compatibilidad para que no sobresalga ni se parta en el menú lateral.
+
+
+## v3.2 — integración real del motor GoldHEN
+- Se sincronizó el código oficial de WebKitty dentro de `WebKitty/` y se registró su commit upstream.
+- Se añadió `ACTIVACION-GOLDHEN.html`, con comprobación del navegador PS4, firmware 12.00, archivos esenciales, manifiesto 12.xx y configuración upstream.
+- El botón configura GoldHEN 2.4b18.14, Wobkot/Lapse (ID 10), temporizador de 8 segundos y reintentos automáticos desactivados.
+- El panel GoldHEN de JOSDANY92 ya conduce a la página de activación local.
+- Android se aplaza hasta confirmar la activación en la PS4 física.
+- No se declara activación exitosa sin comprobar GoldHEN cargado en la consola.
