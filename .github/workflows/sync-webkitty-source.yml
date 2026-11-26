@@ -8,11 +8,6 @@ on:
       - .github/workflows/sync-webkitty-source.yml
       - ACTIVACION-GOLDHEN.html
   workflow_dispatch:
-    inputs:
-      target_branch:
-        description: Branch where the official WebKitty source will be synchronized
-        required: true
-        default: JOSDANY92-V2.1
 
 permissions:
   contents: write
@@ -24,7 +19,7 @@ jobs:
       - name: Checkout development branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.target_branch || github.ref_name }}
+          ref: JOSDANY92-V2.1
           fetch-depth: 0
 
       - name: Download official WebKitty source
@@ -44,7 +39,7 @@ jobs:
 
       - name: Vendor WebKitty into this repository
         env:
-          TARGET_BRANCH: ${{ github.event_name == 'workflow_dispatch' && inputs.target_branch || github.ref_name }}
+          TARGET_BRANCH: JOSDANY92-V2.1
         run: |
           set -euo pipefail
           rm -rf WebKitty
