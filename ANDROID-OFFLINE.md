@@ -30,3 +30,16 @@ Esta guía prepara una copia local del **sitio estático** para que un teléfono
 ## Actualizar la copia del teléfono
 
 Cuando haya Internet, descarga de nuevo el ZIP de la rama elegida, conserva una copia de seguridad de la carpeta local y reemplaza su contenido por la nueva versión completa. Después vuelve a iniciar el servidor. La copia del teléfono no se actualiza sola cuando cambia GitHub.
+
+## Añadir WebKitty local para firmware 14.02
+
+Si también quieres tener WebKitty en el mismo servidor Android:
+
+1. Descarga el ZIP oficial completo: https://github.com/ArabPixel/WebKitty/archive/refs/heads/main.zip
+2. Extrae la carpeta y renómbrala exactamente `WebKitty`.
+3. Colócala dentro de la carpeta JOSDANY92, al mismo nivel que `index.html`. No reemplaces ni mezcles archivos de ambos proyectos.
+4. Abre `WEBKITTY-LOCAL.html` desde el servidor Android y pulsa **COMPROBAR COPIA LOCAL**. Debe validar los recursos del manifiesto de 14.02 antes de continuar.
+5. En la PS4 abre `/WebKitty/index.html` usando la misma IP y puerto del servidor. WebKitty inicia su propia preparación de caché si el navegador PS4 admite Application Cache.
+6. Para probar el modo sin teléfono, sigue la sección «Prueba de caché sin el teléfono» de [WEBKITTY-INTEGRACION.md](WEBKITTY-INTEGRACION.md).
+
+La carpeta WebKitty completa es necesaria: no basta con copiar `index.html`. El verificador solo comprueba archivos servidos por Android; la prueba final de caché debe hacerse en el navegador PS4 con el hotspot apagado.
