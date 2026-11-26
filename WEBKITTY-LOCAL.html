@@ -33,7 +33,7 @@ code{color:#aeeeff;overflow-wrap:anywhere}ol{padding-left:22px}.small{font-size:
 <div class="row"><a class="btn primary" href="https://github.com/ArabPixel/WebKitty/archive/refs/heads/main.zip" target="_blank" rel="noopener">Descargar WebKitty oficial (ZIP)</a><a class="btn" href="https://github.com/ArabPixel/WebKitty" target="_blank" rel="noopener">Ver repositorio y licencia</a></div>
 </section>
 <section>
-<h2>2 · Comprobar archivos de la versión 14.02</h2>
+<h2>2 · Comprobar archivos de la versión 12.00</h2>
 <p class="muted">Este test lee el manifiesto oficial 12.00 y comprueba que cada recurso requerido exista en el servidor local. No ejecuta archivos ni prueba el exploit.</p>
 <div class="row"><button class="primary" id="check">COMPROBAR COPIA LOCAL</button><a class="btn" id="openLocal" href="./WebKitty/index.html">Abrir WebKitty local</a></div>
 <div id="status" aria-live="polite">Esperando comprobación. Dirección actual: <code id="origin"></code></div>
@@ -83,7 +83,7 @@ async function exists(url){
  }catch(e){return {ok:false,code:'red/404'};}
 }
 check.addEventListener('click',async function(){
- check.disabled=true;results.innerHTML='';status.textContent='Leyendo manifiesto de caché 14.02…';
+ check.disabled=true;results.innerHTML='';status.textContent='Leyendo manifiesto de caché 12.00…';
  var manifest=new URL('includes/caches/manifest/12xx.manifest',base);
  try{
   var response=await fetch(manifest.href,{cache:'no-store'});
