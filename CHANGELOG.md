@@ -79,5 +79,6 @@
 - Se añadió `ACTIVACION-GOLDHEN.html`, con comprobación del navegador PS4, firmware 12.00, archivos esenciales, manifiesto 12.xx y configuración upstream.
 - El botón configura GoldHEN 2.4b18.14, Wobkot/Lapse (ID 10), temporizador de 8 segundos y reintentos automáticos desactivados.
 - El panel GoldHEN de JOSDANY92 ya conduce a la página de activación local.
+- Se añadió un hook local al callback oficial `jailbreakSuccess` para registrar la finalización del payload GoldHEN 2.4b18.14 y mostrar el resultado al volver a JOSDANY92.
 - Android se aplaza hasta confirmar la activación en la PS4 física.
 - No se declara activación exitosa sin comprobar GoldHEN cargado en la consola.
