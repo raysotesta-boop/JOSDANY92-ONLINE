@@ -103,6 +103,27 @@ function updateJbStats(attempt, isSuccess, revert) {
 
 // Called by exploit implementations after a successful jailbreak.
 function jailbreakSuccess(statusMessage) {
+    // JOSDANY92: record successful GoldHEN payload completion.
+    // This callback runs after WebKitty's selected payload loader returns.
+    try {
+        var j92PayloadPath = storage.session.getString('payload_path', '');
+        var j92IsGoldHEN = typeof user !== 'undefined'
+            && user.currentJbFlavor === 'GoldHEN'
+            && /goldhen_v2\.4b18\.14\.bin$/i.test(j92PayloadPath);
+        if (j92IsGoldHEN) {
+            localStorage.setItem('j92-goldhen-last-success', JSON.stringify({
+                result: 'WebKitty reported GoldHEN payload completion',
+                version: '2.4b18.14',
+                firmware: user.ps4Fw || getPs4FwVersion(),
+                exploitChain: user.exploitChain,
+                payload: j92PayloadPath,
+                timestamp: Date.now()
+            }));
+        }
+    } catch (e) {
+        console.warn('JOSDANY92 success marker could not be saved:', e);
+    }
+
     var isBinLoader = storage.session.getBoolean('binloader', false);
     if (storage.session.getBoolean('jailbreakNow', true)) {
         storage.session.remove('jailbreakNow');
