@@ -5,7 +5,7 @@
 En la rama `JOSDANY92-V2.1` ya existe:
 - Acceso **WEBKITTY** en el menú principal.
 - Apertura manual o automática al entrar en el panel, con retardo configurable de 0 a 90 segundos y botón para cancelar.
-- Página `WEBKITTY-LOCAL.html`, que verifica desde Android los recursos del manifiesto específico de PS4 14.02.
+- Página `WEBKITTY-LOCAL.html`, que verifica desde Android los recursos del manifiesto específico de PS4 12.00.
 - Enlaces al host oficial y al ZIP oficial de WebKitty.
 
 El temporizador solo abre el host elegido. No es un exploit ni activa GoldHEN por sí mismo.
@@ -45,7 +45,7 @@ JOSDANY92/
 
 6. En SimpleHttpServer (o servidor HTTP estático equivalente), selecciona la carpeta `JOSDANY92` como raíz. No selecciones solamente la carpeta WebKitty: JOSDANY92 necesita ver su propia página y la subcarpeta.
 7. Inicia el servidor y abre en el navegador Android la dirección local que muestre, terminada en `/WEBKITTY-LOCAL.html`.
-8. Pulsa **COMPROBAR COPIA LOCAL**. El verificador lee el manifiesto de WebKitty para firmware 14.02 y revisa los recursos requeridos. Si muestra archivos faltantes, vuelve a extraer el ZIP completo y repite la comprobación.
+8. Pulsa **COMPROBAR COPIA LOCAL**. El verificador lee el manifiesto de WebKitty para firmware 12.00 y revisa los recursos requeridos. Si muestra archivos faltantes, vuelve a extraer el ZIP completo y repite la comprobación.
 
 ## Conectar la PS4 y preparar la caché
 
@@ -76,14 +76,14 @@ También quedó preparado el workflow `.github/workflows/build-android-offline.y
 - Descargar el código oficial de WebKitty desde ArabPixel.
 - Colocarlo dentro de `JOSDANY92/WebKitty/`.
 - Incluir la revisión exacta de WebKitty usada en `WEBKITTY-UPSTREAM-COMMIT.txt`.
-- Comprobar que estén presentes el host, el verificador local, el manifiesto 14.02 y la licencia.
+- Comprobar que estén presentes el host, el verificador local, el manifiesto 12.00 y la licencia.
 - Empaquetar una sola carpeta `JOSDANY92` en `JOSDANY92-ANDROID-OFFLINE.zip`.
 
 **Estado:** el workflow está guardado en esta rama, pero GitHub exige que un workflow `workflow_dispatch` exista también en la rama predeterminada para poder lanzarlo desde Actions. No lo he copiado a `main`, para respetar que esa rama permanezca intacta. Por ahora puedes descargar los dos ZIP oficiales por separado; para generar el ZIP único habrá que autorizar publicar el workflow en `main` o integrar la rama.
 
-## Firmware 14.02 y estabilidad
+## Firmware 12.00 y compatibilidad
 
-El README oficial de WebKitty lista Slopkit / Afterglow para firmware 14.00–14.02. Eso es compatibilidad declarada por el proyecto, no garantía de éxito ni de estabilidad en cada PS4. No hay método que garantice evitar kernel panic, congelamientos o pantalla negra. Conserva copias de seguridad y evita repetir intentos tras un bloqueo.
+El README oficial de WebKitty lista Wobkot (Slopkit) / Lapse para firmware 9.00–12.02 y Slopkit / Lapse para 10.00–12.02. Por tanto, firmware 12.00 está dentro de la matriz publicada. El manifiesto oficial `12xx.manifest` incluye los payloads GoldHEN, entre ellos `goldhen_v2.4b18.14.bin`. Esto confirma que los recursos están contemplados en el paquete de caché; no garantiza que cada intento termine con éxito en toda consola. Conserva copias de seguridad y evita repetir intentos tras un bloqueo.
 
 ## Limitaciones conocidas
 
