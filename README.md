@@ -81,3 +81,13 @@ El host lee la versión `PlayStation 4 x.xx` de `navigator.userAgent`, si el nav
 
 ## Modo offline en Android
 Descarga el ZIP de esta rama mientras tengas Internet, extrae el proyecto completo en Android y publícalo con un servidor HTTP local. Conecta la PS4 al hotspot del teléfono y abre la URL local que indique el servidor. El teléfono solo sirve los archivos; no ejecuta el exploit. Guía paso a paso: [ANDROID-OFFLINE.md](ANDROID-OFFLINE.md).
+
+
+## WebKitty — acceso externo y temporizador (v3.1)
+
+- Se añadió un acceso al host oficial WebKitty.
+- Permite apertura manual o automática, con retardo de 0 a 90 segundos seleccionable segundo a segundo, guardado local y cancelación.
+- El temporizador únicamente abre el sitio externo; no ejecuta el exploit ni activa GoldHEN desde JOSDANY92.
+- WebKitty mantiene su propio sistema de caché basado en manifiestos. La guía explica cómo descargar el ZIP completo, servirlo desde Android y probar el modo sin red: [WEBKITTY-INTEGRACION.md](WEBKITTY-INTEGRACION.md).
+- WebKitty se publica bajo AGPL-3.0-or-later. JOSDANY92 lo enlaza como proyecto externo; no incorpora ni redistribuye su código fuente en esta integración.
+- La matriz oficial de WebKitty lista Slopkit / Afterglow para 14.00–14.02. La compatibilidad publicada no garantiza estabilidad en cada consola ni elimina el riesgo de kernel panic o pantalla negra.
