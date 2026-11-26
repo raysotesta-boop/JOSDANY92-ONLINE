@@ -68,6 +68,19 @@ Esta es la prueba decisiva; no puede hacerse desde el teléfono ni confirmarse d
 
 La caché está vinculada al origen exacto. Si cambia la IP o el puerto, puede no encontrar los recursos guardados. El navegador PS4 debe conservar soporte para Application Cache. El verificador Android solo comprueba que los archivos existen y se sirven correctamente; no puede inspeccionar el almacenamiento interno del navegador PS4.
 
+
+## ZIP único para Android (flujo de compilación preparado)
+
+También quedó preparado el workflow `.github/workflows/build-android-offline.yml`. Su trabajo es:
+
+- Descargar el código oficial de WebKitty desde ArabPixel.
+- Colocarlo dentro de `JOSDANY92/WebKitty/`.
+- Incluir la revisión exacta de WebKitty usada en `WEBKITTY-UPSTREAM-COMMIT.txt`.
+- Comprobar que estén presentes el host, el verificador local, el manifiesto 14.02 y la licencia.
+- Empaquetar una sola carpeta `JOSDANY92` en `JOSDANY92-ANDROID-OFFLINE.zip`.
+
+**Estado:** el workflow está guardado en esta rama, pero GitHub exige que un workflow `workflow_dispatch` exista también en la rama predeterminada para poder lanzarlo desde Actions. No lo he copiado a `main`, para respetar que esa rama permanezca intacta. Por ahora puedes descargar los dos ZIP oficiales por separado; para generar el ZIP único habrá que autorizar publicar el workflow en `main` o integrar la rama.
+
 ## Firmware 14.02 y estabilidad
 
 El README oficial de WebKitty lista Slopkit / Afterglow para firmware 14.00–14.02. Eso es compatibilidad declarada por el proyecto, no garantía de éxito ni de estabilidad en cada PS4. No hay método que garantice evitar kernel panic, congelamientos o pantalla negra. Conserva copias de seguridad y evita repetir intentos tras un bloqueo.
