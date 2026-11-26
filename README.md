@@ -89,6 +89,7 @@ La activación se está integrando y probando primero dentro de esta rama. Andro
 - El manifiesto 12.xx declara 108 recursos; todos están presentes en la copia integrada.
 - Perfil configurado: PS4 Pro · firmware 12.00 · Wobkot (Slopkit) + Lapse · GoldHEN 2.4b18.14.
 - La página de activación verifica el navegador PS4, firmware 12.00, archivos clave, manifiesto, selector GoldHEN y almacenamiento antes de habilitar el botón.
+- Se registra un resultado local únicamente cuando el callback oficial `jailbreakSuccess` termina tras cargar el payload GoldHEN 2.4b18.14; JOSDANY92 muestra ese resultado al volver al panel. Es una confirmación del callback de WebKitty, no una lectura independiente del overlay de GoldHEN.
 - Al confirmar, configura el selector GoldHEN 2.4b18.14 y la cadena Wobkot/Lapse, inicia el flujo oficial local con una cuenta atrás de 8 segundos y desactiva los reintentos automáticos.
 
 **Límite importante:** la integración ya está conectada al motor real de WebKitty, pero la ejecución en la PS4 física sigue pendiente. Un preflight correcto no significa que GoldHEN haya quedado activado. La prueba final será confirmar GoldHEN cargado en la consola. Si hay pantalla negra o kernel panic, detén los intentos y reinicia la consola antes de cualquier nueva prueba.
