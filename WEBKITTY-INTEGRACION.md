@@ -1,75 +1,80 @@
-# Integración externa de WebKitty en JOSDANY92
+# JOSDANY92 + WebKitty: instalación local y prueba offline
 
-## Qué se añadió
+## Resultado incorporado a JOSDANY92
 
-La rama JOSDANY92-V2.1 incorpora un acceso **WEBKITTY** en los accesos rápidos. El panel permite:
+En la rama `JOSDANY92-V2.1` ya existe:
+- Acceso **WEBKITTY** en el menú principal.
+- Apertura manual o automática al entrar en el panel, con retardo configurable de 0 a 90 segundos y botón para cancelar.
+- Página `WEBKITTY-LOCAL.html`, que verifica desde Android los recursos del manifiesto específico de PS4 14.02.
+- Enlaces al host oficial y al ZIP oficial de WebKitty.
 
-- Elegir apertura manual o automática.
-- Configurar un retardo de 0 a 90 segundos, segundo a segundo.
-- Guardar modo y tiempo en el almacenamiento local del navegador.
-- Cancelar la cuenta atrás antes de abrir el host.
-- Abrir el host oficial o descargar el ZIP completo del repositorio.
+El temporizador solo abre el host elegido. No es un exploit ni activa GoldHEN por sí mismo.
 
-**Límite importante:** el temporizador solo abre la página oficial de WebKitty. No dispara el exploit ni activa GoldHEN desde JOSDANY92. El motor de WebKitty sigue siendo un proyecto independiente.
+## Descargas oficiales
 
-## Enlaces oficiales
+- Repositorio: https://github.com/ArabPixel/WebKitty
+- ZIP oficial completo: https://github.com/ArabPixel/WebKitty/archive/refs/heads/main.zip
+- Host oficial: http://webkitty.arabpixel.net/
 
-- Host: http://webkitty.arabpixel.net/
-- Repositorio y código fuente: https://github.com/ArabPixel/WebKitty
-- ZIP de la rama principal: https://github.com/ArabPixel/WebKitty/archive/refs/heads/main.zip
+WebKitty es un proyecto independiente publicado bajo AGPL-3.0-or-later. JOSDANY92 lo enlaza y comprueba la copia local; no sustituye a sus autores ni redistribuye su código.
 
-## Instalar WebKitty en Android para servirlo localmente
+## Preparación del teléfono Android
 
-1. Mientras tengas Internet, descarga el ZIP oficial desde el enlace anterior.
-2. Extrae el ZIP completo dentro de la carpeta raíz que publica SimpleHttpServer, con el nombre exacto `WebKitty`. La estructura debe quedar así:
-   - `Servidor PS4/JOSDANY92/index.html`
-   - `Servidor PS4/JOSDANY92/WEBKITTY-LOCAL.html`
-   - `Servidor PS4/JOSDANY92/WebKitty/index.html`
-   - `Servidor PS4/JOSDANY92/WebKitty/exploit.html`
-   - `Servidor PS4/JOSDANY92/WebKitty/includes/`
-   - `Servidor PS4/JOSDANY92/WebKitty/src/`
-3. En Android, abre `WEBKITTY-LOCAL.html` desde el servidor local. Pulsa **COMPROBAR COPIA LOCAL**. El verificador lee el manifiesto 14.02 y comprueba que cada archivo requerido responda desde el servidor. Corrige los archivos faltantes antes de conectar la PS4.
+Haz esto mientras tengas Internet:
 
-## Instalar WebKitty en Android para servirlo localmente (continuación)
+1. Descarga el ZIP de WebKitty desde el enlace oficial.
+2. Extrae el ZIP completo. Renombra la carpeta extraída exactamente a `WebKitty`.
+3. Descarga y extrae también la rama `JOSDANY92-V2.1` de este repositorio. Deja los archivos de JOSDANY92 en una carpeta llamada `JOSDANY92`.
+4. Coloca la carpeta `WebKitty` dentro de la carpeta `JOSDANY92`, al mismo nivel que `index.html`.
+5. La estructura debe quedar así:
 
-1. Mientras tengas Internet, descarga el ZIP oficial desde el enlace anterior.
-2. Extrae el ZIP completo en una carpeta permanente, por ejemplo `Almacenamiento interno/PS4/WebKitty/`.
-3. No separes `index.html`, `cache.html`, `exploit.html`, `includes/`, `src/` ni los demás recursos. Debe conservarse toda la estructura del proyecto.
-4. En SimpleHttpServer (u otro servidor HTTP estático), selecciona la carpeta `WebKitty` como raíz y arranca el servidor.
-5. Conecta la PS4 al hotspot del teléfono y abre la URL local del servidor seguida de `/index.html`.
-6. Para preparar la caché, abre desde ese mismo origen local `/cache.html` en el navegador PS4 y espera a que el proceso indique que terminó. No cierres la página mientras esté descargando recursos.
+```
+JOSDANY92/
+  index.html
+  fondo-josdany92.jpg
+  josdany92-header.png
+  WEBKITTY-LOCAL.html
+  ANDROID-OFFLINE.md
+  WebKitty/
+    index.html
+    exploit.html
+    cache.html
+    includes/
+    src/
+```
 
-## Prueba offline
+6. En SimpleHttpServer (o servidor HTTP estático equivalente), selecciona la carpeta `JOSDANY92` como raíz. No selecciones solamente la carpeta WebKitty: JOSDANY92 necesita ver su propia página y la subcarpeta.
+7. Inicia el servidor y abre en el navegador Android la dirección local que muestre, terminada en `/WEBKITTY-LOCAL.html`.
+8. Pulsa **COMPROBAR COPIA LOCAL**. El verificador lee el manifiesto de WebKitty para firmware 14.02 y revisa los recursos requeridos. Si muestra archivos faltantes, vuelve a extraer el ZIP completo y repite la comprobación.
 
-Después de que el sistema de caché indique que terminó:
+## Conectar la PS4 y preparar la caché
 
-1. Cierra el navegador PS4 normalmente.
-2. Apaga el hotspot y desconecta el teléfono.
-3. Abre de nuevo el navegador PS4 y comprueba si recupera el host.
-4. Comprueba también que la selección de firmware y la pantalla principal se cargan sin recursos externos.
+1. Enciende el hotspot Wi-Fi del teléfono y conecta la PS4.
+2. Mantén el servidor HTTP de Android encendido.
+3. En el navegador PS4 abre la dirección local del servidor seguida de `/WebKitty/index.html`. Ejemplo ilustrativo: `http://192.168.43.1:8080/WebKitty/index.html`. Sustituye IP y puerto por los valores reales del servidor.
+4. WebKitty detecta el firmware. Su código comprueba `window.applicationCache`; si la caché no está preparada y la API está disponible, redirige a su flujo de caché específico.
+5. Espera a que finalice la descarga de recursos y regrese a la página principal. No cierres el navegador durante el proceso.
+6. Vuelve a abrir la misma URL local para confirmar que la página carga mientras el teléfono sigue conectado.
 
-El repositorio WebKitty utiliza el mecanismo legado `window.applicationCache` para la caché basada en manifiestos. Su propio código contempla el caso en que el navegador no admita `applicationCache` y muestra un error. Por tanto, no se debe asumir que la caché quedó instalada solo porque se abrió `cache.html`: hay que completar la descarga y realizar la prueba real sin red.
+## Prueba sin teléfono, sin Wi-Fi y sin Internet
 
-## Firmware 14.02
+Esta es la prueba decisiva; no puede hacerse desde el teléfono ni confirmarse desde GitHub:
 
-El README y la tabla de cadenas del repositorio oficial incluyen Slopkit / Afterglow para 14.00–14.02. Esto describe la compatibilidad publicada por WebKitty; no constituye una garantía de éxito o estabilidad en una consola concreta. El desarrollador del exploit y los mantenedores del host deben recibir el crédito correspondiente. Haz una copia de seguridad de datos importantes y no repitas intentos si aparecen bloqueos o pantallas negras.
+1. Cierra el navegador PS4 normalmente después de preparar la caché.
+2. Apaga el hotspot y detén el servidor del teléfono.
+3. Abre el navegador PS4 y, desde el historial, selecciona exactamente la misma dirección local usada antes (mismo protocolo, IP, puerto y ruta).
+4. Si WebKitty carga sin que el teléfono ni el servidor estén activos, la caché offline funciona en esa consola.
+5. Si no carga, la prueba no pasó. Vuelve a conectar el teléfono; no asumas que quedó cacheado.
 
-## Licencia y atribución
+La caché está vinculada al origen exacto. Si cambia la IP o el puerto, puede no encontrar los recursos guardados. El navegador PS4 debe conservar soporte para Application Cache. El verificador Android solo comprueba que los archivos existen y se sirven correctamente; no puede inspeccionar el almacenamiento interno del navegador PS4.
 
-WebKitty está publicado bajo **AGPL-3.0-or-later**. Esta integración de JOSDANY92 enlaza el proyecto externo y no copia ni modifica su código fuente. Si en el futuro se incorpora, modifica o redistribuye código de WebKitty dentro de JOSDANY92, habrá que cumplir la AGPL-3.0-or-later, conservar los avisos y ofrecer el código fuente correspondiente.
+## Firmware 14.02 y estabilidad
 
+El README oficial de WebKitty lista Slopkit / Afterglow para firmware 14.00–14.02. Eso es compatibilidad declarada por el proyecto, no garantía de éxito ni de estabilidad en cada PS4. No hay método que garantice evitar kernel panic, congelamientos o pantalla negra. Conserva copias de seguridad y evita repetir intentos tras un bloqueo.
 
-## Verificación desde el teléfono
+## Limitaciones conocidas
 
-JOSDANY92 incluye `WEBKITTY-LOCAL.html`. Ábrelo desde el servidor Android y pulsa **COMPROBAR COPIA LOCAL**. Comprueba los recursos del manifiesto de firmware 14.02 y muestra los que faltan. Es una comprobación HTTP de archivos, no prueba la caché interna de PS4.
-
-## Prueba de caché sin el teléfono
-
-La caché Application Cache de WebKitty se asocia al origen exacto (protocolo, IP y puerto). Después de preparar la caché en PS4:
-
-1. Cierra el navegador PS4 normalmente.
-2. Apaga el hotspot y el servidor del teléfono.
-3. Desde el historial del navegador PS4, vuelve a abrir exactamente la misma URL local, con la misma IP, puerto y ruta.
-4. Solo si WebKitty carga sin el teléfono se puede considerar que la caché offline funciona en esa consola.
-
-No se puede prometer que la caché persista sin probarlo en el navegador concreto. WebKitty comprueba `window.applicationCache` y emite error si esa API no está disponible. El verificador Android no puede probar la caché de PS4 por ti.
+- El teléfono actúa únicamente como servidor HTTP local; no lanza el navegador PS4 ni ejecuta el exploit.
+- Los enlaces externos y las actualizaciones remotas requieren Internet.
+- La prueba de archivos de `WEBKITTY-LOCAL.html` no equivale a una prueba de exploit.
+- El objetivo de la caché es permitir que el navegador PS4 recupere los recursos de la misma URL local sin servidor. Solo la prueba real con el hotspot apagado confirma que funciona.
