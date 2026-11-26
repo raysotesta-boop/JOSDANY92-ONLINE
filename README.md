@@ -77,3 +77,7 @@ El host lee la versión `PlayStation 4 x.xx` de `navigator.userAgent`, si el nav
 - El cuadro «Firmware detectado» aumenta otro 20% respecto a v2.9 (escala acumulada 1.44 respecto al tamaño base).
 - El texto del título y del valor de firmware aumenta 20% respecto a v2.9 para que «PS4 12.00» se lea mejor.
 - Se ajusta solo la etiqueta «Compatibilidad» del menú para que quepa en una línea dentro de la barra lateral.
+
+
+## Modo offline en Android
+Descarga el ZIP de esta rama mientras tengas Internet, extrae el proyecto completo en Android y publícalo con un servidor HTTP local. Conecta la PS4 al hotspot del teléfono y abre la URL local que indique el servidor. El teléfono solo sirve los archivos; no ejecuta el exploit. Guía paso a paso: [ANDROID-OFFLINE.md](ANDROID-OFFLINE.md).
