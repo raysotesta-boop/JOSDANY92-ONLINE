@@ -23,7 +23,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p bundle/JOSDANY92/WebKitty
-          rsync -a --exclude='.git' --exclude='.github' ./ bundle/JOSDANY92/
+          rsync -a --exclude='.git' --exclude='.github' --exclude='bundle' ./ bundle/JOSDANY92/
           rsync -a --exclude='.git' /tmp/WebKitty/ bundle/JOSDANY92/WebKitty/
           cp /tmp/WEBKITTY-UPSTREAM-COMMIT.txt bundle/JOSDANY92/WEBKITTY-UPSTREAM-COMMIT.txt
           test -f bundle/JOSDANY92/index.html
