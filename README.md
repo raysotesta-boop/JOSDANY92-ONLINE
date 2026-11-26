@@ -87,6 +87,7 @@ La activación se está integrando y probando primero dentro de esta rama. Andro
 - Motor oficial sincronizado en [WebKitty/](WebKitty/), con licencia AGPL-3.0-or-later.
 - Revisión upstream sincronizada: `bb5b65b8b7935f91a61516f06dbddb9f07674cd6`.
 - El manifiesto 12.xx declara 108 recursos; todos están presentes en la copia integrada.
+- Se compararon los Git blob SHA del payload GoldHEN 2.4b18.14, `src/kpatches/1200.bin`, Wobkot `main.js`, manifiesto 12.xx y licencia: coinciden con la revisión upstream registrada.
 - Perfil configurado: PS4 Pro · firmware 12.00 · Wobkot (Slopkit) + Lapse · GoldHEN 2.4b18.14.
 - La página de activación verifica el navegador PS4, firmware 12.00, archivos clave, manifiesto, selector GoldHEN y almacenamiento antes de habilitar el botón.
 - Se registra un resultado local únicamente cuando el callback oficial `jailbreakSuccess` termina tras cargar el payload GoldHEN 2.4b18.14; JOSDANY92 muestra ese resultado al volver al panel. Es una confirmación del callback de WebKitty, no una lectura independiente del overlay de GoldHEN.
