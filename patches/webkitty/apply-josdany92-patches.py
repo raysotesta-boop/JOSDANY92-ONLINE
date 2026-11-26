@@ -35,3 +35,23 @@ if anchor not in source:
     raise SystemExit("Expected upstream jailbreakSuccess anchor was not found; refusing to patch.")
 target.write_text(source.replace(anchor, replacement, 1), encoding="utf-8")
 print("Applied JOSDANY92 GoldHEN success marker.")
+
+# Prevent WebKitty's default retry loop for the JOSDANY92 one-shot launch.
+retry_target = Path("WebKitty/includes/js/jailbreak.js")
+retry_source = retry_target.read_text(encoding="utf-8")
+retry_marker = "// JOSDANY92: keep this launch to one attempt; require a manual restart after failure."
+if retry_marker not in retry_source:
+    retry_anchor = "  // Make it retry until success\n  storage.session.set('autoJbRetry', true);"
+    retry_replacement = """  // JOSDANY92: keep this launch to one attempt; require a manual restart after failure.
+  if (sessionStorage.getItem('j92SingleAttempt') === 'true') {
+    storage.session.set('autoJbRetry', false);
+  } else {
+    // Make it retry until success (upstream default).
+    storage.session.set('autoJbRetry', true);
+  }"""
+    if retry_anchor not in retry_source:
+        raise SystemExit("Expected upstream auto-retry anchor was not found; refusing to patch.")
+    retry_target.write_text(retry_source.replace(retry_anchor, retry_replacement, 1), encoding="utf-8")
+    print("Applied JOSDANY92 single-attempt safety guard.")
+else:
+    print("JOSDANY92 single-attempt safety guard already applied.")
