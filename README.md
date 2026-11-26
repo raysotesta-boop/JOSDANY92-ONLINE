@@ -79,8 +79,22 @@ El host lee la versión `PlayStation 4 x.xx` de `navigator.userAgent`, si el nav
 - Se ajusta solo la etiqueta «Compatibilidad» del menú para que quepa en una línea dentro de la barra lateral.
 
 
-## Modo offline en Android
-Descarga el ZIP de esta rama mientras tengas Internet, extrae el proyecto completo en Android y publícalo con un servidor HTTP local. Conecta la PS4 al hotspot del teléfono y abre la URL local que indique el servidor. El teléfono solo sirve los archivos; no ejecuta el exploit. Guía paso a paso: [ANDROID-OFFLINE.md](ANDROID-OFFLINE.md).
+## Activación real de GoldHEN · fase de desarrollo en repositorio
+
+La activación se está integrando y probando primero dentro de esta rama. Android queda aplazado hasta que la prueba en PS4 sea satisfactoria.
+
+- Página de inicio controlado: [ACTIVACION-GOLDHEN.html](ACTIVACION-GOLDHEN.html).
+- Motor oficial sincronizado en [WebKitty/](WebKitty/), con licencia AGPL-3.0-or-later.
+- Revisión upstream sincronizada: `bb5b65b8b7935f91a61516f06dbddb9f07674cd6`.
+- El manifiesto 12.xx declara 108 recursos; todos están presentes en la copia integrada.
+- Perfil configurado: PS4 Pro · firmware 12.00 · Wobkot (Slopkit) + Lapse · GoldHEN 2.4b18.14.
+- La página de activación verifica el navegador PS4, firmware 12.00, archivos clave, manifiesto, selector GoldHEN y almacenamiento antes de habilitar el botón.
+- Al confirmar, configura el selector GoldHEN 2.4b18.14 y la cadena Wobkot/Lapse, inicia el flujo oficial local con una cuenta atrás de 8 segundos y desactiva los reintentos automáticos.
+
+**Límite importante:** la integración ya está conectada al motor real de WebKitty, pero la ejecución en la PS4 física sigue pendiente. Un preflight correcto no significa que GoldHEN haya quedado activado. La prueba final será confirmar GoldHEN cargado en la consola. Si hay pantalla negra o kernel panic, detén los intentos y reinicia la consola antes de cualquier nueva prueba.
+
+## Android offline · aplazado hasta validar GoldHEN
+No se preparará ni se probará el paquete Android todavía. Primero debemos confirmar que la activación de GoldHEN funciona desde el repositorio en tu PS4. Después adaptaremos la misma copia validada para Android.
 
 
 ## WebKitty — acceso externo y temporizador (v3.1)
