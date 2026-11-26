@@ -1,3 +1,5 @@
+> **Estado:** guía reservada para una fase posterior. No prepares Android todavía. Primero valida la activación de GoldHEN desde el repositorio en la PS4 física. Una vez confirmada, se actualizará esta guía con el paquete local definitivo.
+
 # JOSDANY92 — servidor local Android (modo sin Internet)
 
 Esta guía prepara una copia local del **sitio estático** para que un teléfono Android la publique por HTTP en la red local y la PS4 la abra desde su navegador. El teléfono solo sirve archivos: **no ejecuta el exploit**. El exploit, si se utiliza, se ejecuta en la PS4 y debe ser compatible con el firmware exacto.
