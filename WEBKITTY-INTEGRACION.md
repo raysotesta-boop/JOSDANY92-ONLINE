@@ -79,7 +79,7 @@ También quedó preparado el workflow `.github/workflows/build-android-offline.y
 - Comprobar que estén presentes el host, el verificador local, el manifiesto 12.00 y la licencia.
 - Empaquetar una sola carpeta `JOSDANY92` en `JOSDANY92-ANDROID-OFFLINE.zip`.
 
-**Estado:** el workflow está guardado en esta rama, pero GitHub exige que un workflow `workflow_dispatch` exista también en la rama predeterminada para poder lanzarlo desde Actions. No lo he copiado a `main`, para respetar que esa rama permanezca intacta. Por ahora puedes descargar los dos ZIP oficiales por separado; para generar el ZIP único habrá que autorizar publicar el workflow en `main` o integrar la rama.
+**Estado:** el workflow ya está publicado también en `main` (solo se agregó ese archivo, sin modificar los demás contenidos de esa rama), por lo que GitHub Actions puede ofrecerlo para ejecución. Abre https://github.com/raysotesta-boop/JOSDANY92-ONLINE/actions/workflows/build-android-offline.yml, pulsa **Run workflow** y selecciona la rama `JOSDANY92-V2.1`. Cuando termine correctamente, descarga el artefacto `JOSDANY92-ANDROID-OFFLINE`. El ZIP todavía no existe hasta completar esa ejecución.
 
 ## Firmware 12.00 y compatibilidad
 
