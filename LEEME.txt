@@ -35,3 +35,13 @@ Al abrir el host, se intenta leer la versión PS4 desde el User-Agent del navega
 
 ESCUDO DE ESTABILIDAD — V2.3
 Antes de cualquier integración real, comprobar firmware exacto, exploit, versión de GoldHEN y archivo. No mezclar offsets ni blobs de firmwares diferentes, no ejecutar loaders simultáneos y no repetir un intento que terminó en congelación o pantalla negra sin revisar primero el fallo. La identificación PS4/PS4 Pro requiere confirmación manual. El host no puede garantizar la eliminación de kernel panic.
+
+
+MODO OFFLINE EN ANDROID
+- Descarga el ZIP completo de la rama mientras tengas Internet y extráelo en una carpeta permanente del teléfono.
+- Conserva index.html, fondo-josdany92.jpg, josdany92-header.png y todos los recursos/carpetas del proyecto.
+- Selecciona esa carpeta como raíz en un servidor HTTP estático Android (por ejemplo, SimpleHttpServer).
+- Activa el hotspot del teléfono, conecta la PS4 y abre en su navegador la IP:puerto real que indique el servidor, seguida de /index.html.
+- No se necesita Internet para la conexión local. El teléfono solo aloja y entrega archivos; no ejecuta el exploit.
+- Guía completa: ANDROID-OFFLINE.md.
+- La copia del teléfono no se actualiza automáticamente desde GitHub; descarga el ZIP nuevo cuando vuelvas a tener Internet.
