@@ -83,7 +83,7 @@ También quedó preparado el workflow `.github/workflows/build-android-offline.y
 
 ## Firmware 12.00 y compatibilidad
 
-El README oficial de WebKitty lista Wobkot (Slopkit) / Lapse para firmware 9.00–12.02 y Slopkit / Lapse para 10.00–12.02. Por tanto, firmware 12.00 está dentro de la matriz publicada. El manifiesto oficial `12xx.manifest` incluye los payloads GoldHEN, entre ellos `goldhen_v2.4b18.14.bin`. Esto confirma que los recursos están contemplados en el paquete de caché; no garantiza que cada intento termine con éxito en toda consola. Conserva copias de seguridad y evita repetir intentos tras un bloqueo.
+El README oficial de WebKitty lista Wobkot (Slopkit) / Lapse para firmware 9.00–12.02 y Slopkit / Lapse para 10.00–12.02. Por tanto, firmware 12.00 está dentro de la matriz publicada. Además, el selector oficial de WebKitty define GoldHEN v2.4b18.14 como versión predeterminada y el manifiesto `12xx.manifest` incluye ese archivo de payload. Es una coincidencia muy favorable para tu configuración. Aun así, la presencia y selección del payload no equivalen a una prueba de ejecución en tu PS4. Conserva copias de seguridad y evita repetir intentos tras un bloqueo.
 
 ## Limitaciones conocidas
 
