@@ -29,7 +29,7 @@ jobs:
           test -f bundle/JOSDANY92/index.html
           test -f bundle/JOSDANY92/WEBKITTY-LOCAL.html
           test -f bundle/JOSDANY92/WebKitty/index.html
-          test -f bundle/JOSDANY92/WebKitty/includes/caches/manifest/140x.manifest
+          test -f bundle/JOSDANY92/WebKitty/includes/caches/manifest/12xx.manifest
           test -f bundle/JOSDANY92/WebKitty/LICENSE
           cd bundle
           zip -qr ../JOSDANY92-ANDROID-OFFLINE.zip JOSDANY92
