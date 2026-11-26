@@ -173,6 +173,7 @@ activate.addEventListener('click',function(){
   localStorage.setItem('j92-goldhen-last-attempt',JSON.stringify({firmware:'12.00',version:'2.4b18.14',exploitChain:10,timestamp:Date.now()}));
   sessionStorage.setItem('autoJb','true');
   sessionStorage.setItem('autoJbRetry','false');
+  sessionStorage.setItem('j92SingleAttempt','true');
   sessionStorage.removeItem('payload_path');
   sessionStorage.removeItem('jailbreakNow');
   status.textContent='Configuración preparada. Abriendo motor oficial WebKitty…';
