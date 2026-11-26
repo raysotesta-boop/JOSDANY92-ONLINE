@@ -88,6 +88,7 @@ Descarga el ZIP de esta rama mientras tengas Internet, extrae el proyecto comple
 - Se añadió un acceso al host oficial WebKitty.
 - Permite apertura manual o automática, con retardo de 0 a 90 segundos seleccionable segundo a segundo, guardado local y cancelación.
 - El temporizador únicamente abre el sitio externo; no ejecuta el exploit ni activa GoldHEN desde JOSDANY92.
-- WebKitty mantiene su propio sistema de caché basado en manifiestos. La guía explica cómo descargar el ZIP completo, servirlo desde Android y probar el modo sin red: [WEBKITTY-INTEGRACION.md](WEBKITTY-INTEGRACION.md).
+- WebKitty mantiene su propio sistema de caché basado en manifiestos. La guía explica la estructura exacta de carpetas y la prueba sin teléfono: [WEBKITTY-INTEGRACION.md](WEBKITTY-INTEGRACION.md).
+- Se añadió [WEBKITTY-LOCAL.html](WEBKITTY-LOCAL.html), un verificador que comprueba desde Android los recursos del manifiesto oficial de firmware 14.02 antes de conectar la PS4.
 - WebKitty se publica bajo AGPL-3.0-or-later. JOSDANY92 lo enlaza como proyecto externo; no incorpora ni redistribuye su código fuente en esta integración.
 - La matriz oficial de WebKitty lista Slopkit / Afterglow para 14.00–14.02. La compatibilidad publicada no garantiza estabilidad en cada consola ni elimina el riesgo de kernel panic o pantalla negra.
