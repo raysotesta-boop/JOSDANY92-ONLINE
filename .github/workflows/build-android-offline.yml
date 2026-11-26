@@ -1,0 +1,44 @@
+name: Build JOSDANY92 Android Offline Bundle
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-offline-bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout JOSDANY92 branch
+        uses: actions/checkout@v4
+
+      - name: Download official WebKitty source
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/ArabPixel/WebKitty.git /tmp/WebKitty
+          git -C /tmp/WebKitty rev-parse HEAD > /tmp/WEBKITTY-UPSTREAM-COMMIT.txt
+
+      - name: Assemble Android folder
+        run: |
+          set -euo pipefail
+          mkdir -p bundle/JOSDANY92/WebKitty
+          rsync -a --exclude='.git' --exclude='.github' --exclude='bundle' ./ bundle/JOSDANY92/
+          rsync -a --exclude='.git' /tmp/WebKitty/ bundle/JOSDANY92/WebKitty/
+          cp /tmp/WEBKITTY-UPSTREAM-COMMIT.txt bundle/JOSDANY92/WEBKITTY-UPSTREAM-COMMIT.txt
+          test -f bundle/JOSDANY92/index.html
+          test -f bundle/JOSDANY92/WEBKITTY-LOCAL.html
+          test -f bundle/JOSDANY92/WebKitty/index.html
+          test -f bundle/JOSDANY92/WebKitty/includes/caches/manifest/140x.manifest
+          test -f bundle/JOSDANY92/WebKitty/LICENSE
+          cd bundle
+          zip -qr ../JOSDANY92-ANDROID-OFFLINE.zip JOSDANY92
+          cd ..
+
+      - name: Upload one ZIP for Android
+        uses: actions/upload-artifact@v4
+        with:
+          name: JOSDANY92-ANDROID-OFFLINE
+          path: JOSDANY92-ANDROID-OFFLINE.zip
+          if-no-files-found: error
+          retention-days: 30
