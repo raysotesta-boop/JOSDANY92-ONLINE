@@ -147,7 +147,9 @@ async function preflight(){
  var allOk=results.every(function(x){return x.ok;});
  activate.disabled=!allOk;
  if(allOk){
-  status.textContent='LISTO PARA INICIAR. Firmware 12.00, archivos WebKitty, manifiesto, Wobkot y GoldHEN 2.4b18.14 comprobados. El botón iniciará el flujo real.';
+  var previous=null;
+  try{previous=JSON.parse(localStorage.getItem('j92-goldhen-last-success')||'null');}catch(e){}
+  status.textContent='LISTO PARA INICIAR. Firmware 12.00, archivos WebKitty, manifiesto, Wobkot y GoldHEN 2.4b18.14 comprobados.'+(previous&&previous.version==='2.4b18.14'?' Último resultado registrado: WebKitty reportó finalización del payload.':' El botón iniciará el flujo real.');
  }else{
   status.textContent='BLOQUEADO: hay comprobaciones pendientes. Sin la carpeta WebKitty completa y firmware 12.00 detectado no se iniciará nada.';
  }
@@ -167,6 +169,8 @@ activate.addEventListener('click',function(){
   localStorage.setItem('autoJbRetry','false');
   localStorage.setItem('autoJbTimer','8');
   localStorage.setItem('bareboneJB','false');
+  localStorage.removeItem('j92-goldhen-last-success');
+  localStorage.setItem('j92-goldhen-last-attempt',JSON.stringify({firmware:'12.00',version:'2.4b18.14',exploitChain:10,timestamp:Date.now()}));
   sessionStorage.setItem('autoJb','true');
   sessionStorage.setItem('autoJbRetry','false');
   sessionStorage.removeItem('payload_path');
