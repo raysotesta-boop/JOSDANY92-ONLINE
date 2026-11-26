@@ -347,6 +347,7 @@ footer{display:flex;justify-content:space-between;align-items:center;gap:12px;fl
   <button class="quick-card" data-action="apps"><span>📦</span><b>APLICACIONES</b><small>Organizar archivos homebrew</small></button>
   <button class="quick-card" data-action="tools"><span>🛠️</span><b>HERRAMIENTAS</b><small>Diagnóstico y red local</small></button>
   <button class="quick-card" data-action="settings"><span>⚙️</span><b>AJUSTES DEL HOST</b><small>Preferencias de pantalla</small></button>
+  <button class="quick-card" data-action="webkitty"><span>🐱</span><b>WEBKITTY</b><small>Abrir host oficial · caché offline</small></button>
  </div>
  <footer><span><b>JOSDANY92</b> · CONTROL CENTER</span><span class="status">● PANEL LOCAL</span><span>POTENCIA · CONTROL · ESTILO</span></footer>
  <div class="note">Un espacio limpio, llamativo y personalizado para organizar tus herramientas. Las funciones de carga se habilitarán cuando sus archivos y compatibilidad estén verificados.</div>
@@ -406,6 +407,21 @@ function showFiles(files,target,kind){
 function openPanel(action){panel.hidden=false;panel.dataset.action=action;let html='';const host=location.origin;
 switch(action){
 case 'home':panel.hidden=true;return;
+case 'webkitty':{
+ panelTitle.textContent='WEBKITTY · Host PS4 externo';
+ const savedMode=localStorage.getItem('j92-webkitty-mode')||'manual';
+ const savedSeconds=Math.max(0,Math.min(90,parseInt(localStorage.getItem('j92-webkitty-seconds')||'10',10)||0));
+ html=`<p class="panel-copy">Acceso al host oficial WebKitty de ArabPixel. Detecta el firmware y ofrece cadenas de exploit y un sistema propio de caché por firmware.</p>
+ <div class="quick-result"><b>Tu consola:</b> PS4 Pro · firmware informado: 14.02<br><b>Perfil WebKitty:</b> Slopkit / Afterglow · 14.00–14.02, según la matriz publicada por el proyecto. La compatibilidad y estabilidad deben probarse en la consola.</div>
+ <div class="panel-row"><label for="wkMode">Modo de apertura</label><select id="wkMode" class="panel-btn"><option value="manual">Manual</option><option value="auto">Automático al abrir este panel</option></select></div>
+ <div class="panel-row"><label for="wkSeconds">Tiempo de espera (0–90 segundos)</label><input id="wkSeconds" class="panel-input" type="number" min="0" max="90" step="1" value="${savedSeconds}" style="max-width:130px"></div>
+ <div class="quick-result" id="wkStatus" aria-live="polite">Modo manual: espera tu orden para abrir WebKitty.</div>
+ <div class="panel-row"><button class="panel-btn" id="wkSave">Guardar configuración</button><button class="panel-btn" id="wkStart">Abrir ahora</button><button class="panel-btn" id="wkCancel">Cancelar cuenta atrás</button></div>
+ <div class="panel-row"><a class="panel-link" href="http://webkitty.arabpixel.net/" target="_blank" rel="noopener">Abrir WebKitty oficial</a><a class="panel-link" href="https://github.com/ArabPixel/WebKitty/archive/refs/heads/main.zip" target="_blank" rel="noopener">Descargar WebKitty ZIP</a></div>
+ <p class="panel-muted">IMPORTANTE: el modo automático/manual y el temporizador de JOSDANY92 solo controlan cuándo se abre el host oficial. No activan GoldHEN por sí mismos ni ejecutan el exploit dentro de esta página. Para usarlo sin Internet, descarga el ZIP, extráelo completo en Android y sírvelo desde SimpleHttpServer. Después entra a cache.html desde el host local para preparar la caché de WebKitty. La caché y el arranque sin red deben verificarse en tu navegador PS4.</p>
+ <p class="panel-muted">WebKitty está publicado bajo AGPL-3.0-or-later. JOSDANY92 lo enlaza como proyecto externo; no copia ni redistribuye su código fuente en esta integración.</p>`;
+ break;
+}
 case 'games':panelTitle.textContent='Juegos · Paquetes PKG';html=`<p class="panel-copy">Acceso a la carpeta de juegos que compartes desde Android. Crea una carpeta llamada <b>JUEGOS</b> dentro de "Servidor PS4" y coloca allí tus archivos .PKG.</p><div class="panel-row"><a class="panel-link" href="/JUEGOS/">🎮 Abrir carpeta JUEGOS</a><button class="panel-btn" id="choosePkg">＋ Revisar archivos seleccionados</button></div><div id="fileResults"></div><p class="panel-muted">La carpeta permite ver y descargar archivos desde el servidor local. El navegador no instala juegos en la PS4.</p>`;break;
 case 'apps':panelTitle.textContent='Aplicaciones · Homebrew';html=`<p class="panel-copy">Acceso a tus herramientas Homebrew guardadas en Android. Crea una carpeta llamada <b>APLICACIONES</b> dentro de "Servidor PS4" y coloca allí los archivos que quieras organizar.</p><div class="panel-row"><a class="panel-link" href="/APLICACIONES/">📦 Abrir carpeta APLICACIONES</a><button class="panel-btn" id="chooseApps">＋ Revisar archivos seleccionados</button></div><div id="fileResults"></div><p class="panel-muted">Reconoce nombres .PKG, .ELF y .BIN. Verlos o descargarlos no significa que puedan ejecutarse desde el navegador.</p>`;break;
 case 'tools':case 'ftp':panelTitle.textContent='Herramientas · Red local';html=`<p class="panel-copy">Estado de la conexión con el servidor local.</p><div class="quick-result"><b>Dirección del host</b><br>${esc(location.origin)}</div><div class="quick-result"><b>Protocolo</b> ${esc(location.protocol)} · <b>Puerto</b> ${esc(location.port||'(predeterminado)')}</div><div class="quick-result"><b>Conectividad del navegador:</b> ${navigator.onLine?'Conectado':'Sin conexión reportada'}</div><div class="panel-row"><a class="panel-link" href="/">Abrir raíz del servidor</a><button class="panel-btn" id="refreshPage">↻ Recargar host</button></div><p class="panel-muted">SimpleHttpServer sirve archivos por HTTP. Esto no inicia un servidor FTP en PS4; para FTP real hace falta un payload/servicio activo en la consola.</p>`;break;
@@ -455,6 +471,26 @@ case 'acerca':panelTitle.textContent='Acerca de JOSDANY92';html=`<p class="panel
 default:panelTitle.textContent='Acceso rápido';html='<p class="panel-copy">Sección preparada.</p>';
 }
 panelBody.innerHTML=html;panelActiveIndex=0;requestAnimationFrame(()=>setPanelFocus(0));
+if(action==='webkitty'){
+ const mode=document.getElementById('wkMode'),seconds=document.getElementById('wkSeconds'),status=document.getElementById('wkStatus');
+ const save=document.getElementById('wkSave'),start=document.getElementById('wkStart'),cancel=document.getElementById('wkCancel');
+ const target='http://webkitty.arabpixel.net/';
+ let timer=null,remaining=0;
+ mode.value=localStorage.getItem('j92-webkitty-mode')||'manual';
+ seconds.value=Math.max(0,Math.min(90,parseInt(localStorage.getItem('j92-webkitty-seconds')||'10',10)||0));
+ const stop=()=>{if(timer!==null){clearInterval(timer);timer=null;}remaining=0;};
+ const begin=()=>{stop();let n=Number(seconds.value);if(!Number.isInteger(n)||n<0||n>90){status.textContent='Tiempo inválido. Selecciona entre 0 y 90 segundos.';return;}
+  localStorage.setItem('j92-webkitty-mode',mode.value);localStorage.setItem('j92-webkitty-seconds',String(n));remaining=n;
+  if(remaining===0){status.textContent='Abriendo WebKitty…';location.href=target;return;}
+  status.textContent='WebKitty se abrirá en '+remaining+' segundos. Puedes cancelar.';
+  timer=setInterval(()=>{remaining--;if(remaining<=0){stop();status.textContent='Abriendo WebKitty…';location.href=target;}else status.textContent='WebKitty se abrirá en '+remaining+' segundos. Puedes cancelar.';},1000);
+ };
+ cancel.onclick=()=>{stop();status.textContent='Cuenta atrás cancelada. WebKitty no se abrirá.';};
+ start.onclick=()=>begin();
+ save.onclick=()=>{stop();localStorage.setItem('j92-webkitty-mode',mode.value);localStorage.setItem('j92-webkitty-seconds',String(Math.max(0,Math.min(90,parseInt(seconds.value,10)||0))));if(mode.value==='auto')begin();else status.textContent='Configuración guardada. Modo manual: pulsa «Abrir ahora» cuando quieras.';};
+ mode.onchange=()=>{stop();if(mode.value==='auto')begin();else status.textContent='Modo manual seleccionado. Esperando tu orden.';};
+ if(mode.value==='auto')begin();
+}
 const fwRefresh=document.getElementById('refreshFirmware');if(fwRefresh)fwRefresh.onclick=()=>openPanel('firmware');const scanBtn=document.getElementById('scanGoldhen');if(scanBtn)scanBtn.onclick=scanGoldhenFiles;
 const chooseGold=document.getElementById('chooseGold'),choosePs4=document.getElementById('choosePs4'),launchContinue=document.getElementById('launchContinue');
 let selectedHen='GoldHEN';
