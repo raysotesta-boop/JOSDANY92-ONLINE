@@ -152,16 +152,19 @@ replace_once(
 
 # 4) Both launch controls check the success marker before setting the click lock.
 events = ROOT / "includes/js/events.js"
-replace_once(
-    events,
-    '    if (user.blockJailbreak) return;',
-    """    if (storage.session.getBoolean('j92GoldHENActive', false)) {
+events_source = read(events)
+click_anchor = '    if (user.blockJailbreak) return;'
+click_guard = """    if (storage.session.getBoolean('j92GoldHENActive', false)) {
         jailbreakAlreadyActive(true);
         return;
     }
-    if (user.blockJailbreak) return;""",
-    'j92GoldHENActive click guard'
-)
+    if (user.blockJailbreak) return;"""
+if 'j92GoldHENActive click guard' not in events_source:
+    if events_source.count(click_anchor) != 2:
+        raise SystemExit("Expected both WebKitty launch controls before patching events.js")
+    events_source = events_source.replace(click_anchor, click_guard, 2)
+    write(events, events_source)
+    print("Applied GoldHEN guard to both launch controls.")
 
 
 # 5) Automatic retry is a real opt-in switch. Toggling it never starts an exploit.
