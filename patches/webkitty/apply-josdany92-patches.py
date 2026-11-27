@@ -433,7 +433,7 @@ assets = [
     "../../../includes/css/colors/josdany92-neon.css",
     "../../../includes/css/neon-exploit-loader.css",
     "../../../includes/js/neon-exploit-loader.js",
-    "../../../fondo-josdany92.jpg",
+    "../../../../fondo-josdany92.jpg",
 ]
 for manifest in manifest_dir.glob("*.manifest"):
     if manifest.name == "cachePayloads.manifest":
