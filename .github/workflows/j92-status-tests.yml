@@ -22,6 +22,7 @@ jobs:
       - name: Syntax-check modified JavaScript
         run: |
           node --check WebKitty/includes/js/jailbreak.js
+          node --check WebKitty/includes/js/jailbreak-legacy.js
           node --check WebKitty/includes/js/utilities.js
           node --check WebKitty/includes/js/autoJbRetry.js
           node --check WebKitty/includes/js/neon-exploit-loader.js
@@ -76,5 +77,6 @@ jobs:
           grep -Fq 'GOLDHEN NO ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'j92GoldHENVersionMatch' WebKitty/includes/js/utilities.js
           grep -Fq 'hide retry/result overlay before every new exploit attempt' WebKitty/includes/js/jailbreak.js
+          grep -Fq 'hide retry/result overlay before every new exploit attempt' WebKitty/includes/js/jailbreak-legacy.js
           grep -Fq 'Barebone errors must reach the visible status layer' WebKitty/exploit.html
           grep -Fq 'show the retry state only during an automatic retry countdown' WebKitty/includes/js/autoJbRetry.js
