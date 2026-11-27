@@ -1152,160 +1152,12 @@ button {
 }
 
 /* ==========================================
-   UNIFIED DASHBOARD THEME HOOK
+   JOSDANY92 COMPACT — FINAL VIEWPORT LAYOUT
+   Layout only. Neon remains a separate visual color skin.
    ========================================== */
 
-/* 1. Global Reset of Scrolling Blocks */
-html, body {
-    height: 100vh !important;
-    max-height: 100vh !important;
-    overflow: hidden !important;
-}
-
-/* 2. Turn the Main Container into a 2-Row Grid */
-.mainContainer {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
-    padding: 12px !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-}
-
-/* 3. Transform Initial Screen into a Slim Top Header Dashboard */
-#initial-screen {
-    flex: 0 0 auto !important;
-    height: auto !important;
-    min-height: initial !important;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 16px !important;
-    margin-bottom: 8px !important;
-}
-
-#initial-screen #pslogo{
-    display: none;
-}
-
-/* Hide clutter elements that break a unified page concept */
-#scrollDown { /* Hides duplicate top-left settings gear */
-    display: none !important;
-}
-
-/* Shrink the massive PS Button to fit the header strip */
-#ps-logo-container {
-    padding: 6px !important;
-    border-radius: 50% !important;
-}
-#ps-logo {
-    width: 2.5rem !important;  /* Elegant small action button */
-    height: 2.5rem !important;
-}
-
-/* Clean up Firmware Message styling */
-#PS4FW, #exploitChainLabel {
-    margin: 0 !important;
-    font-size: 1.125rem !important; /* text-lg */
-    font-weight: 600 !important;
-}
-
-#exploitChainLabel{
-    display: none;
-}
-
-/* Make the top HEN choice box blend completely transparently into the header row */
-#choosejb-initial {
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    max-width: initial !important;
-    width: auto !important;
-    display: none;
-}
-#choosejb-initial h3 {
-    display: none !important; /* Hides the extra "Choose your HEN flavor" text */
-}
-
-
-/* 4. Fit the Exploit Screens Perfectly on the Remaining Viewport Space */
-#exploit-main-screen {
-    flex: 1 1 auto !important;
-    height: 91% !important;  /* Forces flex child to respect container bounds */
-    min-height: 0 !important;
-    overflow: hidden !important;
-}
-
-
-/* 5. Dynamically Constraint Scrollable Sub-Elements */
-#DebugConsole {
-    flex-grow: 1 !important;
-    min-height: 100px !important;
-    margin-bottom: 8px !important;
-}
-
-#DebugConsole:hover {
-    cursor: pointer;
-}
-
-#payloadsGrid {
-    flex-grow: 1 !important;
-    max-height: calc(100vh - 280px) !important; /* Locks list viewport from expanding out of boundaries */
-    overflow-y: auto !important;
-}
-
-#click-to-start-text{
-    width: 20%;
-    text-align: center;
-    margin: 0;
-}
-
-#autoJbTimer {
-    display: flex;
-    align-items: stretch;
-    width: 20%;
-    margin: 0 20px 0 auto;
-    padding: 0;
-    cursor: default;
-    border: 1px solid #2563eb;
-    border-radius: 12px;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-html[dir="rtl"] #autoJbTimer {
-    margin: 0 auto 0 20px;
-}
-
-#autoJbTimer button {
-    flex: 1;
-    align-self: stretch;
-    min-width: 0;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 0;
-}
-
-#autoJbTimerTextWrapper {
-    align-self: center;
-    margin: 0 8px;
-    white-space: nowrap;
-}
-
-#exploitRun{
-    width: 50%;
-}
-
-#exploitRun svg{
-    width: 100%;
-    text-align: center;
-}
-
-/* JOSDANY92 TV FIT — preserve the Compact dashboard while sizing the
-   workspace to the actual remaining viewport (no 91vh overflow). */
+/* Keep the document fixed to the browser viewport. The payload list and
+   debug console are the only areas that scroll internally. */
 html, body {
     height: 100% !important;
     max-height: 100% !important;
@@ -1318,30 +1170,147 @@ html, body {
     min-height: 0 !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
+    padding: 12px !important;
 }
+
+/* Compact top header: its natural height is reserved before the workspace. */
 #initial-screen {
+    display: flex !important;
     flex: 0 0 auto !important;
+    flex-direction: row-reverse !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
     height: auto !important;
     min-height: 0 !important;
+    padding: 8px 16px !important;
+    margin: 0 0 8px 0 !important;
 }
+#initial-screen header {
+    gap: 5px;
+    position: initial !important;
+}
+#initial-screen header div { display: flex; }
+#initial-screen #pslogo { display: none; }
+#scrollDown { display: none !important; }
+#ps-logo-container {
+    padding: 6px !important;
+    border-radius: 50% !important;
+}
+#ps-logo {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+}
+#PS4FW, #exploitChainLabel {
+    margin: 0 !important;
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+}
+#exploitChainLabel { display: none !important; }
+#choosejb-initial {
+    display: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: initial !important;
+    width: auto !important;
+}
+#choosejb-initial h3 { display: none !important; }
+
+/* Workspace takes exactly the remaining height below the header. */
 #exploit-main-screen {
+    display: flex !important;
     flex: 1 1 0% !important;
+    width: 100% !important;
     height: auto !important;
     min-height: 0 !important;
     overflow: hidden !important;
 }
 #exploitContainer {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    flex-direction: row !important;
+    width: 100% !important;
     height: 100% !important;
+    min-width: 0 !important;
     min-height: 0 !important;
+    gap: 16px !important;
 }
-#exploit-status-panel,
-#payloadsSection {
-    min-height: 0 !important;
+#exploit-status-panel, #payloadsSection {
+    flex: 1 1 0% !important;
+    width: 50% !important;
     height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+#exploit-status-panel {
+    display: flex !important;
+    flex-direction: column !important;
+}
+#DebugConsole {
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    margin-bottom: 8px !important;
+    overflow-y: auto !important;
+}
+#DebugConsole:hover { cursor: pointer; }
+#payloadsSection {
+    display: flex !important;
+    flex-direction: column !important;
 }
 #payloadsGrid {
+    flex: 1 1 0% !important;
     min-height: 0 !important;
     max-height: none !important;
-    flex: 1 1 auto !important;
     overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Header controls and timer sizing retained from the Compact design. */
+#click-to-start-text {
+    width: 20%;
+    text-align: center;
+    margin: 0;
+}
+#autoJbTimer {
+    display: flex;
+    align-items: stretch;
+    width: 20%;
+    margin: 0 20px 0 auto;
+    padding: 0;
+    cursor: default;
+    border: 1px solid #2563eb;
+    border-radius: 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+html[dir="rtl"] #autoJbTimer { margin: 0 auto 0 20px; }
+#autoJbTimer button {
+    flex: 1;
+    align-self: stretch;
+    min-width: 0;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 0;
+}
+#autoJbTimerTextWrapper {
+    align-self: center;
+    margin: 0 8px;
+    white-space: nowrap;
+}
+#exploitRun { width: 50%; }
+#exploitRun svg { width: 100%; text-align: center; }
+
+/* Narrow screens retain the original mobile single-panel behavior. */
+@media (max-width: 727px) {
+    #exploit-status-panel, #initial-screen { display: none !important; }
+    #payloadsSection {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+    }
+    #exploitContainer { flex-direction: column !important; }
+    #payloadsSection { flex: 1 1 100% !important; }
 }
