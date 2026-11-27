@@ -76,6 +76,9 @@ function autoJailbreakTimer(permanentJb) {
     var autoJbText = lang.autoJb || "Auto-Jailbreak enabled. Executing in {seconds} seconds...";
     var message = permanentJb ? autoJbText : autoJbRetryText;
 
+    // JOSDANY92: show the retry screen only for a real automatic retry countdown.
+    if (!permanentJb && window.J92NeonLoader) window.J92NeonLoader.retry(timer);
+
     // paste this again so it displays immediately on page load
     if (ui.clickToStartText) {
         ui.clickToStartText.textContent = message.replace('{seconds}', timer);
@@ -83,6 +86,9 @@ function autoJailbreakTimer(permanentJb) {
     }
     autoJbInterval = setInterval(function () {
         timer--;
+        if (!permanentJb && window.J92NeonLoader && window.J92NeonLoader.updateRetry) {
+            window.J92NeonLoader.updateRetry(timer);
+        }
         if (ui.clickToStartText) {
             ui.clickToStartText.textContent = message.replace('{seconds}', timer);
             ui.clickToStartText.style.fontSize = "15px";
