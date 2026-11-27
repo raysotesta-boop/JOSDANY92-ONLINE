@@ -47,6 +47,8 @@ jobs:
           rsync -a --exclude='.git' --exclude='.github' /tmp/WebKitty/ WebKitty/
           mkdir -p WebKitty/includes/css/colors
           cp patches/webkitty/josdany92-neon.css WebKitty/includes/css/colors/josdany92-neon.css
+          cp patches/webkitty/compact.css WebKitty/includes/css/layouts/compact.css
+          cp patches/webkitty/design.js WebKitty/includes/js/design.js
           cp patches/webkitty/neon-exploit-loader.css WebKitty/includes/css/neon-exploit-loader.css
           cp patches/webkitty/neon-exploit-loader.js WebKitty/includes/js/neon-exploit-loader.js
           python3 -c "compile(open('patches/webkitty/apply-josdany92-patches.py', encoding='utf-8').read(), 'apply-josdany92-patches.py', 'exec')"
