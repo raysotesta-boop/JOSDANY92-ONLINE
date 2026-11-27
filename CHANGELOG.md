@@ -90,3 +90,11 @@
 - Fuente WebKitty fijada a un commit revisado y verificación de blobs críticos añadida al workflow de sincronización.
 - Sin cambios al alcance de firmware: perfil exclusivo 12.00 / Wobkot-Lapse / GoldHEN 2.4b18.14.
 - La prueba real en la consola sigue siendo requisito antes de considerar la activación validada o iniciar el empaquetado Android.
+
+
+## v3.3 — acabado visual del resultado JOSDANY92
+- Sustituido el emblema estático anterior por una marca J92 con escudo y confirmación visual.
+- Añadidas transiciones cortas de entrada, brillo moderado y compatibilidad con reducción de movimiento.
+- La pantalla de resultado sigue apareciendo únicamente después del callback de WebKitty; no cubre ni modifica la ejecución del exploit.
+- El texto diferencia el fin reportado por WebKitty de una verificación independiente de GoldHEN en la consola.
+- Sin cambios en la cadena de exploit, selección de firmware, payload, temporizador ni política de un solo intento.
