@@ -244,7 +244,7 @@ test('new exploit attempts clear retry/result overlay before running', async () 
 
 test('legacy PS4 browser build also clears the result overlay before a new attempt', () => {
   const legacy = read('WebKitty/includes/js/jailbreak-legacy.js');
-  assert.match(legacy, /JOSDANY92: hide retry\\/result overlay before every new exploit attempt/);
+  assert.ok(legacy.includes('JOSDANY92: hide retry/result overlay before every new exploit attempt'));
   assert.doesNotThrow(() => new vm.Script(legacy, { filename: 'jailbreak-legacy.js' }));
 });
 
