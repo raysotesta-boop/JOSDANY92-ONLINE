@@ -154,7 +154,7 @@ replace_once(
 events = ROOT / "includes/js/events.js"
 events_source = read(events)
 click_anchor = '    if (user.blockJailbreak) return;'
-click_guard = """    if (storage.session.getBoolean('j92GoldHENActive', false)) {
+click_guard = """    // JOSDANY92: j92GoldHENActive click guard.\n    if (storage.session.getBoolean('j92GoldHENActive', false)) {
         jailbreakAlreadyActive(true);
         return;
     }
