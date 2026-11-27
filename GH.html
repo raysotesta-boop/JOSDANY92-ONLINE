@@ -6,31 +6,32 @@
 <meta name="color-scheme" content="dark">
 <title>JOSDANY92 · Activación GoldHEN 12.00</title>
 <style>
-:root{color-scheme:dark;--line:#8b5cff;--cyan:#5de3ff;--gold:#ffd36a;--green:#67f5a5;--red:#ff777f}
-*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:#070b20;color:#f7f5ff;font-family:Arial,Helvetica,sans-serif}
-body{min-height:100vh;min-height:100dvh;background:radial-gradient(ellipse at 15% 0,#172e69 0,#080d25 48%,#050817 100%);overflow-x:hidden}
-main{width:100%;min-height:100vh;min-height:100dvh;margin:0;padding:clamp(18px,2.1vw,38px);display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);grid-template-rows:auto auto auto auto auto 1fr auto;grid-template-areas:"header header" "title checksTitle" "lead checks" "profile checks" "status checks" "actions checks" "warning checks" "footer checks";gap:clamp(10px,1.1vw,20px);align-content:start}
-header{grid-area:header;display:flex;justify-content:space-between;align-items:center;gap:18px;border-bottom:1px solid #5366b5;padding:0 0 15px}
-.brand{font-weight:900;font-size:clamp(30px,3vw,54px);letter-spacing:.04em;text-shadow:0 0 16px #d85cff88}.brand small{display:block;font-size:clamp(11px,1vw,16px);letter-spacing:.24em;color:var(--cyan);margin-top:5px}
-.fw{border:1px solid var(--cyan);border-radius:12px;padding:12px 18px;color:var(--cyan);font-weight:900;font-size:clamp(15px,1.25vw,22px);white-space:nowrap;background:#0b1a36}
-h1{grid-area:title;font-size:clamp(28px,2.45vw,44px);line-height:1.08;margin:4px 0 0;color:#ffe28b}
-.lead{grid-area:lead;color:#d6e1ff;line-height:1.5;font-size:clamp(15px,1.1vw,20px);margin:0;max-width:850px}
-.profile{grid-area:profile;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:0}
-.profile div{padding:clamp(10px,1vw,17px);border:1px solid #465a9e;border-radius:13px;background:linear-gradient(145deg,#14234b,#0c1430)}
-.profile b{display:block;color:var(--cyan);font-size:clamp(10px,.82vw,14px);margin-bottom:7px}.profile span{font-weight:800;font-size:clamp(13px,1.02vw,18px)}
-h2{grid-area:checksTitle;font-size:clamp(20px,1.55vw,28px);margin:0 0 -7px;align-self:end}
-.checks{grid-area:checks;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;gap:9px;min-height:0}
-.check{display:flex;align-items:flex-start;gap:9px;padding:clamp(9px,.8vw,14px);border:1px solid #344b86;border-radius:11px;background:linear-gradient(135deg,rgba(17,31,67,.96),rgba(9,16,39,.98));min-width:0;min-height:66px}
-.mark{font-weight:900;min-width:20px;color:var(--gold);font-size:18px}.check.ok .mark{color:var(--green)}.check.fail .mark{color:var(--red)}
-.check b{font-size:clamp(12px,.92vw,16px);overflow-wrap:anywhere;line-height:1.2}.check small{display:block;color:#b9c8e8;margin-top:4px;line-height:1.25;font-size:clamp(10px,.76vw,13px)}
-.status{grid-area:status;padding:clamp(12px,1.2vw,20px);border-radius:13px;border:1px solid #6275bd;background:linear-gradient(110deg,#10284a,#111631);line-height:1.45;font-size:clamp(15px,1.12vw,20px);font-weight:700;align-self:start}
-.actions{grid-area:actions;display:flex;gap:10px;flex-wrap:wrap;margin:0}
-button,a.btn{border:1px solid var(--cyan);border-radius:12px;padding:clamp(12px,1vw,17px) clamp(15px,1.3vw,24px);background:linear-gradient(110deg,#252064,#102c4b);color:#fff;font-size:clamp(14px,1vw,18px);font-weight:900;text-decoration:none;cursor:pointer;text-align:center}
-button.primary{border-color:var(--gold);background:linear-gradient(100deg,#704600,#342044);color:#ffe58e;box-shadow:0 0 16px #ffb90033}button:disabled{opacity:.38;cursor:not-allowed;filter:grayscale(1)}
-.warning{grid-area:warning;margin:0;padding:clamp(11px,1vw,16px);border-left:4px solid var(--gold);background:#201d36;color:#f2e4c6;line-height:1.42;font-size:clamp(12px,.9vw,16px);align-self:start}
-footer{grid-area:footer;margin:0;color:#9eafd3;font-size:clamp(10px,.72vw,13px);line-height:1.4;align-self:end}
-@media(max-width:900px){main{display:flex;flex-direction:column;padding:16px}.checks{grid-template-columns:1fr}.profile{grid-template-columns:1fr}.actions>*{width:100%}header{align-items:flex-start}h1{font-size:28px}}
-@media(min-width:901px) and (max-height:760px){main{padding:14px 22px;gap:8px}.brand{font-size:32px}.brand small{font-size:10px}.profile div{padding:8px}.check{min-height:53px;padding:7px}.check small{font-size:10px}.warning{font-size:12px}.status{padding:9px}footer{font-size:10px}}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;min-height:100%;background:#070b20;color:#f7f5ff;font-family:Arial,Helvetica,sans-serif}
+body{min-height:100vh;background:#080d25 url('') no-repeat;overflow-x:hidden}
+main{display:flex;flex-flow:row wrap;align-content:flex-start;align-items:flex-start;gap:12px;width:100%;max-width:none;min-height:100vh;margin:0;padding:18px 22px;background:linear-gradient(135deg,#101b43,#070b20)}
+main>header,main>footer{width:100%;flex:0 0 100%}
+main>h1,main>.lead,main>.profile,main>h2,main>.checks,main>.status,main>.actions,main>.warning{width:calc(50% - 7px);flex:0 0 calc(50% - 7px);margin:0}
+header{display:flex;justify-content:space-between;align-items:center;gap:18px;border-bottom:1px solid #5366b5;padding:0 0 14px}
+.brand{font-weight:900;font-size:42px;letter-spacing:.04em;text-shadow:0 0 16px #d85cff88}.brand small{display:block;font-size:12px;letter-spacing:.24em;color:#5de3ff;margin-top:5px}
+.fw{border:1px solid #5de3ff;border-radius:12px;padding:11px 17px;color:#5de3ff;font-weight:900;font-size:18px;white-space:nowrap;background:#0b1a36}
+h1{font-size:34px;line-height:1.1;color:#ffe28b;padding:8px 0}
+.lead{color:#d6e1ff;line-height:1.5;font-size:17px;padding:6px 0}
+.profile{display:flex;gap:8px}
+.profile div{flex:1;padding:12px;border:1px solid #465a9e;border-radius:12px;background:#101d3d;min-width:0}
+.profile b{display:block;color:#5de3ff;font-size:12px;margin-bottom:7px}.profile span{font-weight:800;font-size:15px}
+h2{font-size:24px;color:#fff;padding:8px 0}
+.checks{display:flex;flex-flow:row wrap;align-content:flex-start;gap:8px}
+.check{display:flex;align-items:flex-start;gap:9px;padding:10px;border:1px solid #344b86;border-radius:10px;background:#101d3d;width:calc(50% - 4px);min-height:66px;min-width:0}
+.mark{font-weight:900;min-width:20px;color:#ffd36a;font-size:18px}.check.ok .mark{color:#67f5a5}.check.fail .mark{color:#ff777f}
+.check b{font-size:14px;overflow-wrap:anywhere;line-height:1.2}.check small{display:block;color:#b9c8e8;margin-top:4px;line-height:1.25;font-size:12px}
+.status{padding:14px;border-radius:12px;border:1px solid #6275bd;background:#10284a;line-height:1.45;font-size:17px;font-weight:700}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+button,a.btn{border:1px solid #5de3ff;border-radius:11px;padding:14px 17px;background:#202052;color:#fff;font-size:16px;font-weight:900;text-decoration:none;cursor:pointer;text-align:center}
+button.primary{border-color:#ffd36a;background:#704600;color:#ffe58e}button:disabled{opacity:.38;cursor:not-allowed}
+.warning{padding:13px;border-left:4px solid #ffd36a;background:#201d36;color:#f2e4c6;line-height:1.42;font-size:14px}
+footer{color:#9eafd3;font-size:12px;line-height:1.4}
+@media(max-width:850px){main{display:block;padding:14px}main>h1,main>.lead,main>.profile,main>h2,main>.checks,main>.status,main>.actions,main>.warning{width:100%;margin:10px 0}.checks{display:block}.check{width:100%;margin:7px 0}.profile{display:block}.profile div{margin:7px 0}.actions>*{width:100%;display:block;margin:7px 0}header{margin-bottom:12px}.brand{font-size:30px}}
 </style>
 </head>
 <body>
