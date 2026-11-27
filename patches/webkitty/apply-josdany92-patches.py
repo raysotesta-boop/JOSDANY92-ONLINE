@@ -235,6 +235,20 @@ replace_once(
 )
 
 
+replace_once(
+    ROOT / "includes/js/languages/es.js",
+    '"autoJbRetryText": "Reintentar Jailbreak",',
+    '"autoJbRetryText": "Reintentos automáticos",',
+    'Spanish retry toggle label'
+)
+replace_once(
+    ROOT / "includes/js/languages/en.js",
+    '"autoJbRetryText": "Auto-Retry Jailbreak",',
+    '"autoJbRetryText": "Automatic retries",',
+    'English retry toggle label'
+)
+
+
 # 6) Keep the generic Wobkot toast suppressed. A session callback marker is
 # specific to this GoldHEN payload; port 9090 is a generic Payload Loader probe.
 kernel = ROOT / "src/wobkot/kernel.js"
