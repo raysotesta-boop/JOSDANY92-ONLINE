@@ -217,7 +217,7 @@ test('new exploit attempts clear retry/result overlay before running', async () 
       getString: (k, d) => storage.getString(k, d),
       set: () => true
     },
-    user: { blockJailbreak: false, exploitChain: 1, bareboneJB: false },
+    user: { blockJailbreak: false, exploitChain: 99, bareboneJB: false },
     devMode: false,
     autoJbInterval: null,
     window: { J92NeonLoader: { start: () => calls.start++ } },
@@ -233,7 +233,7 @@ test('new exploit attempts clear retry/result overlay before running', async () 
       CSSFONTFACE_LAPSE: 5, SLOPKIT_LAPSE: 6, SLOPKIT_NETCTRL: 7, RELAPSE: 8,
       SLOPKIT_AFTERGLOW: 9, BPF_DOUBLE_FREE: 10, WOBKOT_LAPSE: 11
     },
-    EXPLOIT_HANDLERS: { 1: () => calls.handler++ },
+    EXPLOIT_HANDLERS: { 99: () => calls.handler++ },
     console
   };
   vm.createContext(context);
