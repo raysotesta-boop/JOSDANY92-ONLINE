@@ -71,6 +71,7 @@ jobs:
         run: |
           set -euo pipefail
           node --check WebKitty/includes/js/neon-exploit-loader.js
+          node patches/webkitty/test-neon-exploit-loader.cjs
           node --check WebKitty/includes/js/jailbreak.js
           node --check WebKitty/includes/js/jailbreak-legacy.js
           node --check WebKitty/includes/js/autoJbRetry.js
@@ -82,6 +83,8 @@ jobs:
           node --check WebKitty/src/wobkot/kernel.js
           node --check WebKitty/src/wobkot/main.js
 
+          cmp patches/webkitty/neon-exploit-loader.js WebKitty/includes/js/neon-exploit-loader.js
+          cmp patches/webkitty/neon-exploit-loader.css WebKitty/includes/css/neon-exploit-loader.css
           cmp patches/webkitty/compact.css WebKitty/includes/css/layouts/compact.css
           cmp patches/webkitty/design.js WebKitty/includes/js/design.js
           cmp patches/webkitty/josdany92-neon.css WebKitty/includes/css/colors/josdany92-neon.css
