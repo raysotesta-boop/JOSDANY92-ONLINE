@@ -31,8 +31,8 @@
     <link rel="stylesheet" id="color-stylesheet" href="">
     <script>
         // Prevent "Theme Flash" by applying the href before the body renders
-        var savedTheme = localStorage.getItem('theme') || "index";
-        var savedColor = localStorage.getItem('color') || "default";
+        var savedTheme = localStorage.getItem('theme') || "compact";
+        var savedColor = localStorage.getItem('color') || "josdany92-neon";
         if (savedTheme) {
             document.getElementById('main-stylesheet').setAttribute('href', './includes/css/layouts/' + savedTheme + '.css');
         }
@@ -712,6 +712,10 @@
                     <label class="flex items-center text-white/80">
                         <input type="radio" name="colorTheme" value="catppuccino" onchange="setTheme(this.value);">
                         <p id="catppuccinoColor">Catppuccino</p>
+                    </label>
+                    <label class="flex items-center text-white/80">
+                        <input type="radio" name="colorTheme" value="josdany92-neon" onchange="setTheme(this.value);">
+                        <p>JOSDANY92 Neon</p>
                     </label>
                 </div>
             </div>
