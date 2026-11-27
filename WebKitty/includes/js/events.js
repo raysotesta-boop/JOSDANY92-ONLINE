@@ -19,33 +19,31 @@ ui.mainContainer.addEventListener('scroll', function () {
 });
 
 // Jailbreak launch
-ui.exploitRunBtn.addEventListener('click', function () {
-    // JOSDANY92: j92GoldHENActive click guard.
+function launchJ92Attempt() {
     if (storage.session.getBoolean('j92GoldHENActive', false)) {
         jailbreakAlreadyActive(true);
         return;
     }
     if (user.blockJailbreak) return;
     user.blockJailbreak = true;
-    // JOSDANY92: start NEON animation
-    if (window.J92NeonLoader) window.J92NeonLoader.start();
+    var retrying = false;
+    try { retrying = sessionStorage.getItem('j92RetryPending') === 'true'; } catch (e) {}
     chooseHEN();
+    if (retrying && window.J92NeonLoader) {
+        /* Indicador visible sólo entre intentos; no se superpone a la carga GoldHEN. */
+        window.J92NeonLoader.retry(0);
+        setTimeout(function () {
+            window.J92NeonLoader.start();
+            jailbreak();
+        }, 650);
+        return;
+    }
+    if (window.J92NeonLoader) window.J92NeonLoader.start();
     jailbreak();
-});
+}
 
-ui.psLogoContainer.addEventListener('click', function () {
-    // JOSDANY92: j92GoldHENActive click guard.
-    if (storage.session.getBoolean('j92GoldHENActive', false)) {
-        jailbreakAlreadyActive(true);
-        return;
-    }
-    if (user.blockJailbreak) return;
-    user.blockJailbreak = true;
-    // JOSDANY92: start NEON animation
-    if (window.J92NeonLoader) window.J92NeonLoader.start();
-    chooseHEN();
-    jailbreak();
-});
+ui.exploitRunBtn.addEventListener('click', launchJ92Attempt);
+ui.psLogoContainer.addEventListener('click', launchJ92Attempt);
 
 // Tab switching
 var TAB_SECTIONS = {
