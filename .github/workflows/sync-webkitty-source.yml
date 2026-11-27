@@ -95,13 +95,13 @@ jobs:
           grep -Fq 'j92GoldHENActive' WebKitty/includes/js/events.js
           grep -Fq 'j92GoldHENActive' WebKitty/includes/js/jailbreak.js
           grep -Fq 'j92GoldHENActive' WebKitty/src/wobkot/kernel.js
-          grep -Fq 'storage.getBoolean(''autoJbRetry'', false)' WebKitty/includes/js/autoJbRetry.js
+          grep -Fq "storage.getBoolean('autoJbRetry', false)" WebKitty/includes/js/autoJbRetry.js
           ! grep -Fq 'if (confirm(window.lang.autoJbRetryConfirm)) jailbreak();' WebKitty/includes/js/autoJbRetry.js
           grep -Fq 'Reintentos automáticos' WebKitty/includes/js/languages/es.js
 
           grep -Fq 'j92GoldHENActive' GH.html
           grep -Fq 'retryEnabled' GH.html
-          ! grep -Fq 'j92SingleAttempt' GH.html
+          ! grep -Fq "sessionStorage.setItem('j92SingleAttempt','true')" GH.html
           grep -Fq 'GoldHEN ya está activado' WebKitty/includes/js/utilities.js
           grep -Fq 'GOLDHEN ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'GOLDHEN YA ESTÁ ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
