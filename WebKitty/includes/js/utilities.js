@@ -62,6 +62,7 @@ function log(message, color, consoleEl) {
     span.textContent = message + '\n';
     if (color) span.style.color = color;
     consoleEl.appendChild(span);
+    if (color === 'red' && window.J92NeonLoader) window.J92NeonLoader.finish('error');
 }
 
 function getReloadAfterJbValue() {
@@ -103,6 +104,7 @@ function updateJbStats(attempt, isSuccess, revert) {
 
 // Called by exploit implementations after a successful jailbreak.
 function jailbreakSuccess(statusMessage) {
+    if (window.J92NeonLoader) window.J92NeonLoader.finish('success');
     // JOSDANY92: record successful GoldHEN payload completion.
     // This callback runs after WebKitty's selected payload loader returns.
     try {
