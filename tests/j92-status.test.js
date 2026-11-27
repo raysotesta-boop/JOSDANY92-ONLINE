@@ -245,8 +245,8 @@ test('new exploit attempts clear retry/result overlay before running', async () 
 test('firmware cache manifests invalidate the changed assets for PS4 14.02 and 12.00', () => {
   const fw140 = read('WebKitty/includes/caches/manifest/140x.manifest');
   const fw12 = read('WebKitty/includes/caches/manifest/12xx.manifest');
-  assert.match(fw140, /^# v\\d+$/m);
-  assert.match(fw12, /^# v\\d+$/m);
+  assert.match(fw140, /^# v\d+$/m);
+  assert.match(fw12, /^# v\d+$/m);
   assert.ok(fw140.includes('../../../../fondo-josdany92.jpg'));
   assert.ok(fw12.includes('../../../../fondo-josdany92.jpg'));
   for (const manifest of [fw140, fw12]) {
