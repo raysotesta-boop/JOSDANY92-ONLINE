@@ -400,7 +400,7 @@ for manifest in manifest_dir.glob("*.manifest"):
 
 manifest12 = manifest_dir / "12xx.manifest"
 manifest12_content = read(manifest12)
-manifest12_content, version_updates = re.subn(r"(?m)^# v[0-9]+$", "# v7", manifest12_content, count=1)
+manifest12_content, version_updates = re.subn(r"(?m)^# v[0-9]+$", "# v8", manifest12_content, count=1)
 if version_updates != 1:
     raise SystemExit("Could not update 12xx cache manifest version")
 write(manifest12, manifest12_content)
