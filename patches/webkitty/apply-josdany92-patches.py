@@ -74,8 +74,7 @@ if 'JOSDANY92: show NEON failure state for global errors' not in content:
 write(index, content)
 
 
-# 2) Shared logging and success callback. The session marker is written only
-# after WebKitty reports completion of the selected GoldHEN 2.4b18.14 payload.
+# 2) Shared logging and success callback. Recognize the selected GoldHEN 2.4b18 revision.
 utilities = ROOT / "includes/js/utilities.js"
 replace_once(
     utilities,
@@ -115,14 +114,15 @@ function jailbreakSuccess(statusMessage) {
     var j92PayloadPath = '';
     try {
         j92PayloadPath = storage.session.getString('payload_path', '');
+        var j92GoldHENVersionMatch = j92PayloadPath.match(/goldhen_v(2\.4b18\.\d+)\.bin$/i);
         j92IsGoldHEN = typeof user !== 'undefined'
             && user.currentJbFlavor === 'GoldHEN'
-            && /goldhen_v2\.4b18\.14\.bin$/i.test(j92PayloadPath);
+            && !!j92GoldHENVersionMatch;
         if (j92IsGoldHEN) {
             storage.session.set('j92GoldHENActive', true);
             localStorage.setItem('j92-goldhen-last-success', JSON.stringify({
                 result: 'WebKitty reported GoldHEN payload completion',
-                version: '2.4b18.14',
+                version: j92GoldHENVersionMatch[1],
                 firmware: user.ps4Fw || getPs4FwVersion(),
                 exploitChain: user.exploitChain,
                 payload: j92PayloadPath,
@@ -168,6 +168,17 @@ replace_once(
       runResult.catch(function (error) { log(error, "red"); });
     }""",
     'catch asynchronous exploit handler failures'
+)
+replace_once(
+    jailbreak,
+    '  if (!isPS4Console() && !devMode) return;\n\n  // clear terminal',
+    '''  if (!isPS4Console() && !devMode) return;
+
+  // JOSDANY92: hide retry/result overlay before every new exploit attempt.
+  if (window.J92NeonLoader) window.J92NeonLoader.start();
+
+  // clear terminal''',
+    'hide result overlay when a new exploit attempt starts'
 )
 
 
@@ -243,6 +254,25 @@ replace_once(
     '            clearInterval(autoJbInterval);\n            jailbreak();',
     '            clearInterval(autoJbInterval);\n            autoJbInterval = null;\n            jailbreak();',
     'clear retry interval before execution'
+)
+replace_once(
+    retry,
+    '    // paste this again so it displays immediately on page load',
+    '''    // JOSDANY92: show the retry state only during an automatic retry countdown.
+    if (!permanentJb && window.J92NeonLoader) window.J92NeonLoader.retry(timer);
+
+    // paste this again so it displays immediately on page load''',
+    'show automatic retry countdown in NEON layer'
+)
+replace_once(
+    retry,
+    '        timer--;\n        if (ui.clickToStartText) {',
+    '''        timer--;
+        if (!permanentJb && window.J92NeonLoader && window.J92NeonLoader.updateRetry) {
+            window.J92NeonLoader.updateRetry(timer);
+        }
+        if (ui.clickToStartText) {''',
+    'update NEON retry countdown each second'
 )
 
 
@@ -377,6 +407,24 @@ if "JOSDANY92: guard barebone flow against duplicate activation" not in content:
         raise SystemExit("exploit.html onload anchor missing")
     content = content.replace(onload_anchor, onload_replacement, 1)
 write(exploit_page, content)
+replace_once(
+    exploit_page,
+    '    function reportGlobalError(title, details) {\n',
+    '''    function reportGlobalError(title, details) {
+      // JOSDANY92: Barebone errors must reach the visible status layer.
+      if (window.J92NeonLoader) window.J92NeonLoader.finish('error');
+''',
+    'Barebone global errors drive NEON failure state'
+)
+replace_once(
+    exploit_page,
+    '      if (color) span.style.color = color;\n      consoleElement.appendChild(span);\n    }',
+    '''      if (color) span.style.color = color;
+      consoleElement.appendChild(span);
+      if (color === 'red' && window.J92NeonLoader) window.J92NeonLoader.finish('error');
+    }''',
+    'Barebone red log entries drive NEON failure state'
+)
 
 
 # 9) Cache custom theme and animation assets in every firmware manifest.
