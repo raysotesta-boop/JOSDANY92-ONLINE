@@ -253,6 +253,16 @@ test('firmware cache manifests invalidate the changed assets for PS4 14.02 and 1
   }
 });
 
+test('full-screen approved artwork is loaded and cached for the three result states', () => {
+  const css = read('WebKitty/includes/css/neon-exploit-loader.css');
+  assert.ok(css.includes("url('../../../fondo-josdany92.jpg')"));
+  assert.ok(css.includes('♛  JOSDANY92'));
+  assert.ok(css.includes('GOLDHEN NO ESTÁ CARGADO'));
+  assert.ok(css.includes('REINTENTO AUTOMÁTICO'));
+  const patch = read('patches/webkitty/apply-josdany92-patches.py');
+  assert.ok(patch.includes('"../../../fondo-josdany92.jpg"'));
+});
+
 test('result title and detail are explicitly visible for legacy PS4 WebKit', () => {
   const loader = read('WebKitty/includes/js/neon-exploit-loader.js');
   assert.ok(loader.includes("title.style.visibility = 'visible'"));
