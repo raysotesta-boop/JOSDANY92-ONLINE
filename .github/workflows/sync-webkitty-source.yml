@@ -106,11 +106,11 @@ jobs:
           grep -Fq 'retryEnabled' GH.html
           ! grep -Fq "sessionStorage.setItem('j92SingleAttempt','true')" GH.html
           grep -Fq 'GoldHEN ya está activado' WebKitty/includes/js/utilities.js
-          grep -Fq 'GOLDHEN ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'GOLDHEN · CARGA FINALIZADA' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'GOLDHEN YA ESTÁ ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
-          grep -Fq 'EXPLOIT NO COMPLETADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'ERROR DE ACTIVACIÓN' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'REINTENTANDO' WebKitty/includes/js/neon-exploit-loader.js
-          grep -Fq 'j92-horizontal-scan' WebKitty/includes/css/neon-exploit-loader.css
+          grep -Fq 'j92-card-in' WebKitty/includes/css/neon-exploit-loader.css
           grep -Fq '# v9' WebKitty/includes/caches/manifest/12xx.manifest
 
           ! grep -Fq "notify('Jailbroken !!')" WebKitty/src/wobkot/kernel.js
