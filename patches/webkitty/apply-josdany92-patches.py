@@ -27,26 +27,26 @@ def replace_once(path, old, new, marker):
 index = ROOT / "index.html"
 content = read(index)
 content = re.sub(
-    r"(var savedTheme = localStorage\.getItem\('theme'\) \|\\| )\"[^\"]+\";",
+    r"(var savedTheme = localStorage\.getItem\('theme'\) \|\| )\"[^\"]+\";",
     r'\1"compact";',
     content,
     count=1
 )
 content = re.sub(
-    r"(var savedColor = localStorage\\.getItem\\('color'\\) \\|\\| )\"[^\"]+\";",
-    r'\\1"josdany92-neon";',
+    r"(var savedColor = localStorage\.getItem\('color'\) \|\| )\"[^\"]+\";",
+    r'\1"josdany92-neon";',
     content,
     count=1
 )
 anchor = '    <script src="./includes/js/utilities.js"></script>'
-insertion = anchor + '\n    <link rel="stylesheet" href="./includes/css/neon-exploit-loader.css">\\n    <script src="./includes/js/neon-exploit-loader.js"></script>'
+insertion = anchor + '\n    <link rel="stylesheet" href="./includes/css/neon-exploit-loader.css">\n    <script src="./includes/js/neon-exploit-loader.js"></script>'
 if 'includes/css/neon-exploit-loader.css' not in content:
     if anchor not in content:
         raise SystemExit("index.html utilities.js anchor missing")
     content = content.replace(anchor, insertion, 1)
 if 'JOSDANY92: show NEON failure state for global errors' not in content:
     report_anchor = '    function reportGlobalError(title, details) {'
-    report_replacement = report_anchor + '\\n      // JOSDANY92: show NEON failure state for global errors.\\n      if (window.J92NeonLoader) window.J92NeonLoader.finish("error");'
+    report_replacement = report_anchor + '\n      // JOSDANY92: show NEON failure state for global errors.\n      if (window.J92NeonLoader) window.J92NeonLoader.finish("error");'
     if report_anchor not in content:
         raise SystemExit("index.html reportGlobalError anchor missing")
     content = content.replace(report_anchor, report_replacement, 1)
@@ -69,7 +69,7 @@ replace_once(
 )
 replace_once(
     utilities,
-    '// Called by exploit implementations after a successful jailbreak.\\nfunction jailbreakSuccess(statusMessage) {',
+    '// Called by exploit implementations after a successful jailbreak.\nfunction jailbreakSuccess(statusMessage) {',
     '''// Report the state when a second activation is blocked.
 function jailbreakAlreadyActive(goldhenReady) {
     if (typeof user !== 'undefined') user.blockJailbreak = false;
@@ -96,7 +96,7 @@ function jailbreakSuccess(statusMessage) {
         j92PayloadPath = storage.session.getString('payload_path', '');
         j92IsGoldHEN = typeof user !== 'undefined'
             && user.currentJbFlavor === 'GoldHEN'
-            && /goldhen_v2\\.4b18\\.14\\.bin$/i.test(j92PayloadPath);
+            && /goldhen_v2\.4b18\.14\.bin$/i.test(j92PayloadPath);
         if (j92IsGoldHEN) {
             storage.session.set('j92GoldHENActive', true);
             localStorage.setItem('j92-goldhen-last-success', JSON.stringify({
@@ -122,7 +122,7 @@ function jailbreakSuccess(statusMessage) {
 jailbreak = ROOT / "includes/js/jailbreak.js"
 replace_once(
     jailbreak,
-    'async function jailbreak() {\\n  if (!isPS4Console() && !devMode) return;',
+    'async function jailbreak() {\n  if (!isPS4Console() && !devMode) return;',
     '''async function jailbreak() {
   if (storage.session.getBoolean('j92GoldHENActive', false)) {
     jailbreakAlreadyActive(true);
@@ -133,14 +133,14 @@ replace_once(
 )
 replace_once(
     jailbreak,
-    '  // Make it retry until success\\n  storage.session.set(\'autoJbRetry\', true);',
+    '  // Make it retry until success\n  storage.session.set(\'autoJbRetry\', true);',
     '''  // JOSDANY92: honor the persistent ON/OFF retry preference (OFF by default).
   storage.session.set('autoJbRetry', storage.getBoolean('autoJbRetry', false));''',
     'JOSDANY92 retry preference in jailbreak()'
 )
 replace_once(
     jailbreak,
-    "  if (typeof handler === 'function') {\\n    handler();",
+    "  if (typeof handler === 'function') {\n    handler();",
     """  if (typeof handler === 'function') {
     var runResult = handler();
     if (runResult && typeof runResult.catch === 'function') {
@@ -206,8 +206,8 @@ replace_once(
 )
 replace_once(
     retry,
-    '            clearInterval(autoJbInterval);\\n            jailbreak();',
-    '            clearInterval(autoJbInterval);\\n            autoJbInterval = null;\\n            jailbreak();',
+    '            clearInterval(autoJbInterval);\n            jailbreak();',
+    '            clearInterval(autoJbInterval);\n            autoJbInterval = null;\n            jailbreak();',
     'clear retry interval before execution'
 )
 
@@ -309,14 +309,14 @@ if 'includes/css/neon-exploit-loader.css' not in content:
     title_anchor = '  <title>Barebone jailbreak Experience</title>'
     if title_anchor not in content:
         raise SystemExit("exploit.html title anchor missing")
-    content = content.replace(title_anchor, title_anchor + '\\n  <link rel="stylesheet" href="./includes/css/neon-exploit-loader.css">', 1)
+    content = content.replace(title_anchor, title_anchor + '\n  <link rel="stylesheet" href="./includes/css/neon-exploit-loader.css">', 1)
 if 'includes/js/neon-exploit-loader.js' not in content:
     util_anchor = '  <script src="./includes/js/utilities.js"></script>'
     if util_anchor not in content:
         raise SystemExit("exploit.html utilities.js anchor missing")
-    content = content.replace(util_anchor, util_anchor + '\\n  <script src="./includes/js/neon-exploit-loader.js"></script>', 1)
+    content = content.replace(util_anchor, util_anchor + '\n  <script src="./includes/js/neon-exploit-loader.js"></script>', 1)
 if "JOSDANY92: guard barebone flow against duplicate activation" not in content:
-    onload_anchor = '    window.onload = function () {\\n      user.ip = "127.0.0.1";'
+    onload_anchor = '    window.onload = function () {\n      user.ip = "127.0.0.1";'
     onload_replacement = '''    window.onload = function () {
       // JOSDANY92: guard barebone flow against duplicate activation.
       if (storage.session.getBoolean('j92GoldHENActive', false)) {
@@ -346,7 +346,7 @@ for manifest in manifest_dir.glob("*.manifest"):
         raise SystemExit("Manifest lacks NETWORK section: %s" % manifest)
     missing = [asset for asset in assets if asset not in content]
     if missing:
-        content = content.replace("NETWORK:", "\\n".join(missing) + "\\n\\nNETWORK:", 1)
+        content = content.replace("NETWORK:", "\n".join(missing) + "\n\nNETWORK:", 1)
         write(manifest, content)
         print("Added JOSDANY92 assets to", manifest.name)
 
