@@ -119,6 +119,7 @@ ui.ps4FwSelect.addEventListener('change', function () {
 // Auto-jailbreak/Auto-jailbreak retry stop button
 ui.stopAutoJbBtn.addEventListener('click', function () {
     clearInterval(autoJbInterval);
+    if (window.J92NeonLoader) window.J92NeonLoader.stopRetry();
 
     storage.session.set('autoJbRetry', false);
     storage.session.set('autoJb', false);
