@@ -138,6 +138,7 @@ test('GoldHEN success marker recognizes supported 2.4b18 payload revisions', () 
   context.storage = {
     session: storage,
     getBoolean: () => false,
+    getNumber: () => 0,
     remove() {},
     set() {}
   };
@@ -163,7 +164,7 @@ test('PS4HEN success does not set the GoldHEN active marker', () => {
   const { context, window } = makeLoaderContext();
   const storage = makeStorage({ payload_path: './includes/payloads/HEN/PS4HEN.bin' });
   const finished = [];
-  context.storage = { session: storage, getBoolean: () => false, remove() {}, set() {} };
+  context.storage = { session: storage, getBoolean: () => false, getNumber: () => 0, remove() {}, set() {} };
   context.localStorage = { setItem() {} };
   context.user = { currentJbFlavor: 'PS4HEN', ps4Fw: '9.00', exploitChain: 1, blockJailbreak: true };
   context.ui = { exploitState: { textContent: '' } };
@@ -220,6 +221,7 @@ test('new exploit attempts clear retry/result overlay before running', async () 
     isPS4Console: () => true,
     ui: { consoleElement: { textContent: '' } },
     autoJbInterval: null,
+    isRtl: () => false,
     cleanUp() {},
     log() {},
     updateJbStats() {},
