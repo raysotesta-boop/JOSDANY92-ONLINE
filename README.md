@@ -83,7 +83,7 @@ El host lee la versión `PlayStation 4 x.xx` de `navigator.userAgent`, si el nav
 
 La activación se está integrando y probando primero dentro de esta rama. Android queda aplazado hasta que la prueba en PS4 sea satisfactoria.
 
-- Página de inicio controlado: [ACTIVACION-GOLDHEN.html](ACTIVACION-GOLDHEN.html).
+- Página de inicio controlado: [GH.html](GH.html).
 - Motor oficial sincronizado en [WebKitty/](WebKitty/), con licencia AGPL-3.0-or-later.
 - Revisión upstream sincronizada: `bb5b65b8b7935f91a61516f06dbddb9f07674cd6`.
 - El manifiesto 12.xx declara 108 recursos; todos están presentes en la copia integrada.
