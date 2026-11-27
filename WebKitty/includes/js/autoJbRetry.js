@@ -61,6 +61,7 @@ function autoJailbreakTimer(permanentJb) {
     // skip timer if timer is set to 0
     if (timer <= 0 && storage.session.getBoolean('autoJbRetry', true)){
         toggleVisibility('autoJbTempStop');
+        if (window.J92NeonLoader) window.J92NeonLoader.start();
         jailbreak();
         return;
     }
@@ -86,6 +87,7 @@ function autoJailbreakTimer(permanentJb) {
         }
         if (timer <= 0) {
             clearInterval(autoJbInterval);
+            if (window.J92NeonLoader) window.J92NeonLoader.start();
             jailbreak();
         }
     }, 1000);
