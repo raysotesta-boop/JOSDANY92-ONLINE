@@ -5,6 +5,7 @@ async function jailbreak() {
 
   // clear terminal
   ui.consoleElement.textContent = '';
+  if (window.J92NeonLoader) window.J92NeonLoader.start();
   // stop counter
   if (autoJbInterval) clearInterval(autoJbInterval);
 
