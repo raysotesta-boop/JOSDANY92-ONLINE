@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v4
+# v5
 # Generated on 2026-11-21
 
 CACHE:
@@ -15,6 +15,7 @@ CACHE:
 ../../../includes/css/colors/default.css
 ../../../includes/css/colors/vibrant.css
 ../../../includes/css/colors/catppuccino.css
+../../../includes/css/colors/josdany92-neon.css
 ../../../includes/css/layouts/compact.css
 ../../../includes/css/layouts/index.css
 ../../../includes/js/HENs.js
