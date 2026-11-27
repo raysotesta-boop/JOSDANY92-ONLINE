@@ -242,6 +242,12 @@ test('new exploit attempts clear retry/result overlay before running', async () 
   assert.deepEqual(calls, { start: 1, handler: 1 });
 });
 
+test('legacy PS4 browser build also clears the result overlay before a new attempt', () => {
+  const legacy = read('WebKitty/includes/js/jailbreak-legacy.js');
+  assert.match(legacy, /JOSDANY92: hide retry\\/result overlay before every new exploit attempt/);
+  assert.doesNotThrow(() => new vm.Script(legacy, { filename: 'jailbreak-legacy.js' }));
+});
+
 test('Barebone page routes JavaScript errors and red logs to the NEON error state', () => {
   const html = read('WebKitty/exploit.html');
   assert.match(html, /Barebone errors must reach the visible status layer/);
