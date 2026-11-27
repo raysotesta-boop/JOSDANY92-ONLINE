@@ -28,6 +28,8 @@ function _jailbreak() {
           }
           return _context.a(2);
         case 2:
+          // JOSDANY92: hide retry/result overlay before every new exploit attempt.
+          if (window.J92NeonLoader) window.J92NeonLoader.start();
           // clear terminal
           ui.consoleElement.textContent = '';
           // stop counter
