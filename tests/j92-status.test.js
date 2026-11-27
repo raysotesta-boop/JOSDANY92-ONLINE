@@ -253,6 +253,16 @@ test('firmware cache manifests invalidate the changed assets for PS4 14.02 and 1
   }
 });
 
+test('result title and detail are explicitly visible for legacy PS4 WebKit', () => {
+  const loader = read('WebKitty/includes/js/neon-exploit-loader.js');
+  assert.ok(loader.includes("title.style.visibility = 'visible'"));
+  assert.ok(loader.includes("detail.style.visibility = 'visible'"));
+  assert.ok(loader.includes("title.style.fontSize = '56px'"));
+  const css = read('WebKitty/includes/css/neon-exploit-loader.css');
+  assert.match(css, /\.j92-result-title\s*\{[^}]*display:block !important/s);
+  assert.match(css, /\.j92-result-detail\s*\{[^}]*visibility:visible !important/s);
+});
+
 test('legacy PS4 browser build also clears the result overlay before a new attempt', () => {
   const legacy = read('WebKitty/includes/js/jailbreak-legacy.js');
   assert.ok(legacy.includes('JOSDANY92: hide retry/result overlay before every new exploit attempt'));
