@@ -648,7 +648,7 @@ async function kernel_main() {
   if (fn.setuid.invoke(0) === -1) {
     jailbreak();
 
-    notify('Jailbroken !!');
+    // JOSDANY92: suppress the generic Wobkot toast; leave the selected HEN payload notification untouched.
 
     await post_jailbreak();
   }else {
