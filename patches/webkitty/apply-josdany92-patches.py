@@ -373,4 +373,10 @@ for manifest in manifest_dir.glob("*.manifest"):
         write(manifest, content)
         print("Added JOSDANY92 assets to", manifest.name)
 
+manifest12 = manifest_dir / "12xx.manifest"
+manifest12_content = read(manifest12)
+if "# v4" in manifest12_content:
+    manifest12_content = manifest12_content.replace("# v4", "# v6", 1)
+    write(manifest12, manifest12_content)
+
 print("JOSDANY92 WebKitty patches applied and verified.")
