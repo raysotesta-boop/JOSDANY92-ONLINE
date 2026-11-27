@@ -109,6 +109,9 @@ jobs:
           grep -Fq 'GoldHEN ya está activado' WebKitty/includes/js/utilities.js
           grep -Fq 'GOLDHEN ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'GOLDHEN YA ESTÁ ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq "title.style.visibility = 'visible'" WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq "detail.style.visibility = 'visible'" WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'PS4 WebKit fallback: avoid clamp()/min()' WebKitty/includes/css/neon-exploit-loader.css
           grep -Fq 'GOLDHEN ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'GOLDHEN NO ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'REINTENTANDO EXPLOIT' WebKitty/includes/js/neon-exploit-loader.js
