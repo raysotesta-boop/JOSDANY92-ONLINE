@@ -27,3 +27,54 @@ jobs:
           node --check WebKitty/includes/js/neon-exploit-loader.js
       - name: Run activation state simulations
         run: node --test tests/j92-status.test.js
+
+
+  patch-reproducibility:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout development branch
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Rebuild pinned upstream with JOSDANY92 patches
+        run: |
+          set -euo pipefail
+          git clone https://github.com/ArabPixel/WebKitty.git /tmp/WebKitty
+          git -C /tmp/WebKitty checkout --detach bb5b65b8b7935f91a61516f06dbddb9f07674cd6
+          rm -rf WebKitty
+          mkdir -p WebKitty
+          rsync -a --exclude='.git' --exclude='.github' /tmp/WebKitty/ WebKitty/
+          mkdir -p WebKitty/includes/css/colors WebKitty/includes/css/layouts
+          cp patches/webkitty/josdany92-neon.css WebKitty/includes/css/colors/josdany92-neon.css
+          cp patches/webkitty/compact.css WebKitty/includes/css/layouts/compact.css
+          cp patches/webkitty/design.js WebKitty/includes/js/design.js
+          cp patches/webkitty/neon-exploit-loader.css WebKitty/includes/css/neon-exploit-loader.css
+          cp patches/webkitty/neon-exploit-loader.js WebKitty/includes/js/neon-exploit-loader.js
+          python3 -c "compile(open('patches/webkitty/apply-josdany92-patches.py', encoding='utf-8').read(), 'apply-josdany92-patches.py', 'exec')"
+          python3 patches/webkitty/apply-josdany92-patches.py
+          find WebKitty -type f -print0 | sort -z | xargs -0 sha256sum > /tmp/j92-before.txt
+          python3 patches/webkitty/apply-josdany92-patches.py
+          find WebKitty -type f -print0 | sort -z | xargs -0 sha256sum > /tmp/j92-after.txt
+          cmp /tmp/j92-before.txt /tmp/j92-after.txt
+      - name: Build and run both virtual suites
+        run: |
+          set -euo pipefail
+          cd WebKitty
+          npm ci --ignore-scripts
+          npm run build
+          cd ..
+          node patches/webkitty/test-neon-exploit-loader.cjs
+          node --test tests/j92-status.test.js
+          node --check WebKitty/includes/js/jailbreak.js
+          node --check WebKitty/includes/js/utilities.js
+          node --check WebKitty/includes/js/autoJbRetry.js
+          node --check WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'GOLDHEN ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'GOLDHEN YA ESTÁ ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'GOLDHEN NO ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'j92GoldHENVersionMatch' WebKitty/includes/js/utilities.js
+          grep -Fq 'hide retry/result overlay before every new exploit attempt' WebKitty/includes/js/jailbreak.js
+          grep -Fq 'Barebone errors must reach the visible status layer' WebKitty/exploit.html
+          grep -Fq 'show the retry state only during an automatic retry countdown' WebKitty/includes/js/autoJbRetry.js
