@@ -26,6 +26,16 @@ def replace_once(path, old, new, marker):
 # 1) WebKitty main page: default JOSDANY92 theme and NEON visual layer.
 index = ROOT / "index.html"
 content = read(index)
+content = content.replace('<title>WebKitty</title>', '<title>WebKitty · JOSDANY92 Neon Edition</title>', 1)
+theme_anchor = """                        <p id="catppuccinoColor">Catppuccino</p>
+                    </label>"""
+theme_replacement = theme_anchor + """
+                    <label class="flex items-center text-white/80">
+                        <input type="radio" name="colorTheme" value="josdany92-neon" onchange="setTheme(this.value);">
+                        <p>JOSDANY92 Neon</p>
+                    </label>"""
+if 'value="josdany92-neon"' not in content and theme_anchor in content:
+    content = content.replace(theme_anchor, theme_replacement, 1)
 content = re.sub(
     r"(var savedTheme = localStorage\.getItem\('theme'\) \|\| )\"[^\"]+\";",
     r'\1"compact";',
