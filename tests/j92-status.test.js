@@ -215,6 +215,7 @@ test('new exploit attempts clear retry/result overlay before running', async () 
     },
     user: { blockJailbreak: false, exploitChain: 1, bareboneJB: false },
     devMode: false,
+    autoJbInterval: null,
     window: { J92NeonLoader: { start: () => calls.start++ } },
     isPS4Console: () => true,
     ui: { consoleElement: { textContent: '' } },
