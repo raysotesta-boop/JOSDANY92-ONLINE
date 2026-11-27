@@ -1,0 +1,29 @@
+name: JOSDANY92 virtual status tests
+
+on:
+  push:
+    branches:
+      - JOSDANY92-V2.1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  status-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Syntax-check modified JavaScript
+        run: |
+          node --check WebKitty/includes/js/jailbreak.js
+          node --check WebKitty/includes/js/utilities.js
+          node --check WebKitty/includes/js/autoJbRetry.js
+          node --check WebKitty/includes/js/neon-exploit-loader.js
+      - name: Run activation state simulations
+        run: node --test tests/j92-status.test.js
