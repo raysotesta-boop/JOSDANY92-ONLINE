@@ -130,14 +130,15 @@ function jailbreakSuccess(statusMessage) {
     var j92PayloadPath = '';
     try {
         j92PayloadPath = storage.session.getString('payload_path', '');
+        var j92GoldHENVersionMatch = j92PayloadPath.match(/goldhen_v(2\.4b18\.\d+)\.bin$/i);
         j92IsGoldHEN = typeof user !== 'undefined'
             && user.currentJbFlavor === 'GoldHEN'
-            && /goldhen_v2\.4b18\.14\.bin$/i.test(j92PayloadPath);
+            && !!j92GoldHENVersionMatch;
         if (j92IsGoldHEN) {
             storage.session.set('j92GoldHENActive', true);
             localStorage.setItem('j92-goldhen-last-success', JSON.stringify({
                 result: 'WebKitty reported GoldHEN payload completion',
-                version: '2.4b18.14',
+                version: j92GoldHENVersionMatch[1],
                 firmware: user.ps4Fw || getPs4FwVersion(),
                 exploitChain: user.exploitChain,
                 payload: j92PayloadPath,
