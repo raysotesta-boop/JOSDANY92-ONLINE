@@ -167,3 +167,162 @@ button:hover, .payload:hover {
         height: 148px !important;
     }
 }
+
+
+/* ==========================================================
+   JOSDANY92 NEON — FULL SCREEN EDITION
+   Visual-only layer inspired by the JOSDANY92 V3.0 control
+   center. WebKitty exploit scripts and payload flow untouched.
+   ========================================================== */
+html, body {
+    width: 100% !important;
+    min-height: 100% !important;
+    background-color: #070416 !important;
+}
+body {
+    background-image:
+      linear-gradient(180deg, rgba(4,3,20,.76), rgba(5,4,25,.48) 42%, rgba(4,3,18,.82)),
+      url("../../../../fondo-josdany92.jpg") !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    color: #f7f3ff !important;
+}
+.mainContainer {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
+    background: transparent !important;
+}
+#initial-screen {
+    width: 100% !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    padding: 42px 3.2vw 56px !important;
+    justify-content: center !important;
+    background: transparent !important;
+}
+#initial-screen:before {
+    content: "JOSDANY92  •  ULTIMATE NEON HOST";
+    display: block;
+    width: 100%;
+    margin: 0 auto 24px;
+    padding: 12px 18px;
+    text-align: center;
+    color: #e9faff;
+    font-size: clamp(18px, 2.2vw, 30px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 0 0 8px #ff35e8, 0 0 18px #23cfff;
+    border-bottom: 2px solid rgba(190,65,255,.9);
+    box-shadow: 0 8px 20px -16px #ec35ff;
+}
+#ps-logo-container {
+    width: 170px !important;
+    height: 170px !important;
+    margin: 12px auto 18px !important;
+    border: 2px solid #45dfff !important;
+    border-radius: 32px !important;
+    background: linear-gradient(145deg, rgba(42,10,78,.94), rgba(5,25,70,.94)) !important;
+    box-shadow: 0 0 18px rgba(51,214,255,.65), 0 0 36px rgba(220,42,255,.38) !important;
+}
+#ps-logo {
+    fill: #78edff !important;
+    filter: drop-shadow(0 0 9px #22dfff) drop-shadow(0 0 16px #bd39ff);
+}
+#choosejb-initial {
+    width: min(560px, 92vw) !important;
+    max-width: 560px !important;
+    margin: 22px auto !important;
+    padding: 24px !important;
+    border: 2px solid rgba(70,220,255,.9) !important;
+    border-radius: 22px !important;
+    background: linear-gradient(145deg, rgba(25,8,54,.96), rgba(5,10,38,.95)) !important;
+    box-shadow: 0 0 20px rgba(30,194,255,.28), 0 0 32px rgba(207,35,255,.2) !important;
+}
+#choosejb-initial h3 {
+    color: #fff !important;
+    text-shadow: 0 0 10px rgba(66,220,255,.6), 0 0 18px rgba(223,54,255,.35);
+    letter-spacing: 1px;
+}
+#exploit-main-screen {
+    width: 100% !important;
+    min-height: 100vh !important;
+    padding: 28px 2.8vw !important;
+    background:
+      linear-gradient(180deg, rgba(7,4,25,.88), rgba(7,4,24,.78)),
+      url("../../../../fondo-josdany92.jpg") center center / cover fixed !important;
+}
+#exploitContainer {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 90vh !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    gap: 22px !important;
+}
+#exploit-status-panel, #payloadsSection {
+    border: 1px solid rgba(65,220,255,.65) !important;
+    border-radius: 20px !important;
+    background: linear-gradient(145deg, rgba(13,12,48,.94), rgba(19,5,42,.93)) !important;
+    box-shadow: 0 0 18px rgba(54,192,255,.18), 0 0 26px rgba(213,39,255,.14) !important;
+}
+#exploit-status-panel {
+    flex: 1 1 48% !important;
+    min-width: 0 !important;
+    padding: 22px !important;
+}
+#payloadsSection {
+    flex: 1 1 52% !important;
+    min-width: 0 !important;
+    padding: 22px !important;
+}
+.payload {
+    border: 1px solid rgba(105,216,255,.36) !important;
+    border-radius: 15px !important;
+    background: linear-gradient(145deg, rgba(25,12,63,.96), rgba(7,17,49,.96)) !important;
+    box-shadow: 0 5px 18px rgba(0,0,0,.22) !important;
+}
+.payload:hover, button:hover {
+    border-color: #e34dff !important;
+    box-shadow: 0 0 14px rgba(76,218,255,.38), 0 0 20px rgba(226,49,255,.24) !important;
+}
+button, select, input {
+    border-radius: 11px !important;
+}
+#updateCache {
+    border: 1px solid #45dfff !important;
+    border-radius: 12px !important;
+    background: linear-gradient(100deg, #32106e, #082e70) !important;
+    color: #eafaff !important;
+}
+#DebugConsole {
+    border: 1px solid rgba(91,213,255,.38) !important;
+    border-radius: 13px !important;
+    background: rgba(3,7,28,.9) !important;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #28dfff, #c13dff) !important;
+    border-radius: 8px !important;
+}
+@media screen and (max-width: 900px) {
+    #initial-screen { padding: 30px 16px 42px !important; }
+    #exploitContainer {
+        flex-direction: column !important;
+        min-height: 0 !important;
+    }
+    #exploit-status-panel, #payloadsSection {
+        flex: 1 1 auto !important;
+        width: 100% !important;
+    }
+}
+@media screen and (min-width: 901px) {
+    #initial-screen { padding-left: 5vw !important; padding-right: 5vw !important; }
+    #exploit-main-screen { padding-left: 2vw !important; padding-right: 2vw !important; }
+}
