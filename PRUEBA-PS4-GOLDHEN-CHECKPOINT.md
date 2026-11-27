@@ -6,7 +6,7 @@ Consola objetivo documentada: PS4 Pro
 Perfil actualmente configurado: firmware 12.00 · GoldHEN 2.4b18.14 · Wobkot/Lapse (cadena 10)
 
 ## Estado verificado en GitHub
-- La página `ACTIVACION-GOLDHEN.html` está en la rama de trabajo.
+- La página `GH.html` está en la rama de trabajo.
 - El motor WebKitty está integrado y fijado a la revisión upstream `bb5b65b8b7935f91a61516f06dbddb9f07674cd6`.
 - El flujo de GitHub Actions `Sync official WebKitty source into JOSDANY92` terminó con conclusión `success` en la ejecución `45747702637` (commit de ejecución `8f1438bf78660e8cfd1c9f33b194799a822a065f`).
 - La verificación del workflow compara los blobs upstream con los recursos críticos incluidos en el repositorio.
