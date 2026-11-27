@@ -10,6 +10,10 @@ on:
       - patches/webkitty/**
   workflow_dispatch:
 
+concurrency:
+  group: j92-webkitty-sync-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -53,6 +57,10 @@ jobs:
           cp patches/webkitty/neon-exploit-loader.js WebKitty/includes/js/neon-exploit-loader.js
           python3 -c "compile(open('patches/webkitty/apply-josdany92-patches.py', encoding='utf-8').read(), 'apply-josdany92-patches.py', 'exec')"
           python3 patches/webkitty/apply-josdany92-patches.py
+          git diff -- WebKitty > /tmp/j92-patch-first.diff
+          python3 patches/webkitty/apply-josdany92-patches.py
+          git diff -- WebKitty > /tmp/j92-patch-second.diff
+          cmp /tmp/j92-patch-first.diff /tmp/j92-patch-second.diff
           cd WebKitty
           npm ci --ignore-scripts
           npm run build
