@@ -62,7 +62,10 @@ function log(message, color, consoleEl) {
     span.textContent = message + '\n';
     if (color) span.style.color = color;
     consoleEl.appendChild(span);
-    if (color === 'red' && window.J92NeonLoader) window.J92NeonLoader.finish('error');
+    if (color === 'red') {
+        if (typeof user !== 'undefined') user.blockJailbreak = false;
+        if (window.J92NeonLoader) window.J92NeonLoader.finish('error');
+    }
 }
 
 function getReloadAfterJbValue() {
@@ -102,8 +105,26 @@ function updateJbStats(attempt, isSuccess, revert) {
     }
 }
 
+// Called when this page is opened again after the process already has jailbreak privileges.
+function jailbreakAlreadyActive(goldhenReady) {
+    if (typeof user !== 'undefined') user.blockJailbreak = false;
+    if (window.J92NeonLoader && window.J92NeonLoader.alreadyActive) {
+        window.J92NeonLoader.alreadyActive(!!goldhenReady);
+    }
+    var message = goldhenReady
+        ? 'GoldHEN ya está activado. No se repetirá el exploit ni la carga.'
+        : 'El jailbreak ya está activo. Se omitió el exploit; GoldHEN no se pudo confirmar en el puerto 9090.';
+    if (typeof ui !== 'undefined' && ui.exploitState) {
+        ui.exploitState.textContent = message;
+    } else {
+        var stateEl = document.getElementById('state');
+        if (stateEl) stateEl.textContent = message;
+    }
+}
+
 // Called by exploit implementations after a successful jailbreak.
 function jailbreakSuccess(statusMessage) {
+    if (typeof user !== 'undefined') user.blockJailbreak = false;
     if (window.J92NeonLoader) window.J92NeonLoader.finish('success');
     // JOSDANY92: record successful GoldHEN payload completion.
     // This callback runs after WebKitty's selected payload loader returns.
