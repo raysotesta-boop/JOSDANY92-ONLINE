@@ -4,7 +4,10 @@ function setAutoJbRetry(checked) {
     storage.set('autoJbRetry', checked);
     storage.session.set('autoJbRetry', checked);
 
-    if (!checked) return;
+    if (!checked) {
+        if (window.J92NeonLoader) window.J92NeonLoader.stopRetry();
+        return;
+    }
     if (confirm(window.lang.autoJbRetryConfirm)) jailbreak();
 }
 
@@ -69,12 +72,14 @@ function autoJailbreakTimer(permanentJb) {
     var message = permanentJb ? autoJbText : autoJbRetryText;
 
     // paste this again so it displays immediately on page load
+    if (!permanentJb && window.J92NeonLoader) window.J92NeonLoader.retry(timer);
     if (ui.clickToStartText) {
         ui.clickToStartText.textContent = message.replace('{seconds}', timer);
         ui.clickToStartText.style.fontSize = "15px";
     }
     autoJbInterval = setInterval(function () {
         timer--;
+        if (!permanentJb && window.J92NeonLoader) window.J92NeonLoader.retry(timer);
         if (ui.clickToStartText) {
             ui.clickToStartText.textContent = message.replace('{seconds}', timer);
             ui.clickToStartText.style.fontSize = "15px";
