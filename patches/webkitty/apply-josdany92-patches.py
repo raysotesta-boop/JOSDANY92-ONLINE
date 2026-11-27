@@ -443,14 +443,21 @@ for manifest in manifest_dir.glob("*.manifest"):
     missing = [asset for asset in assets if asset not in content]
     if missing:
         content = content.replace("NETWORK:", "\n".join(missing) + "\n\nNETWORK:", 1)
+        version_match = re.search(r"(?m)^# v([0-9]+)(?:\.([0-9]+))?$", content)
+        if not version_match:
+            raise SystemExit("Manifest version marker missing: %s" % manifest)
+        major = int(version_match.group(1))
+        minor = version_match.group(2)
+        if manifest.name == "12xx.manifest":
+            # v9 was already deployed; force v10 so PS4 12.00 refreshes the changed assets.
+            next_version = str(max(major + 1, 10)) if minor is None else "%s.%s" % (major, max(int(minor) + 1, 10))
+        elif minor is not None:
+            next_version = "%s.%s" % (major, int(minor) + 1)
+        else:
+            next_version = str(major + 1)
+        content = content[:version_match.start()] + "# v" + next_version + content[version_match.end():]
         write(manifest, content)
-        print("Added JOSDANY92 assets to", manifest.name)
+        print("Added JOSDANY92 assets and bumped cache version to v%s in %s" % (next_version, manifest.name))
 
-manifest12 = manifest_dir / "12xx.manifest"
-manifest12_content = read(manifest12)
-manifest12_content, version_updates = re.subn(r"(?m)^# v[0-9]+$", "# v9", manifest12_content, count=1)
-if version_updates != 1:
-    raise SystemExit("Could not update 12xx cache manifest version")
-write(manifest12, manifest12_content)
 
 print("JOSDANY92 WebKitty patches applied and verified.")
