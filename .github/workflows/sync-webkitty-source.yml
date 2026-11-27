@@ -1,3 +1,4 @@
+# This sync reapplies the pinned upstream source plus the tested JOSDANY92 status layer.
 name: Sync official WebKitty source into JOSDANY92
 
 on:
@@ -108,6 +109,13 @@ jobs:
           grep -Fq 'GoldHEN ya está activado' WebKitty/includes/js/utilities.js
           grep -Fq 'GOLDHEN ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'GOLDHEN YA ESTÁ ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'GOLDHEN ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'GOLDHEN NO ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'REINTENTANDO EXPLOIT' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'j92GoldHENVersionMatch' WebKitty/includes/js/utilities.js
+          grep -Fq 'hide retry/result overlay before every new exploit attempt' WebKitty/includes/js/jailbreak.js
+          grep -Fq 'Barebone errors must reach the visible status layer' WebKitty/exploit.html
+          grep -Fq 'show the retry state only during an automatic retry countdown' WebKitty/includes/js/autoJbRetry.js
           grep -Fq 'GOLDHEN NO ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'REINTENTANDO' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'j92-card-in' WebKitty/includes/css/neon-exploit-loader.css
