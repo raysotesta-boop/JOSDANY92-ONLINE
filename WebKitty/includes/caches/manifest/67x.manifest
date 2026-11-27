@@ -88,5 +88,9 @@ CACHE:
 ../../../src/badhoist/672entrypoint.js
 ../../../src/badhoist/672kexploit.js
 
+../../../includes/css/colors/josdany92-neon.css
+../../../includes/css/neon-exploit-loader.css
+../../../includes/js/neon-exploit-loader.js
+
 NETWORK:
 *

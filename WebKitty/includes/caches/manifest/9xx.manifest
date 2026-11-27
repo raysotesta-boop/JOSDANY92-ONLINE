@@ -142,5 +142,9 @@ CACHE:
 ../../../src/kpatches/903.bin
 ../../../src/kpatches/950.bin
 
+../../../includes/css/colors/josdany92-neon.css
+../../../includes/css/neon-exploit-loader.css
+../../../includes/js/neon-exploit-loader.js
+
 NETWORK:
 *

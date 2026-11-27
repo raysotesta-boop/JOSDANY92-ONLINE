@@ -5,10 +5,15 @@ function setAutoJbRetry(checked) {
     storage.session.set('autoJbRetry', checked);
 
     if (!checked) {
+        if (autoJbInterval) {
+            clearInterval(autoJbInterval);
+            autoJbInterval = null;
+        }
         if (window.J92NeonLoader) window.J92NeonLoader.stopRetry();
-        return;
+        if (ui.stopAutoJbBtn) toggleVisibility(ui.stopAutoJbBtn.id, false);
     }
-    if (confirm(window.lang.autoJbRetryConfirm)) jailbreak();
+    // Enabling the switch only arms retries after a recoverable failed attempt.
+    // It never launches a second exploit immediately when the user changes the setting.
 }
 
 function setAutoJb(checked) {
@@ -30,7 +35,7 @@ function autoJailbreak() {
     document.getElementById('autoJbTimerText').innerText = getAutoJbTimer();
 
     // Auto jailbreak retry logic
-    var autoJbRetryChecked = storage.getBoolean('autoJbRetry', true);
+    var autoJbRetryChecked = storage.getBoolean('autoJbRetry', false);
     var autoJbRetrySessionChecked = storage.session.getBoolean('autoJbRetry', false);
     if (ui.autoJbRetry) ui.autoJbRetry.checked = autoJbRetryChecked;
 
@@ -59,9 +64,8 @@ function autoJailbreak() {
 function autoJailbreakTimer(permanentJb) {
     var timer = getAutoJbTimer();
     // skip timer if timer is set to 0
-    if (timer <= 0 && storage.session.getBoolean('autoJbRetry', true)){
+    if (timer <= 0 && (permanentJb || storage.session.getBoolean('autoJbRetry', false))){
         toggleVisibility('autoJbTempStop');
-        if (window.J92NeonLoader) window.J92NeonLoader.start();
         jailbreak();
         return;
     }
@@ -73,21 +77,19 @@ function autoJailbreakTimer(permanentJb) {
     var message = permanentJb ? autoJbText : autoJbRetryText;
 
     // paste this again so it displays immediately on page load
-    if (!permanentJb && window.J92NeonLoader) window.J92NeonLoader.retry(timer);
     if (ui.clickToStartText) {
         ui.clickToStartText.textContent = message.replace('{seconds}', timer);
         ui.clickToStartText.style.fontSize = "15px";
     }
     autoJbInterval = setInterval(function () {
         timer--;
-        if (!permanentJb && window.J92NeonLoader) window.J92NeonLoader.retry(timer);
         if (ui.clickToStartText) {
             ui.clickToStartText.textContent = message.replace('{seconds}', timer);
             ui.clickToStartText.style.fontSize = "15px";
         }
         if (timer <= 0) {
             clearInterval(autoJbInterval);
-            if (window.J92NeonLoader) window.J92NeonLoader.start();
+            autoJbInterval = null;
             jailbreak();
         }
     }, 1000);

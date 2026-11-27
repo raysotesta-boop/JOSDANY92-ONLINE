@@ -20,6 +20,11 @@ ui.mainContainer.addEventListener('scroll', function () {
 
 // Jailbreak launch
 ui.exploitRunBtn.addEventListener('click', function () {
+    // JOSDANY92: j92GoldHENActive click guard.
+    if (storage.session.getBoolean('j92GoldHENActive', false)) {
+        jailbreakAlreadyActive(true);
+        return;
+    }
     if (user.blockJailbreak) return;
     user.blockJailbreak = true;
     chooseHEN();
@@ -27,6 +32,11 @@ ui.exploitRunBtn.addEventListener('click', function () {
 });
 
 ui.psLogoContainer.addEventListener('click', function () {
+    // JOSDANY92: j92GoldHENActive click guard.
+    if (storage.session.getBoolean('j92GoldHENActive', false)) {
+        jailbreakAlreadyActive(true);
+        return;
+    }
     if (user.blockJailbreak) return;
     user.blockJailbreak = true;
     chooseHEN();
@@ -119,7 +129,6 @@ ui.ps4FwSelect.addEventListener('change', function () {
 // Auto-jailbreak/Auto-jailbreak retry stop button
 ui.stopAutoJbBtn.addEventListener('click', function () {
     clearInterval(autoJbInterval);
-    if (window.J92NeonLoader) window.J92NeonLoader.stopRetry();
 
     storage.session.set('autoJbRetry', false);
     storage.session.set('autoJb', false);

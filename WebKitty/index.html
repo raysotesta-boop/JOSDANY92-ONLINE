@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <title>WebKitty · JOSDANY92 Neon Edition</title>
+    <title>WebKitty</title>
     <meta name="description"
         content="WebKitty is a user-friendly, feature-rich PS4 exploit host for 4.50-5.07 & 6.70 - 14.02." />
     <meta name="author" content="ArabPixel">
@@ -50,11 +50,8 @@
         var isThisPS4 = navigator.userAgent.indexOf("PlayStation 4") !== -1;
         var isLocalServer = /^(127\.|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)/.test(window.location.hostname);
         var isCurrentHTTPS = window.location.protocol === 'https:';
-        // JOSDANY92 fork: GitHub Pages must stay on this repository.
-        // Never redirect the customized host to the upstream ArabPixel domain.
-        var isJOSDANY92Pages = /(^|\.)github\.io$/i.test(window.location.hostname);
-        if (isThisPS4 && goToHttps && !isLocalServer && isCurrentHTTPS && !isJOSDANY92Pages) {
-            if (confirm("You are currently using HTTPS, which prevents loading payloads through local bin/elf loader servers. Switch to HTTP instead? (recommended)")) {
+        if (isThisPS4 && goToHttps && !isLocalServer && isCurrentHTTPS) {
+            if (confirm("You are currently using HTTPS, which prevents loading payloads through a local bin/elf loader servers, switch to http instead? (recommended)")) {
                 window.abortLoading = true;
                 window.location.href = "http://webkitty.arabpixel.net";
             } else {
@@ -716,10 +713,6 @@
                         <input type="radio" name="colorTheme" value="catppuccino" onchange="setTheme(this.value);">
                         <p id="catppuccinoColor">Catppuccino</p>
                     </label>
-                    <label class="flex items-center text-white/80">
-                        <input type="radio" name="colorTheme" value="josdany92-neon" onchange="setTheme(this.value);">
-                        <p>JOSDANY92 Neon</p>
-                    </label>
                 </div>
             </div>
             <button onclick="themePopup()"
@@ -763,6 +756,8 @@
     <script>
         // Global Error Tracker
         function reportGlobalError(title, details) {
+      // JOSDANY92: show NEON failure state for global errors.
+      if (window.J92NeonLoader) window.J92NeonLoader.finish("error");
             var errorConsole = document.getElementById('console');
             if (!errorConsole) return;
 

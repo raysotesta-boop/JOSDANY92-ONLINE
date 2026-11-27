@@ -90,5 +90,9 @@ CACHE:
 ../../../src/slopkit-afterglow/jb.js
 ../../../src/kpatches/1400.bin
 
+../../../includes/css/colors/josdany92-neon.css
+../../../includes/css/neon-exploit-loader.css
+../../../includes/js/neon-exploit-loader.js
+
 NETWORK:
 *

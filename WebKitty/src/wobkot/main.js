@@ -9,6 +9,7 @@ const logger = {
     this.log('[+]', `${msg}`);
   },
   error(msg) {
+    if (window.J92NeonLoader) window.J92NeonLoader.finish('error');
     this.log('[-]', `${msg}`);
   },
   debug(msg) {

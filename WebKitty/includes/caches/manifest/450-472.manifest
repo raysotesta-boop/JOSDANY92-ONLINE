@@ -56,5 +56,9 @@ CACHE:
 ../../../src/bpf-double-free/webkitExploit_haveABadTime.js
 ../../../src/bpf-double-free/webkitExploit_stackUnitializedRead.js
 
+../../../includes/css/colors/josdany92-neon.css
+../../../includes/css/neon-exploit-loader.css
+../../../includes/js/neon-exploit-loader.js
+
 NETWORK:
 *

@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v5
+# v4
 # Generated on 2026-11-21
 
 CACHE:
@@ -15,7 +15,6 @@ CACHE:
 ../../../includes/css/colors/default.css
 ../../../includes/css/colors/vibrant.css
 ../../../includes/css/colors/catppuccino.css
-../../../includes/css/colors/josdany92-neon.css
 ../../../includes/css/layouts/compact.css
 ../../../includes/css/layouts/index.css
 ../../../includes/js/HENs.js
@@ -112,6 +111,10 @@ CACHE:
 ../../../src/wobkot/worker.js
 ../../../src/kpatches/1200.bin
 ../../../src/kpatches/1250.bin
+
+../../../includes/css/colors/josdany92-neon.css
+../../../includes/css/neon-exploit-loader.css
+../../../includes/js/neon-exploit-loader.js
 
 NETWORK:
 *

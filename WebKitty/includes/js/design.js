@@ -26,7 +26,7 @@ function setTheme(color) {
 }
 
 function loadLayout() {
-    var savedTheme = storage.getString('theme', 'compact');
+    var savedTheme = storage.getString('theme', 'index');
 
     // Find the radio button matching the saved layout
     var radioElement = document.querySelector('input[name="theme"][value="' + savedTheme + '"]');
@@ -52,16 +52,16 @@ function loadLayout() {
 }
 
 function loadTheme() {
-    var savedColor = storage.getString('color', 'josdany92-neon');
+    var savedColor = storage.getString('color', 'default');
 
     // Find the radio button matching the saved theme
     var radioElement = document.querySelector('input[name="colorTheme"][value="' + savedColor + '"]');
 
     // Fallback if the saved theme doesn't exist or is invalid
     if (!radioElement) {
-        savedColor = 'josdany92-neon';
-        radioElement = document.querySelector('input[name="colorTheme"][value="josdany92-neon"]');
-        storage.set('color', 'josdany92-neon');
+        savedColor = 'default';
+        radioElement = document.querySelector('input[name="colorTheme"][value="default"]');
+        storage.set('color', 'default');
         setTheme(savedColor);
     }
     if (radioElement) {

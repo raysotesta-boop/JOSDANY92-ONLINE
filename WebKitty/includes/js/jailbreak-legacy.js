@@ -11,23 +11,30 @@ function jailbreak() {
 }
 function _jailbreak() {
   _jailbreak = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-    var payloadPath, handler;
+    var payloadPath, handler, runResult;
     return _regenerator().w(function (_context) {
       while (1) switch (_context.n) {
         case 0:
-          if (!(!isPS4Console() && !devMode)) {
+          if (!storage.session.getBoolean('j92GoldHENActive', false)) {
             _context.n = 1;
             break;
           }
+          jailbreakAlreadyActive(true);
           return _context.a(2);
         case 1:
+          if (!(!isPS4Console() && !devMode)) {
+            _context.n = 2;
+            break;
+          }
+          return _context.a(2);
+        case 2:
           // clear terminal
           ui.consoleElement.textContent = '';
           // stop counter
           if (autoJbInterval) clearInterval(autoJbInterval);
 
-          // Make it retry until success
-          storage.session.set('autoJbRetry', true);
+          // JOSDANY92: honor the persistent ON/OFF retry preference (OFF by default).
+          storage.session.set('autoJbRetry', storage.getBoolean('autoJbRetry', false));
 
           // turn off auto-jailbreak for this session, so it doesn't loop forever
           // autoJbRetry will pickup on userland fail and reload
@@ -45,12 +52,12 @@ function _jailbreak() {
 
           // barebone exploit preferred? go to exploit file
           if (!user.bareboneJB) {
-            _context.n = 2;
+            _context.n = 3;
             break;
           }
           window.location.href = testModeUrl("./exploit.html");
           return _context.a(2);
-        case 2:
+        case 3:
           // add one jailbreak attempt to stats
           // prevent double exploit attempt for 6.7x
           if (storage.session.getBoolean('jailbreakNow', null) !== true) {
@@ -60,11 +67,16 @@ function _jailbreak() {
           // checkFw.js guarantees exploitChain is valid for the current firmware
           handler = EXPLOIT_HANDLERS[user.exploitChain];
           if (typeof handler === 'function') {
-            handler();
+            runResult = handler();
+            if (runResult && typeof runResult["catch"] === 'function') {
+              runResult["catch"](function (error) {
+                log(error, "red");
+              });
+            }
           } else {
             log("Error: Invalid exploit chain selected", "red");
           }
-        case 3:
+        case 4:
           return _context.a(2);
       }
     }, _callee);

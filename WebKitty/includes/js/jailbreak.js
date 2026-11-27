@@ -1,19 +1,19 @@
 // @ts-nocheck
 // Jailbreak-related functions
 async function jailbreak() {
+  if (storage.session.getBoolean('j92GoldHENActive', false)) {
+    jailbreakAlreadyActive(true);
+    return;
+  }
   if (!isPS4Console() && !devMode) return;
 
   // clear terminal
   ui.consoleElement.textContent = '';
-  if (window.J92NeonLoader) window.J92NeonLoader.start();
   // stop counter
   if (autoJbInterval) clearInterval(autoJbInterval);
 
-  // JOSDANY92: honor the user's retry switch. A single-attempt safety
-  // lock always wins; otherwise setAutoJbRetry() owns this session preference.
-  if (sessionStorage.getItem('j92SingleAttempt') === 'true') {
-    storage.session.set('autoJbRetry', false);
-  }
+  // JOSDANY92: honor the persistent ON/OFF retry preference (OFF by default).
+  storage.session.set('autoJbRetry', storage.getBoolean('autoJbRetry', false));
 
   // turn off auto-jailbreak for this session, so it doesn't loop forever
   // autoJbRetry will pickup on userland fail and reload
@@ -46,7 +46,10 @@ async function jailbreak() {
   // checkFw.js guarantees exploitChain is valid for the current firmware
   var handler = EXPLOIT_HANDLERS[user.exploitChain];
   if (typeof handler === 'function') {
-    handler();
+    var runResult = handler();
+    if (runResult && typeof runResult.catch === 'function') {
+      runResult.catch(function (error) { log(error, "red"); });
+    }
   } else {
     log("Error: Invalid exploit chain selected", "red");
   }
