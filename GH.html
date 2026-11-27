@@ -104,6 +104,15 @@ async function exists(path){
  }catch(e){return false;}
 }
 async function preflight(){
+ try {
+  if(sessionStorage.getItem('j92GoldHENActive')==='true'){
+   badge.textContent='GOLDHEN ACTIVO';
+   checks.innerHTML='<div class="check ok"><span class="mark">✓</span><div><b>GoldHEN 2.4b18.14</b><small>WebKitty ya informó que el payload terminó de cargarse en esta sesión.</small></div></div>';
+   status.textContent='GOLDHEN YA ESTÁ ACTIVADO. No vuelvas a ejecutar el exploit. Para una nueva activación, reinicia la PS4 y abre una sesión nueva del navegador.';
+   activate.disabled=true;
+   return;
+  }
+ } catch(e) {}
  var fw=detectFirmware();
  badge.textContent=fw.version?'PS4 '+fw.version:'FIRMWARE: NO DETECTADO';
  var results=[];
@@ -154,6 +163,13 @@ async function preflight(){
 }
 activate.addEventListener('click',function(){
  if(activate.disabled)return;
+ try {
+  if(sessionStorage.getItem('j92GoldHENActive')==='true'){
+   status.textContent='GOLDHEN YA ESTÁ ACTIVADO. No se repetirá el exploit.';
+   activate.disabled=true;
+   return;
+  }
+ } catch(e) {}
  var fw=detectFirmware();
  if(!fw.isPS4||fw.version!=='12.00'){
   status.textContent='BLOQUEADO: la detección del firmware cambió. No se ha iniciado el exploit.';
@@ -164,14 +180,14 @@ activate.addEventListener('click',function(){
   localStorage.setItem('GHVer','GHv2.4b18.14');
   localStorage.setItem('exploitChain','10');
   localStorage.setItem('autoJb','true');
-  localStorage.setItem('autoJbRetry','false');
   localStorage.setItem('autoJbTimer','8');
   localStorage.setItem('bareboneJB','false');
   localStorage.removeItem('j92-goldhen-last-success');
   localStorage.setItem('j92-goldhen-last-attempt',JSON.stringify({firmware:'12.00',version:'2.4b18.14',exploitChain:10,timestamp:Date.now()}));
   sessionStorage.setItem('autoJb','true');
-  sessionStorage.setItem('autoJbRetry','false');
-  sessionStorage.setItem('j92SingleAttempt','true');
+  var retryEnabled = localStorage.getItem('autoJbRetry') === 'true';
+  sessionStorage.setItem('autoJbRetry', retryEnabled ? 'true' : 'false');
+  sessionStorage.removeItem('j92SingleAttempt');
   sessionStorage.removeItem('payload_path');
   sessionStorage.removeItem('jailbreakNow');
   status.textContent='Configuración preparada. Abriendo motor oficial WebKitty…';
