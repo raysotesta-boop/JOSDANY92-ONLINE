@@ -197,7 +197,6 @@ class KernelView extends DataView {
     super.setBInt(0, 0, true);
 
     this.kread(this.dv_backing, this.pipe_backing.add(byteOffset), 4);
-
     return super.getFloat32(0, littleEndian);
   }
 
@@ -637,24 +636,59 @@ function jailbreak() {
   logger.info('Achieved jailbreak !!');
 }
 
+async function j92GoldHENStatusReady() {
+  return new Promise((resolve) => {
+    const request = new XMLHttpRequest();
+    request.open('POST', 'http://127.0.0.1:9090/status', true);
+    request.timeout = 1200;
+    request.onload = () => {
+      try {
+        const status = JSON.parse(request.responseText);
+        resolve(!!status && status.status === 'ready');
+      } catch (_) {
+        resolve(false);
+      }
+    };
+    request.onerror = () => resolve(false);
+    request.ontimeout = () => resolve(false);
+    try {
+      request.send();
+    } catch (_) {
+      resolve(false);
+    }
+  });
+}
+
 async function kernel_main() {
   logger.info('===KERNEL===');
 
-  await exploit();
+  // Check existing privileges BEFORE invoking the kernel exploit.
+  // A ready GoldHEN binloader confirms the payload service; either way,
+  // an already-elevated process must not run the exploit or inject again.
+  if (fn.setuid.invoke(0) !== -1) {
+    const goldhenReady = await j92GoldHENStatusReady();
+    logger.info(goldhenReady
+      ? 'GoldHEN already active; skipping exploit and payload reinjection.'
+      : 'Existing jailbreak privileges detected; skipping a second exploit attempt.');
+    if (typeof jailbreakAlreadyActive === 'function') {
+      jailbreakAlreadyActive(goldhenReady);
+    }
+    logger.info('===END===');
+    return;
+  }
 
+  await exploit();
   find_all_proc();
 
-  // Avoid reapplying if already done
   if (fn.setuid.invoke(0) === -1) {
     jailbreak();
-
-    // JOSDANY92: suppress the generic Wobkot toast; leave the selected HEN payload notification untouched.
-
+    // Keep the selected HEN payload notification; suppress the generic Wobkot toast.
     await post_jailbreak();
-  }else {
+  } else {
     await load_payload();
   }
-  if (typeof jailbreakSuccess == "function"){
+
+  if (typeof jailbreakSuccess === 'function') {
     jailbreakSuccess();
   }
 
