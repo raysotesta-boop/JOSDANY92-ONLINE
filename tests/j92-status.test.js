@@ -149,6 +149,7 @@ test('GoldHEN success marker recognizes supported 2.4b18 payload revisions', () 
   context.ui = { exploitState: { textContent: '' } };
   context.window.J92NeonLoader = { finish: (state) => finished.push(state) };
   context.updateJbStats = () => {};
+  context.reloadAfterJb = false;
   context.getReloadAfterJbValue = () => false;
   context.getPs4FwVersion = () => '14.02';
   vm.runInContext(read('WebKitty/includes/js/utilities.js'), context);
@@ -170,6 +171,7 @@ test('PS4HEN success does not set the GoldHEN active marker', () => {
   context.ui = { exploitState: { textContent: '' } };
   context.window.J92NeonLoader = { finish: (state) => finished.push(state) };
   context.updateJbStats = () => {};
+  context.reloadAfterJb = false;
   context.getReloadAfterJbValue = () => false;
   context.getPs4FwVersion = () => '9.00';
   vm.runInContext(read('WebKitty/includes/js/utilities.js'), context);
@@ -208,6 +210,7 @@ test('new exploit attempts clear retry/result overlay before running', async () 
   const storage = makeStorage({ payload_path: './test.bin' });
   storage.getBoolean = () => false;
   const context = {
+    document: { getElementById: () => null },
     storage: {
       session: storage,
       getBoolean: () => false,
