@@ -27,8 +27,8 @@ def replace_once(path, old, new, marker):
 index = ROOT / "index.html"
 content = read(index)
 content = re.sub(
-    r"(var savedTheme = localStorage\\.getItem\\('theme'\\) \\|\\| )\"[^\"]+\";",
-    r'\\1"compact";',
+    r"(var savedTheme = localStorage\.getItem\('theme'\) \|\\| )\"[^\"]+\";",
+    r'\1"compact";',
     content,
     count=1
 )
@@ -39,7 +39,7 @@ content = re.sub(
     count=1
 )
 anchor = '    <script src="./includes/js/utilities.js"></script>'
-insertion = anchor + '\\n    <link rel="stylesheet" href="./includes/css/neon-exploit-loader.css">\\n    <script src="./includes/js/neon-exploit-loader.js"></script>'
+insertion = anchor + '\n    <link rel="stylesheet" href="./includes/css/neon-exploit-loader.css">\\n    <script src="./includes/js/neon-exploit-loader.js"></script>'
 if 'includes/css/neon-exploit-loader.css' not in content:
     if anchor not in content:
         raise SystemExit("index.html utilities.js anchor missing")
