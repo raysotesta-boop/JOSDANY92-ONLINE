@@ -76,8 +76,8 @@ jobs:
           grep -Fq "title.style.visibility = 'visible'" WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq "detail.style.visibility = 'visible'" WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'PS4 WebKit fallback: avoid clamp()/min()' WebKitty/includes/css/neon-exploit-loader.css
-          grep -Fq "url('../../../fondo-josdany92.jpg')" WebKitty/includes/css/neon-exploit-loader.css
-          grep -Fq '"../../../fondo-josdany92.jpg"' patches/webkitty/apply-josdany92-patches.py
+          grep -Fq "url('../../../../fondo-josdany92.jpg')" WebKitty/includes/css/neon-exploit-loader.css
+          grep -Fq '"../../../../fondo-josdany92.jpg"' patches/webkitty/apply-josdany92-patches.py
           grep -Fq 'GOLDHEN YA ESTÁ ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'GOLDHEN NO ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
           grep -Fq 'j92GoldHENVersionMatch' WebKitty/includes/js/utilities.js
