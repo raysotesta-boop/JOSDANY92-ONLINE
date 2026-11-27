@@ -116,7 +116,7 @@ CACHE:
 ../../../includes/css/neon-exploit-loader.css
 ../../../includes/js/neon-exploit-loader.js
 
-../../../fondo-josdany92.jpg
+../../../../fondo-josdany92.jpg
 
 NETWORK:
 *
