@@ -85,5 +85,5 @@ jobs:
           grep -Fq 'hide retry/result overlay before every new exploit attempt' WebKitty/includes/js/jailbreak-legacy.js
           grep -Fq 'Barebone errors must reach the visible status layer' WebKitty/exploit.html
           grep -Fq 'show the retry state only during an automatic retry countdown' WebKitty/includes/js/autoJbRetry.js
-          grep -Fq '# v12' WebKitty/includes/caches/manifest/12xx.manifest
-          grep -Fq '# v7' WebKitty/includes/caches/manifest/140x.manifest
+          grep -Fq '../../../../fondo-josdany92.jpg' WebKitty/includes/caches/manifest/12xx.manifest
+          grep -Fq '../../../../fondo-josdany92.jpg' WebKitty/includes/caches/manifest/140x.manifest
