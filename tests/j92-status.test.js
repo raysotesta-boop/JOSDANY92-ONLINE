@@ -242,6 +242,17 @@ test('new exploit attempts clear retry/result overlay before running', async () 
   assert.deepEqual(calls, { start: 1, handler: 1 });
 });
 
+test('firmware cache manifests invalidate the changed assets for PS4 14.02 and 12.00', () => {
+  const fw140 = read('WebKitty/includes/caches/manifest/140x.manifest');
+  const fw12 = read('WebKitty/includes/caches/manifest/12xx.manifest');
+  assert.match(fw140, /^# v5$/m);
+  assert.match(fw12, /^# v10$/m);
+  for (const manifest of [fw140, fw12]) {
+    assert.ok(manifest.includes('includes/css/neon-exploit-loader.css'));
+    assert.ok(manifest.includes('includes/js/neon-exploit-loader.js'));
+  }
+});
+
 test('legacy PS4 browser build also clears the result overlay before a new attempt', () => {
   const legacy = read('WebKitty/includes/js/jailbreak-legacy.js');
   assert.ok(legacy.includes('JOSDANY92: hide retry/result overlay before every new exploit attempt'));
