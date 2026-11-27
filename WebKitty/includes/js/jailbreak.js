@@ -9,12 +9,10 @@ async function jailbreak() {
   // stop counter
   if (autoJbInterval) clearInterval(autoJbInterval);
 
-  // JOSDANY92: keep this launch to one attempt; require a manual restart after failure.
+  // JOSDANY92: honor the user's retry switch. A single-attempt safety
+  // lock always wins; otherwise setAutoJbRetry() owns this session preference.
   if (sessionStorage.getItem('j92SingleAttempt') === 'true') {
     storage.session.set('autoJbRetry', false);
-  } else {
-    // Make it retry until success (upstream default).
-    storage.session.set('autoJbRetry', true);
   }
 
   // turn off auto-jailbreak for this session, so it doesn't loop forever
