@@ -187,6 +187,20 @@ if 'j92GoldHENActive click guard' not in events_source:
     write(events, events_source)
     print("Applied GoldHEN guard to both launch controls.")
 
+# Start the NEON overlay only when the user explicitly launches the exploit.
+# Keep this in the patch source so upstream synchronization cannot erase it.
+if 'JOSDANY92: start NEON animation' not in events_source:
+    launch_anchor = '    user.blockJailbreak = true;\\n    chooseHEN();'
+    if events_source.count(launch_anchor) != 2:
+        raise SystemExit("Expected both launch handlers before adding NEON start hook")
+    events_source = events_source.replace(
+        launch_anchor,
+        '    user.blockJailbreak = true;\\n    // JOSDANY92: start NEON animation\\n    if (window.J92NeonLoader) window.J92NeonLoader.start();\\n    chooseHEN();',
+        2
+    )
+    write(events, events_source)
+    print("Applied NEON start hook to both launch controls.")
+
 
 # 5) Automatic retry is a real opt-in switch. Toggling it never starts an exploit.
 retry = ROOT / "includes/js/autoJbRetry.js"
