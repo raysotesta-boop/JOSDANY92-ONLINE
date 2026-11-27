@@ -87,11 +87,6 @@ async function main() {
   await load_script('src/wobkot/userland.js');
   await userland_main();
 
-  // Start the full-screen animation only after the userland primitive is ready.
-  // Building DOM nodes before this point can perturb the heap during the sensitive
-  // WebKit fake-object validation stage.
-  if (window.J92NeonLoader) window.J92NeonLoader.start();
-
   await load_script('src/wobkot/kernel.js');
   await kernel_main();
 }

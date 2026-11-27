@@ -27,7 +27,7 @@ ui.exploitRunBtn.addEventListener('click', function () {
     }
     if (user.blockJailbreak) return;
     user.blockJailbreak = true;
-    // JOSDANY92: start NEON animation after the user launch action.
+    // JOSDANY92: start NEON animation
     if (window.J92NeonLoader) window.J92NeonLoader.start();
     chooseHEN();
     jailbreak();
@@ -41,7 +41,7 @@ ui.psLogoContainer.addEventListener('click', function () {
     }
     if (user.blockJailbreak) return;
     user.blockJailbreak = true;
-    // JOSDANY92: start NEON animation after the user launch action.
+    // JOSDANY92: start NEON animation
     if (window.J92NeonLoader) window.J92NeonLoader.start();
     chooseHEN();
     jailbreak();
