@@ -77,3 +77,93 @@ button:hover, .payload:hover {
     border: 1px solid rgba(99,234,255,.28);
     box-shadow: inset 0 0 18px rgba(0,0,0,.25);
 }
+
+
+/* JOSDANY92 Neon Edition — identidad visual de la interfaz WebKitty.
+   Solo presentación CSS: no modifica exploits, payloads, offsets ni flujos JS. */
+html, body {
+    background-color: #050817 !important;
+    color: #f4f7ff !important;
+}
+.mainContainer {
+    background:
+      radial-gradient(ellipse at 50% 8%, rgba(24, 115, 255, .22), transparent 48%),
+      radial-gradient(ellipse at 85% 90%, rgba(183, 45, 255, .18), transparent 42%),
+      #050817 !important;
+}
+#initial-screen {
+    position: relative;
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(0, 205, 255, .12), transparent 36%),
+      radial-gradient(ellipse at 50% 100%, rgba(163, 48, 255, .18), transparent 55%),
+      linear-gradient(140deg, #080d25 0%, #101642 52%, #080b20 100%) !important;
+    border: 1px solid rgba(89, 220, 255, .38);
+    box-shadow: inset 0 0 55px rgba(55, 88, 255, .12), 0 0 24px rgba(122, 52, 255, .22);
+}
+#initial-screen:after {
+    content: "JOSDANY92  /  NEON EDITION";
+    position: absolute;
+    right: 26px;
+    bottom: 18px;
+    color: rgba(110, 230, 255, .72);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-shadow: 0 0 9px rgba(65, 215, 255, .55);
+    pointer-events: none;
+}
+#ps-logo-container {
+    border: 1px solid rgba(95, 228, 255, .7) !important;
+    background: linear-gradient(145deg, rgba(28, 63, 132, .72), rgba(37, 12, 82, .82)) !important;
+    box-shadow: 0 0 18px rgba(60, 210, 255, .28), 0 0 38px rgba(167, 55, 255, .22), inset 0 0 20px rgba(76, 213, 255, .13);
+}
+#ps-logo {
+    fill: #6ceaff !important;
+    filter: drop-shadow(0 0 8px rgba(86, 225, 255, .9)) drop-shadow(0 0 18px rgba(167, 65, 255, .55));
+}
+#choosejb-initial {
+    border: 1px solid rgba(94, 221, 255, .65) !important;
+    background: linear-gradient(135deg, rgba(13, 27, 64, .96), rgba(35, 12, 73, .96)) !important;
+    box-shadow: 0 0 18px rgba(70, 197, 255, .18), inset 0 0 20px rgba(157, 64, 255, .12);
+}
+#choosejb-initial h3 {
+    color: #e9faff !important;
+    text-shadow: 0 0 10px rgba(75, 220, 255, .48);
+}
+#exploit-main-screen {
+    border-top: 1px solid rgba(88, 221, 255, .45);
+    background:
+      radial-gradient(ellipse at 10% 0%, rgba(0, 200, 255, .13), transparent 42%),
+      linear-gradient(135deg, #070c22, #111638 58%, #090b20) !important;
+}
+.payload, #payloadsSection, #exploit-status-panel {
+    border-color: rgba(86, 218, 255, .42) !important;
+    border-radius: 13px !important;
+    box-shadow: 0 0 11px rgba(63, 166, 255, .10);
+}
+.payload {
+    background: linear-gradient(145deg, rgba(18, 32, 70, .96), rgba(16, 13, 49, .96)) !important;
+}
+button, select, input, label {
+    -webkit-tap-highlight-color: transparent;
+}
+button:hover, .payload:hover {
+    border-color: #72eaff !important;
+    box-shadow: 0 0 14px rgba(92, 221, 255, .28), 0 0 18px rgba(170, 74, 255, .16) !important;
+}
+#updateCache {
+    border: 1px solid rgba(99, 234, 255, .55) !important;
+    color: #a8f3ff !important;
+    background: rgba(12, 31, 68, .92) !important;
+}
+@media (min-width: 900px) {
+    #initial-screen {
+        padding-left: 4vw !important;
+        padding-right: 4vw !important;
+    }
+    #ps-logo {
+        width: 148px !important;
+        height: 148px !important;
+    }
+}
