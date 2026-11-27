@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v6
+# v5
 # Generated on 2026-11-21
 
 CACHE:
@@ -97,8 +97,7 @@ CACHE:
 ../../../includes/css/colors/josdany92-neon.css
 ../../../includes/css/neon-exploit-loader.css
 ../../../includes/js/neon-exploit-loader.js
-
-../../../fondo-josdany92.jpg
+../../../../fondo-josdany92.jpg
 
 NETWORK:
 *
