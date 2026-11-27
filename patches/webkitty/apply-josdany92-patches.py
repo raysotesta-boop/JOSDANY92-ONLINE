@@ -48,6 +48,16 @@ content = re.sub(
     content,
     count=1
 )
+redirect_anchor = """        var isCurrentHTTPS = window.location.protocol === 'https:';
+        if (isThisPS4 && goToHttps && !isLocalServer && isCurrentHTTPS) {"""
+redirect_replacement = """        var isCurrentHTTPS = window.location.protocol === 'https:';
+        // Keep GitHub Pages on the JOSDANY92 repository.
+        var isJOSDANY92Pages = window.location.hostname.indexOf('github.io') !== -1;
+        if (isThisPS4 && goToHttps && !isLocalServer && isCurrentHTTPS && !isJOSDANY92Pages) {"""
+if redirect_anchor not in content:
+    raise SystemExit("index.html redirect anchor missing")
+content = content.replace(redirect_anchor, redirect_replacement, 1)
+
 anchor = '    <script src="./includes/js/utilities.js"></script>'
 insertion = anchor + '\n    <link rel="stylesheet" href="./includes/css/neon-exploit-loader.css">\n    <script src="./includes/js/neon-exploit-loader.js"></script>'
 if 'includes/css/neon-exploit-loader.css' not in content:
