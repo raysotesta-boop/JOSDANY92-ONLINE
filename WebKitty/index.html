@@ -52,7 +52,7 @@
         var isCurrentHTTPS = window.location.protocol === 'https:';
         // JOSDANY92 fork: GitHub Pages must stay on this repository.
         // Never redirect the customized host to the upstream ArabPixel domain.
-        var isJOSDANY92Pages = /(^|\\.)github\\.io$/i.test(window.location.hostname);
+        var isJOSDANY92Pages = /(^|\.)github\.io$/i.test(window.location.hostname);
         if (isThisPS4 && goToHttps && !isLocalServer && isCurrentHTTPS && !isJOSDANY92Pages) {
             if (confirm("You are currently using HTTPS, which prevents loading payloads through local bin/elf loader servers. Switch to HTTP instead? (recommended)")) {
                 window.abortLoading = true;
