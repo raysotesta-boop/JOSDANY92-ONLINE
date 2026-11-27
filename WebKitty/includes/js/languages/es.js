@@ -63,7 +63,7 @@ window.lang = {
     "emptyPayloadFile": "No se seleccionó ningún archivo de payload.",
     "theme": "Tema",
     "vibrantColor": "Vibrante",
-    "autoJbRetryText": "Reintentar Jailbreak",
+    "autoJbRetryText": "Reintentos automáticos",
     "autoJbRetry": "Reintentando en {seconds} segundos...",
     "autoJb": "Jailbreak automático activado. Se ejecutará en {seconds} segundos...",
     "autoJbOption": "Jailbreak Automático",

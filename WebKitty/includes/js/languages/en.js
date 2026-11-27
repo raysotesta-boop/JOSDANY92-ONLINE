@@ -69,7 +69,7 @@ window.lang = {
     "compactTheme": "Compact",
     "vibrantColor": "Vibrant",
     "themeWord": "Theme",
-    "autoJbRetryText": "Auto-Retry Jailbreak",
+    "autoJbRetryText": "Automatic retries",
     "autoJbRetry": "Retrying in {seconds} seconds...",
     "stopAutoJbBtn": "Stop Auto-Jailbreak",
     "pauseAutoJbRetry": "Pause Auto-Jailbreak Retries",
