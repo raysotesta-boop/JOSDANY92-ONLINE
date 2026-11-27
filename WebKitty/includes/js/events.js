@@ -29,7 +29,6 @@ ui.exploitRunBtn.addEventListener('click', function () {
     user.blockJailbreak = true;
     // JOSDANY92: show the custom NEON animation before WebKitty starts
     // exploit work; the result state is set by jailbreakSuccess/error handlers.
-    if (window.J92NeonLoader) window.J92NeonLoader.start();
     chooseHEN();
     jailbreak();
 });
@@ -44,7 +43,6 @@ ui.psLogoContainer.addEventListener('click', function () {
     user.blockJailbreak = true;
     // JOSDANY92: show the custom NEON animation before WebKitty starts
     // exploit work; the result state is set by jailbreakSuccess/error handlers.
-    if (window.J92NeonLoader) window.J92NeonLoader.start();
     chooseHEN();
     jailbreak();
 });
