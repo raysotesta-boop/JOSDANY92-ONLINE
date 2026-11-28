@@ -257,7 +257,7 @@ test('firmware cache manifests invalidate the changed assets for PS4 14.02 and 1
 
 test('full-screen approved artwork is loaded and cached for the three result states', () => {
   const css = read('WebKitty/includes/css/neon-exploit-loader.css');
-  assert.ok(css.includes("url("../../../j92-goldhen-success.svg")"));
+  assert.ok(css.includes('url("../../../j92-goldhen-success.svg")'));
   assert.ok(fs.existsSync(path.join(root, 'j92-goldhen-success.svg')));
   assert.ok(css.includes('♛  JOSDANY92'));
   assert.ok(css.includes('GOLDHEN NO ESTÁ CARGADO'));
