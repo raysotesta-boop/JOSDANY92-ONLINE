@@ -300,26 +300,26 @@ function disableJ92AutomaticLaunches() {
 """
 replace_once(
     retry,
-    "// Handles automatic jailbreak retry logic and countdown timers.\\n\\n",
-    "// Handles automatic jailbreak retry logic and countdown timers.\\n\\n" + retry_guard,
+    "// Handles automatic jailbreak retry logic and countdown timers.\n\n",
+    "// Handles automatic jailbreak retry logic and countdown timers.\n\n" + retry_guard,
     "manual-only automatic launch guard for firmware 12.00-12.02"
 )
 replace_once(
     retry,
-    "function setAutoJbRetry(checked) {\\n    storage.set('autoJbRetry', checked);",
-    "function setAutoJbRetry(checked) {\\n    if (checked && isJ92ManualOnlyFirmware()) {\\n        disableJ92AutomaticLaunches();\\n        return;\\n    }\\n    storage.set('autoJbRetry', checked);",
+    "function setAutoJbRetry(checked) {\n    storage.set('autoJbRetry', checked);",
+    "function setAutoJbRetry(checked) {\n    if (checked && isJ92ManualOnlyFirmware()) {\n        disableJ92AutomaticLaunches();\n        return;\n    }\n    storage.set('autoJbRetry', checked);",
     "block automatic retry opt-in on firmware 12.00-12.02"
 )
 replace_once(
     retry,
-    "function setAutoJb(checked) {\\n    storage.set('autoJb', checked);",
-    "function setAutoJb(checked) {\\n    if (checked && isJ92ManualOnlyFirmware()) {\\n        disableJ92AutomaticLaunches();\\n        return;\\n    }\\n    storage.set('autoJb', checked);",
+    "function setAutoJb(checked) {\n    storage.set('autoJb', checked);",
+    "function setAutoJb(checked) {\n    if (checked && isJ92ManualOnlyFirmware()) {\n        disableJ92AutomaticLaunches();\n        return;\n    }\n    storage.set('autoJb', checked);",
     "block automatic jailbreak opt-in on firmware 12.00-12.02"
 )
 replace_once(
     retry,
-    "function autoJailbreak() {\\n    // used for 6.7x jailbreak when userland is loaded",
-    "function autoJailbreak() {\\n    // Avoid stale preferences triggering repeated memory-heavy attempts on 12.00-12.02.\\n    if (isJ92ManualOnlyFirmware()) {\\n        disableJ92AutomaticLaunches();\\n        return;\\n    }\\n\\n    // used for 6.7x jailbreak when userland is loaded",
+    "function autoJailbreak() {\n    // used for 6.7x jailbreak when userland is loaded",
+    "function autoJailbreak() {\n    // Avoid stale preferences triggering repeated memory-heavy attempts on 12.00-12.02.\n    if (isJ92ManualOnlyFirmware()) {\n        disableJ92AutomaticLaunches();\n        return;\n    }\n\n    // used for 6.7x jailbreak when userland is loaded",
     "disable persisted automatic launch preferences on firmware 12.00-12.02"
 )
 
