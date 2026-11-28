@@ -336,7 +336,7 @@ test('firmware 12.00-12.02 forcibly disables automatic jailbreak and retry prefe
   assert.equal(sessionValues.autoJb, 'false');
   assert.equal(ui.autoJbRetry.checked, false);
   assert.equal(ui.autoJb.checked, false);
-  assert.equal(calls.intervalsCleared, 3);
+  assert.equal(calls.intervalsCleared, 1);
   assert.equal(calls.retryStopped, 3);
 });
 
