@@ -20,7 +20,6 @@ function disableJ92AutomaticLaunches() {
     }
     if (window.J92NeonLoader) window.J92NeonLoader.stopRetry();
 }
-
 function setAutoJbRetry(checked) {
     if (checked && isJ92ManualOnlyFirmware()) {
         disableJ92AutomaticLaunches();
