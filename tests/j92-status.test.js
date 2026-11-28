@@ -338,5 +338,7 @@ test('firmware 12.00-12.02 forcibly disables automatic jailbreak and retry prefe
   assert.equal(ui.autoJb.checked, false);
   assert.equal(calls.intervalsCleared, 1);
   assert.equal(calls.retryStopped, 3);
+  assert.ok(read('patches/webkitty/apply-josdany92-patches.py')
+    .includes('Firmware 12.00-12.02 gets manual-only launches'));
 });
 
