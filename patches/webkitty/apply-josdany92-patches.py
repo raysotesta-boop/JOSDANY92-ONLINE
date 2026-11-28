@@ -235,7 +235,7 @@ replace_once(
     // Enabling the switch only arms retries after a recoverable failed attempt.
     // It never launches a second exploit immediately when the user changes the setting.
 }''',
-    'JOSDANY92 non-launching retry switch'
+    'Enabling the switch only arms retries after a recoverable failed attempt.'
 )
 replace_once(
     retry,
