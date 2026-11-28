@@ -1,3 +1,4 @@
+# This sync reapplies the pinned upstream source plus the tested JOSDANY92 status layer.
 name: Sync official WebKitty source into JOSDANY92
 
 on:
@@ -6,8 +7,13 @@ on:
       - JOSDANY92-V2.1
     paths:
       - .github/workflows/sync-webkitty-source.yml
-      - ACTIVACION-GOLDHEN.html
+      - GH.html
+      - patches/webkitty/**
   workflow_dispatch:
+
+concurrency:
+  group: j92-webkitty-sync-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -22,42 +28,140 @@ jobs:
           ref: JOSDANY92-V2.1
           fetch-depth: 0
 
-      - name: Download official WebKitty source
+      - name: Set up Node for legacy WebKit build
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Download pinned official WebKitty source
         run: |
           set -euo pipefail
-          git clone --depth 1 https://github.com/ArabPixel/WebKitty.git /tmp/WebKitty
+          git clone https://github.com/ArabPixel/WebKitty.git /tmp/WebKitty
+          git -C /tmp/WebKitty checkout --detach bb5b65b8b7935f91a61516f06dbddb9f07674cd6
           test -f /tmp/WebKitty/index.html
           test -f /tmp/WebKitty/LICENSE
           test -f /tmp/WebKitty/includes/caches/manifest/12xx.manifest
           test -f /tmp/WebKitty/includes/payloads/HEN/goldhen_v2.4b18.14.bin
-          test -f /tmp/WebKitty/includes/js/HENs.js
-          test -f /tmp/WebKitty/includes/js/firmware.js
           test -f /tmp/WebKitty/src/wobkot/main.js
-          grep -q "GHv2.4b18.14" /tmp/WebKitty/includes/js/HENs.js
-          grep -q "WOBKOT_LAPSE" /tmp/WebKitty/includes/js/firmware.js
-          git -C /tmp/WebKitty rev-parse HEAD > /tmp/WEBKITTY-UPSTREAM-COMMIT.txt
 
-      - name: Vendor WebKitty into this repository
-        env:
-          TARGET_BRANCH: JOSDANY92-V2.1
+      - name: Vendor upstream and apply JOSDANY92 layer
         run: |
           set -euo pipefail
           rm -rf WebKitty
           mkdir -p WebKitty
           rsync -a --exclude='.git' --exclude='.github' /tmp/WebKitty/ WebKitty/
+          mkdir -p WebKitty/includes/css/colors
+          cp patches/webkitty/josdany92-neon.css WebKitty/includes/css/colors/josdany92-neon.css
+          cp patches/webkitty/compact.css WebKitty/includes/css/layouts/compact.css
+          cp patches/webkitty/design.js WebKitty/includes/js/design.js
+          cp patches/webkitty/neon-exploit-loader.css WebKitty/includes/css/neon-exploit-loader.css
+          cp patches/webkitty/neon-exploit-loader.js WebKitty/includes/js/neon-exploit-loader.js
+          python3 -c "compile(open('patches/webkitty/apply-josdany92-patches.py', encoding='utf-8').read(), 'apply-josdany92-patches.py', 'exec')"
           python3 patches/webkitty/apply-josdany92-patches.py
-          grep -q 'JOSDANY92: record successful GoldHEN payload completion.' WebKitty/includes/js/utilities.js
-          cp /tmp/WEBKITTY-UPSTREAM-COMMIT.txt WEBKITTY-UPSTREAM-COMMIT.txt
-          test -f WebKitty/index.html
-          test -f WebKitty/includes/caches/manifest/12xx.manifest
-          test -f WebKitty/includes/payloads/HEN/goldhen_v2.4b18.14.bin
+          git diff -- WebKitty > /tmp/j92-patch-first.diff
+          python3 patches/webkitty/apply-josdany92-patches.py
+          git diff -- WebKitty > /tmp/j92-patch-second.diff
+          cmp /tmp/j92-patch-first.diff /tmp/j92-patch-second.diff
+          cd WebKitty
+          npm ci --ignore-scripts
+          npm run build
+          cd ..
+          git -C /tmp/WebKitty rev-parse HEAD > WEBKITTY-UPSTREAM-COMMIT.txt
+
+      - name: Validate syntax, visual assets, guards, cache manifests, and upstream core
+        run: |
+          set -euo pipefail
+          node --check WebKitty/includes/js/neon-exploit-loader.js
+          node patches/webkitty/test-neon-exploit-loader.cjs
+          node --check WebKitty/includes/js/jailbreak.js
+          node --check WebKitty/includes/js/jailbreak-legacy.js
+          node --check WebKitty/includes/js/autoJbRetry.js
+          node --check WebKitty/includes/js/events.js
+          node --check WebKitty/includes/js/utilities.js
+          node --check WebKitty/includes/js/design.js
+          node --check WebKitty/includes/js/languages/es.js
+          node --check WebKitty/includes/js/languages/en.js
+          node --check WebKitty/src/wobkot/kernel.js
+          node --check WebKitty/src/wobkot/main.js
+
+          cmp patches/webkitty/neon-exploit-loader.js WebKitty/includes/js/neon-exploit-loader.js
+          cmp patches/webkitty/neon-exploit-loader.css WebKitty/includes/css/neon-exploit-loader.css
+          cmp patches/webkitty/compact.css WebKitty/includes/css/layouts/compact.css
+          cmp patches/webkitty/design.js WebKitty/includes/js/design.js
+          cmp patches/webkitty/josdany92-neon.css WebKitty/includes/css/colors/josdany92-neon.css
+
+          grep -Fq 'WebKitty · JOSDANY92 Neon Edition' WebKitty/index.html
+          grep -Fq 'isJOSDANY92Pages' WebKitty/index.html
+          grep -Fq 'value="josdany92-neon"' WebKitty/index.html
+          grep -Fq 'neon-exploit-loader.css' WebKitty/index.html
+          grep -Fq 'neon-exploit-loader.js' WebKitty/index.html
+
+          grep -Fq 'j92GoldHENActive' WebKitty/includes/js/events.js
+          grep -Fq 'j92GoldHENActive' WebKitty/includes/js/jailbreak.js
+          grep -Fq 'j92GoldHENActive' WebKitty/src/wobkot/kernel.js
+          grep -Fq "storage.getBoolean('autoJbRetry', false)" WebKitty/includes/js/autoJbRetry.js
+          ! grep -Fq 'if (confirm(window.lang.autoJbRetryConfirm)) jailbreak();' WebKitty/includes/js/autoJbRetry.js
+          grep -Fq 'Reintentos automáticos' WebKitty/includes/js/languages/es.js
+
+          grep -Fq 'j92GoldHENActive' GH.html
+          grep -Fq 'retryEnabled' GH.html
+          ! grep -Fq "sessionStorage.setItem('j92SingleAttempt','true')" GH.html
+          grep -Fq 'GoldHEN ya está activado' WebKitty/includes/js/utilities.js
+          grep -Fq 'GOLDHEN ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'GOLDHEN YA ESTÁ ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq "title.style.visibility = 'visible'" WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq "detail.style.visibility = 'visible'" WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'PS4 WebKit fallback: avoid clamp()/min()' WebKitty/includes/css/neon-exploit-loader.css
+          grep -Fq "url('../../../fondo-josdany92.jpg')" WebKitty/includes/css/neon-exploit-loader.css
+          grep -Fq '"../../../../fondo-josdany92.jpg"' patches/webkitty/apply-josdany92-patches.py
+          grep -Fq 'GOLDHEN ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'GOLDHEN NO ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'REINTENTANDO EXPLOIT' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'j92GoldHENVersionMatch' WebKitty/includes/js/utilities.js
+          grep -Fq 'hide retry/result overlay before every new exploit attempt' WebKitty/includes/js/jailbreak.js
+          grep -Fq 'Barebone errors must reach the visible status layer' WebKitty/exploit.html
+          grep -Fq 'show the retry state only during an automatic retry countdown' WebKitty/includes/js/autoJbRetry.js
+          grep -Fq 'GOLDHEN NO ACTIVADO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'REINTENTANDO' WebKitty/includes/js/neon-exploit-loader.js
+          grep -Fq 'j92-card-in' WebKitty/includes/css/neon-exploit-loader.css
+          grep -Fq '../../../../fondo-josdany92.jpg' WebKitty/includes/caches/manifest/12xx.manifest
+          grep -Fq '../../../../fondo-josdany92.jpg' WebKitty/includes/caches/manifest/140x.manifest
+
+          ! grep -Fq "notify('Jailbroken !!')" WebKitty/src/wobkot/kernel.js
+          ! grep -Fq '127.0.0.1:9090/status' WebKitty/src/wobkot/kernel.js
+
+          for manifest in WebKitty/includes/caches/manifest/*.manifest; do
+            if [[ "$manifest" == *cachePayloads.manifest ]]; then continue; fi
+            grep -Fq 'includes/css/colors/josdany92-neon.css' "$manifest"
+            grep -Fq 'includes/css/neon-exploit-loader.css' "$manifest"
+            grep -Fq 'includes/js/neon-exploit-loader.js' "$manifest"
+          done
+
+          # These exploit and payload assets must remain byte-for-byte upstream.
+          for path in \
+            includes/payloads/HEN/goldhen_v2.4b18.14.bin \
+            src/kpatches/1200.bin \
+            src/wobkot/lapse.js \
+            src/wobkot/userland.js \
+            src/wobkot/ps4/impl.js \
+            LICENSE; do
+            upstream_blob="$(git -C /tmp/WebKitty rev-parse "HEAD:$path")"
+            local_blob="$(git hash-object "WebKitty/$path")"
+            test "$upstream_blob" = "$local_blob"
+          done
+
+      - name: Commit synchronized WebKitty source
+        env:
+          TARGET_BRANCH: JOSDANY92-V2.1
+        run: |
+          set -euo pipefail
           git status --short
           git add WebKitty WEBKITTY-UPSTREAM-COMMIT.txt
           if git diff --cached --quiet; then
-            echo "Official WebKitty source is already current."
+            echo "Official WebKitty source and JOSDANY92 patch layer are already current."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Vendor official WebKitty source for GoldHEN activation [skip ci]"
+          git commit -m "Apply verified JOSDANY92 NEON and GoldHEN guards [skip ci]"
           git push origin "HEAD:${TARGET_BRANCH}"

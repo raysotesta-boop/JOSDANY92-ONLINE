@@ -1,9 +1,15 @@
-JOSDANY92 · ULTIMATE CONTROL CENTER v2.0
+JOSDANY92 · ULTIMATE CONTROL CENTER v2.1
 
-INSTALACION
-1. Detén SimpleHttpServer.
-2. Extrae este ZIP y copia TODO el contenido de esta carpeta a la carpeta compartida "Servidor PS4" en Android, sustituyendo index.html y conservando las carpetas existentes.
-3. Inicia SimpleHttpServer y recarga http://IP-DEL-ANDROID:8080/index.html en la PS4.
+INSTALACIÓN
+1. Detén SimpleHttpServer antes de reemplazar archivos.
+2. Descarga el contenido de esta rama y copia los archivos a la carpeta compartida "Servidor PS4", conservando fondo-josdany92.jpg y josdany92-header.png.
+3. Inicia SimpleHttpServer y abre http://IP-DEL-ANDROID:8080/index.html en el navegador de la PS4.
+
+CAMBIOS DE V2.1
+- Identificación visible de la versión 2.1.
+- GoldHEN Smart Loader: el escaneo de archivos .BIN comienza únicamente cuando pulsas "Buscar archivos locales".
+- Se conserva la navegación con mando y teclado.
+- Se mantienen las advertencias de compatibilidad y la selección manual de archivos.
 
 GOLDHEN SMART LOADER
 - Coloca archivos .BIN en PAYLOADS/GOLDHEN/.
@@ -12,5 +18,30 @@ GOLDHEN SMART LOADER
 - La detección NO confirma compatibilidad, firma, integridad ni versión. No se ejecuta ni inyecta ningún payload.
 - No hay actualización automática ni carga automática.
 
-LIMITACIONES
-El navegador WebKit no puede enumerar carpetas privadas de Android: solo puede leer archivos que SimpleHttpServer publique. Para cargar GoldHEN de verdad hace falta un exploit/loader compatible y un método de envío probado para el firmware exacto. Esta versión no incorpora ni ejecuta ese exploit.
+LIMITACIONES IMPORTANTES
+El navegador WebKit no puede enumerar carpetas privadas de Android: solo puede leer archivos que SimpleHttpServer publique. Esta versión es un centro de control y organizador local; NO activa GoldHEN ni incorpora un exploit/loader. Para una activación real hace falta integrar y probar un método compatible con el firmware exacto y el entorno de la consola. No se debe interpretar la detección de un archivo como prueba de compatibilidad.
+
+
+PERFILES MULTIFIRMWARE (REFERENCIA)
+- GoldHEN/henloader_lp describe Lapse para 9.00–12.02 y Poops para 9.00–13.00.
+- La release HenLoader LP 1.0 indica Poops hasta 12.52 e integra GoldHEN v2.4b18.7. Aunque el repositorio menciona Poops para 13.00, no se debe presentar como soporte empaquetado confirmado por la release 1.0.
+- La publicación base GoldHEN v2.4b18 enumera firmwares hasta 11.00; una build integrada posterior debe verificarse por separado.
+- El selector es manual e informativo. No activa exploits ni carga payloads.
+
+
+DETECCIÓN AUTOMÁTICA DE FIRMWARE — V2.2
+Al abrir el host, se intenta leer la versión PS4 desde el User-Agent del navegador y se muestra en el encabezado. Si no está disponible, el panel Firmware informa que no pudo detectarla y ofrece una selección manual provisional. El User-Agent puede estar modificado y la detección no valida exploits ni payloads.
+
+
+ESCUDO DE ESTABILIDAD — V2.3
+Antes de cualquier integración real, comprobar firmware exacto, exploit, versión de GoldHEN y archivo. No mezclar offsets ni blobs de firmwares diferentes, no ejecutar loaders simultáneos y no repetir un intento que terminó en congelación o pantalla negra sin revisar primero el fallo. La identificación PS4/PS4 Pro requiere confirmación manual. El host no puede garantizar la eliminación de kernel panic.
+
+
+MODO OFFLINE EN ANDROID
+- Descarga el ZIP completo de la rama mientras tengas Internet y extráelo en una carpeta permanente del teléfono.
+- Conserva index.html, fondo-josdany92.jpg, josdany92-header.png y todos los recursos/carpetas del proyecto.
+- Selecciona esa carpeta como raíz en un servidor HTTP estático Android (por ejemplo, SimpleHttpServer).
+- Activa el hotspot del teléfono, conecta la PS4 y abre en su navegador la IP:puerto real que indique el servidor, seguida de /index.html.
+- No se necesita Internet para la conexión local. El teléfono solo aloja y entrega archivos; no ejecuta el exploit.
+- Guía completa: ANDROID-OFFLINE.md.
+- La copia del teléfono no se actualiza automáticamente desde GitHub; descarga el ZIP nuevo cuando vuelvas a tener Internet.
