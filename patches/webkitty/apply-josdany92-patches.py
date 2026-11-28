@@ -139,6 +139,31 @@ function jailbreakSuccess(statusMessage) {
 )
 
 
+# 2b) Do not label firmware 12.00-12.02 as fully compatible before this
+# integrated branch has passed a physical-console exploit test.
+language = ROOT / "includes/js/language.js"
+replace_once(
+    language,
+    """    } else if (supported) {
+        if (strings.ps4FwCompatible && strings.ps4FwCompatible.length > 0) {
+            ui.ps4FwStatus.textContent = strings.ps4FwCompatible.replace('{ps4fw}', ps4Fw);
+        }
+""",
+    """    } else if (supported) {
+        // JOSDANY92: firmware range support is not proof that this integrated
+        // branch has passed a physical-console exploit test.
+        var j92FwNum = parseFloat(ps4Fw);
+        var j92HardwarePending = !isNaN(j92FwNum) && j92FwNum >= 12.00 && j92FwNum <= 12.02;
+        if (j92HardwarePending) {
+            ui.ps4FwStatus.textContent = 'FW PS4: ' + ps4Fw + ' | Cadena disponible · prueba en hardware pendiente';
+        } else if (strings.ps4FwCompatible && strings.ps4FwCompatible.length > 0) {
+            ui.ps4FwStatus.textContent = strings.ps4FwCompatible.replace('{ps4fw}', ps4Fw);
+        }
+""",
+    'firmware 12.00-12.02 status is honest about pending hardware validation'
+)
+
+
 # 3) Prevent a second run before userland starts; respect the real retry switch.
 jailbreak = ROOT / "includes/js/jailbreak.js"
 replace_once(
