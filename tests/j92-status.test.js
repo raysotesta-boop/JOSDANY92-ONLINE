@@ -299,3 +299,44 @@ test('all modified JavaScript entry files parse successfully', () => {
     assert.doesNotThrow(() => new vm.Script(source, { filename: file }), file);
   }
 });
+
+test('firmware 12.00-12.02 forcibly disables automatic jailbreak and retry preferences', () => {
+  const source = read('WebKitty/includes/js/autoJbRetry.js');
+  const values = { autoJbRetry: 'true', autoJb: 'true' };
+  const sessionValues = { autoJbRetry: 'true', autoJb: 'true' };
+  const calls = { intervalsCleared: 0, retryStopped: 0 };
+  const ui = { autoJbRetry: { checked: true }, autoJb: { checked: true } };
+  const storage = {
+    set: (key, value) => { values[key] = String(value); },
+    getBoolean: (key, fallback) => values[key] == null ? fallback : values[key] === 'true',
+    session: {
+      set: (key, value) => { sessionValues[key] = String(value); },
+      getBoolean: (key, fallback) => sessionValues[key] == null ? fallback : sessionValues[key] === 'true',
+      remove: (key) => { delete sessionValues[key]; }
+    }
+  };
+  const context = {
+    window: { ps4Fw: '12.00', J92NeonLoader: { stopRetry: () => calls.retryStopped++ } },
+    storage, ui, autoJbInterval: 7,
+    clearInterval: () => calls.intervalsCleared++,
+    isFirmwareSupported: () => true,
+    document: { getElementById: () => ({ innerText: '' }) },
+    jailbreak: () => { throw new Error('automatic launch must not run'); },
+    getAutoJbTimer: () => 5,
+    toggleVisibility() {}, console
+  };
+  vm.createContext(context);
+  vm.runInContext(source, context);
+  context.setAutoJbRetry(true);
+  context.setAutoJb(true);
+  context.autoJailbreak();
+  assert.equal(values.autoJbRetry, 'false');
+  assert.equal(values.autoJb, 'false');
+  assert.equal(sessionValues.autoJbRetry, 'false');
+  assert.equal(sessionValues.autoJb, 'false');
+  assert.equal(ui.autoJbRetry.checked, false);
+  assert.equal(ui.autoJb.checked, false);
+  assert.equal(calls.intervalsCleared, 3);
+  assert.equal(calls.retryStopped, 3);
+});
+
