@@ -1,6 +1,31 @@
 // Handles automatic jailbreak retry logic and countdown timers.
 
+// Firmware 12.00-12.02 gets manual-only launches until this branch's
+// exact memory/offset profile has been validated on physical hardware.
+function isJ92ManualOnlyFirmware() {
+    var fw = parseFloat(window.ps4Fw || (typeof getPs4FwVersion === 'function' ? getPs4FwVersion() : NaN));
+    return !isNaN(fw) && fw >= 12.00 && fw <= 12.02;
+}
+
+function disableJ92AutomaticLaunches() {
+    storage.set('autoJbRetry', false);
+    storage.session.set('autoJbRetry', false);
+    storage.set('autoJb', false);
+    storage.session.set('autoJb', false);
+    if (ui.autoJbRetry) ui.autoJbRetry.checked = false;
+    if (ui.autoJb) ui.autoJb.checked = false;
+    if (autoJbInterval) {
+        clearInterval(autoJbInterval);
+        autoJbInterval = null;
+    }
+    if (window.J92NeonLoader) window.J92NeonLoader.stopRetry();
+}
+
 function setAutoJbRetry(checked) {
+    if (checked && isJ92ManualOnlyFirmware()) {
+        disableJ92AutomaticLaunches();
+        return;
+    }
     storage.set('autoJbRetry', checked);
     storage.session.set('autoJbRetry', checked);
 
@@ -17,12 +42,22 @@ function setAutoJbRetry(checked) {
 }
 
 function setAutoJb(checked) {
+    if (checked && isJ92ManualOnlyFirmware()) {
+        disableJ92AutomaticLaunches();
+        return;
+    }
     storage.set('autoJb', checked);
     storage.session.set('autoJb', checked);
 }
 
 // When jailbreak succeeds, this will be stopped
 function autoJailbreak() {
+    // Avoid stale preferences triggering repeated memory-heavy attempts on 12.00-12.02.
+    if (isJ92ManualOnlyFirmware()) {
+        disableJ92AutomaticLaunches();
+        return;
+    }
+
     // used for 6.7x jailbreak when userland is loaded
     var jbNow = storage.session.getBoolean('jailbreakNow', false);
     if (jbNow) {
