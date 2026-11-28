@@ -342,3 +342,5 @@ test('firmware 12.00-12.02 forcibly disables automatic jailbreak and retry prefe
     .includes('Firmware 12.00-12.02 gets manual-only launches'));
 });
 
+
+// Keep the firmware 12.00 manual-only guard covered in the pinned-source rebuild.
