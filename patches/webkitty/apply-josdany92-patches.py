@@ -275,6 +275,54 @@ replace_once(
     'update NEON retry countdown each second'
 )
 
+# Firmware 12.00-12.02 stays manual-only until this branch's exact profile is
+# validated on physical hardware. Clear stale preferences and block re-enabling.
+retry_guard = """// Firmware 12.00-12.02 gets manual-only launches until this branch's
+// exact memory/offset profile has been validated on physical hardware.
+function isJ92ManualOnlyFirmware() {
+    var fw = parseFloat(window.ps4Fw || (typeof getPs4FwVersion === 'function' ? getPs4FwVersion() : NaN));
+    return !isNaN(fw) && fw >= 12.00 && fw <= 12.02;
+}
+
+function disableJ92AutomaticLaunches() {
+    storage.set('autoJbRetry', false);
+    storage.session.set('autoJbRetry', false);
+    storage.set('autoJb', false);
+    storage.session.set('autoJb', false);
+    if (ui.autoJbRetry) ui.autoJbRetry.checked = false;
+    if (ui.autoJb) ui.autoJb.checked = false;
+    if (autoJbInterval) {
+        clearInterval(autoJbInterval);
+        autoJbInterval = null;
+    }
+    if (window.J92NeonLoader) window.J92NeonLoader.stopRetry();
+}
+"""
+replace_once(
+    retry,
+    "// Handles automatic jailbreak retry logic and countdown timers.\\n\\n",
+    "// Handles automatic jailbreak retry logic and countdown timers.\\n\\n" + retry_guard,
+    "manual-only automatic launch guard for firmware 12.00-12.02"
+)
+replace_once(
+    retry,
+    "function setAutoJbRetry(checked) {\\n    storage.set('autoJbRetry', checked);",
+    "function setAutoJbRetry(checked) {\\n    if (checked && isJ92ManualOnlyFirmware()) {\\n        disableJ92AutomaticLaunches();\\n        return;\\n    }\\n    storage.set('autoJbRetry', checked);",
+    "block automatic retry opt-in on firmware 12.00-12.02"
+)
+replace_once(
+    retry,
+    "function setAutoJb(checked) {\\n    storage.set('autoJb', checked);",
+    "function setAutoJb(checked) {\\n    if (checked && isJ92ManualOnlyFirmware()) {\\n        disableJ92AutomaticLaunches();\\n        return;\\n    }\\n    storage.set('autoJb', checked);",
+    "block automatic jailbreak opt-in on firmware 12.00-12.02"
+)
+replace_once(
+    retry,
+    "function autoJailbreak() {\\n    // used for 6.7x jailbreak when userland is loaded",
+    "function autoJailbreak() {\\n    // Avoid stale preferences triggering repeated memory-heavy attempts on 12.00-12.02.\\n    if (isJ92ManualOnlyFirmware()) {\\n        disableJ92AutomaticLaunches();\\n        return;\\n    }\\n\\n    // used for 6.7x jailbreak when userland is loaded",
+    "disable persisted automatic launch preferences on firmware 12.00-12.02"
+)
+
 
 replace_once(
     ROOT / "includes/js/languages/es.js",
